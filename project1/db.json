@@ -1,16 +1,54 @@
 {
-  "posts": [
+  "landingProduct": [
     {
       "id": 1,
-      "title": "Hello World",
-      "author": "John Doe"
-    }
-  ],
-  "comments": [
+      "name": "Cây chân chim",
+      "price": 250000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-4.png",
+      "isNew": true,
+      "discount": 0
+    },
     {
-      "id": 1,
-      "body": "Nice post!",
-      "postId": 1
+      "id": 2,
+      "name": "Cây Dạ Lam",
+      "price": 500000,
+      "oldPrice": 1000000,
+      "image": "/dataset/spx2-5.png",
+      "discount": 50
+    },
+    {
+      "id": 3,
+      "name": "Cây Danh Dự",
+      "price": 850000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "isNew": true,
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Cây cọ ta",
+      "price": 150000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 0
+    },
+    {
+      "id": 5,
+      "name": "Cây dứa nhỏ",
+      "price": 375000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-6.png",
+      "discount": 0
+    },
+    {
+      "id": 6,
+      "name": "Cây dạ búp đỏ",
+      "price": 1000000,
+      "oldPrice": 2000000,
+      "image": "/dataset/spx2-3.png",
+      "discount": 50
     }
   ]
 }
