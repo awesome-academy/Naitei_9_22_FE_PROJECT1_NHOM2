@@ -1,17 +1,30 @@
 {
-  "posts": [
+  "users": [
     {
       "id": 1,
-      "title": "Hello World",
-      "author": "John Doe"
-    }
-  ],
-  "comments": [
+      "email": "admin@example.com",
+      "password": "123456",
+      "fullName": "Nguyễn Văn Admin",
+      "phone": "0123456789",
+      "website": "https://admin.com"
+    },
     {
-      "id": 1,
-      "body": "Nice post!",
-      "postId": 1
+      "id": 2,
+      "email": "user@example.com", 
+      "password": "123456",
+      "fullName": "Trần Thị User",
+      "phone": "0987654321",
+      "website": "https://user.com"
+    },
+    {
+      "id": 3,
+      "email": "test@example.com",
+      "password": "password",
+      "fullName": "Lê Văn Test",
+      "phone": "0555666777",
+      "website": "https://test.com"
     }
   ]
 }
+
 
