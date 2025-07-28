@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { Input } from "../components/ui/input";
+import Link from "next/link";
 
 export default function Header() {
   const [isDesktopMenuCollapsed, setIsDesktopMenuCollapsed] = useState(false);
@@ -48,23 +49,23 @@ export default function Header() {
             <span>|</span>
             <span>Monday - Sunday</span>
             <span>|</span>
-            <a href="#" className="hover:text-gray-300">
+            <Link href="#" className="hover:text-gray-300">
               <FaFacebook />
-            </a>
+            </Link>
             <span>|</span>
-            <a href="#" className="hover:text-gray-300">
+            <Link href="#" className="hover:text-gray-300">
               <FaTwitter />
-            </a>
+            </Link>
           </div>
 
           {/* Bên phải: đăng nhập / đăng ký */}
           <div className="flex items-center space-x-4 translate-x-55">
-            <a href="#" className="hover:text-gray-300 flex items-center gap-1">
+            <Link href="/login" className="hover:text-gray-300 flex items-center gap-1">
               <FaSignInAlt /> Đăng nhập
-            </a>
-            <a href="#" className="hover:text-gray-300 flex items-center gap-1">
+            </Link>
+            <Link href="register" className="hover:text-gray-300 flex items-center gap-1">
               <FaUser /> Đăng ký
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -158,14 +159,14 @@ export default function Header() {
               <ul className="space-y-2">
                 {menuItems.map((item, index) => (
                   <li key={index}>
-                    <a
+                    <Link
                       href={item.href}
                       className="block py-2 hover:text-emerald-200 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.text}
                       {item.hasDropdown && " ▾"}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -193,13 +194,13 @@ export default function Header() {
             >
               {menuItems.map((item, index) => (
                 <li key={index} className="flex items-center gap-1">
-                  <a
+                  <Link
                     href={item.href}
                     className="flex items-center gap-1 hover:text-emerald-200 transition-colors whitespace-nowrap"
                   >
                     {item.text}
                     {item.hasDropdown && " ▾"}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </div>
@@ -209,3 +210,5 @@ export default function Header() {
     </header>
   );
 }
+
+
