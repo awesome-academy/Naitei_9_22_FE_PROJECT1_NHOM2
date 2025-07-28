@@ -1,103 +1,98 @@
+"use client";
+import NewArrival from "@/components/NewArrival";
+import FeaturedProducts from "../components/LandingProduct";
+import MostBuy from "../components/MostBuy";
+import OnSale from "../components/OnSale";
+import Slider from "../components/Slider";
 import Image from "next/image";
+import NewsCard from "@/components/NewsCard";
+import img_demo from "../../public/slider/banner.png";
+import img3 from "../../public/dataset/spx2-3.png";
+import img4 from "../../public/dataset/spx2-4.png";
+import img5 from "../../public/dataset/spx2-5.png";
+
+const newsList = [
+  {
+    image: img3,
+    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
+    title: "15 thiết kế phòng ngủ tuyệt đẹp làm vạn người mê",
+    description:
+      "Cùng Sài Gòn Hoa tìm hiểu một vài xu hướng thiết kế sân vườn được ưa chuộng hiện nay nhé! Kết hợp hàng rào",
+  },
+  {
+    image: img4,
+    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
+    title: "Tạo Tiểu Cảnh Góc Sân Cho Nhà Phố, Biệt Thự Đẹp",
+    description:
+      "Khi bước từ ngoài ngõ vào hay từ trong nhà đi ra, góc sân luôn là điểm nhìn đầu tiên của chúng ta.",
+  },
+  {
+    image: img5,
+    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
+    title: "Cách bố trí hoa chậu trước cửa ấn tượng",
+    description:
+      "Như thể hiện sự thân thiện cũng như sự hiểu khách của gia chủ, phần không gian trước cửa",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Slider Section - Full Width */}
+      <Slider />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Featured Products Section Header */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mt-4 sm:mt-6">
+        <h2 className="text-lg sm:text-xl font-semibold border-b-2 border-green-600 mb-4 sm:mb-5 text-green-600 pb-1">
+          Sản phẩm nổi bật
+        </h2>
+      </div>
+
+      <FeaturedProducts />
+
+      {/* Most Buy & On Sale - Combined - Conditional margin */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-20 -mt-4 sm:-mt-60 lg:-mt-72">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 sm:gap-8">
+          {/* MostBuy - Full width on mobile, 2 cols on desktop */}
+          <div className="lg:col-span-2 order-2 lg:order-1 mt-2 sm:mt-3">
+            <MostBuy />
+          </div>
+          {/* OnSale - Full width on mobile, 5 cols on desktop */}
+          <div className="lg:col-span-5 order-1 lg:order-2">
+            <OnSale />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      {/* Banner Image */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-6 sm:mb-8">
+        <Image
+          src={img_demo}
+          alt="Xương rồng Đà Lạt"
+          width={1200}
+          height={300}
+          className="w-full h-auto object-cover rounded-lg shadow-md"
+          priority={false}
+        />
+      </div>
+
+      {/* New Arrival */}
+      <NewArrival />
+
+      {/* News Section */}
+      <section className="py-6 sm:py-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <h2 className="text-lg sm:text-xl font-semibold border-b-2 border-green-600 mb-4 sm:mb-5 text-green-600 pb-1">
+            Tin tức
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {newsList.map((news, idx) => (
+              <NewsCard key={idx} {...news} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
+

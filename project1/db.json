@@ -1,4 +1,224 @@
 {
+  "landingProduct": [
+    {
+      "id": 1,
+      "name": "Cây chân chim",
+      "price": 250000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-4.png",
+      "isNew": true,
+      "discount": 0
+    },
+    {
+      "id": 2,
+      "name": "Cây Dạ Lam",
+      "price": 500000,
+      "oldPrice": 1000000,
+      "image": "/dataset/spx2-5.png",
+      "discount": 50
+    },
+    {
+      "id": 3,
+      "name": "Cây Danh Dự",
+      "price": 850000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "isNew": true,
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Cây cọ ta",
+      "price": 150000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 0
+    },
+    {
+      "id": 5,
+      "name": "Cây dứa nhỏ",
+      "price": 375000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-6.png",
+      "discount": 0
+    },
+    {
+      "id": 6,
+      "name": "Cây dạ búp đỏ",
+      "price": 1000000,
+      "oldPrice": 2000000,
+      "image": "/dataset/spx2-3.png",
+      "discount": 50
+    }
+  ],
+  "bestSellers": [
+    {
+      "id": 1,
+      "name": "Cây chân chim",
+      "price": 250000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-4.png",
+      "discount": 0
+    },
+    {
+      "id": 2,
+      "name": "Cây Dạ Lam",
+      "price": 150000,
+      "oldPrice": 150000,
+      "image": "/dataset/spx2-5.png",
+      "discount": 0
+    },
+    {
+      "id": 3,
+      "name": "Cây Danh Dự",
+      "price": 450000,
+      "oldPrice": 450000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Cây dạ búp đỏ",
+      "price": 200000,
+      "oldPrice": 200000,
+      "image": "/dataset/spx2-6.png",
+      "discount": 0
+    },
+    {
+      "id": 5,
+      "name": "Cây cọ ta",
+      "price": 300000,
+      "oldPrice": 300000,
+      "image": "/dataset/spx2-1.png",
+      "discount": 0
+    },
+    {
+      "id": 6,
+      "name": "Cây dứa nhỏ",
+      "price": 275000,
+      "oldPrice": 275000,
+      "image": "/dataset/spx2-13.png",
+      "discount": 0
+    }
+  ],
+  "promotions": [
+    {
+      "id": 1,
+      "name": "Cây Danh Dự",
+      "price": 475000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 25
+    },
+    {
+      "id": 2,
+      "name": "Cây dứa nhỏ",
+      "price": 668000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-13.png",
+      "discount": 10
+    },
+    {
+      "id": 3,
+      "name": "Cây cọ ta",
+      "price": 770000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-1.png",
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Cây Dạ Lam",
+      "price": 555000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-5.png",
+      "discount": 0
+    },
+    {
+      "id": 5,
+      "name": "Cây Danh Dự",
+      "price": 780000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 0
+    },
+    {
+      "id": 6,
+      "name": "Cây dứa nhỏ",
+      "price": 680000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-13.png",
+      "discount": 0
+    }
+  ],
+  "newArrival": [
+    {
+      "id": 1,
+      "name": "Cây chân chim",
+      "price": 250000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-4.png",
+      "isNew": true,
+      "discount": 0
+    },
+    {
+      "id": 2,
+      "name": "Cây Dạ Lam",
+      "price": 500000,
+      "oldPrice": 1000000,
+      "image": "/dataset/spx2-5.png",
+      "discount": 50
+    },
+    {
+      "id": 3,
+      "name": "Cây Danh Dự",
+      "price": 850000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "isNew": true,
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Cây cọ ta",
+      "price": 150000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-15.png",
+      "discount": 0
+    },
+    {
+      "id": 5,
+      "name": "Cây dứa nhỏ",
+      "price": 375000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-6.png",
+      "discount": 0
+    },
+    {
+      "id": 6,
+      "name": "Cây dạ búp đỏ",
+      "price": 1000000,
+      "oldPrice": 2000000,
+      "image": "/dataset/spx2-3.png",
+      "discount": 50
+    },
+    {
+      "id": 7,
+      "name": "Cây dứa nhỏ",
+      "price": 375000,
+      "oldPrice": 250000,
+      "image": "/dataset/spx2-6.png",
+      "discount": 0
+    },
+    {
+      "id": 8,
+      "name": "Cây dạ búp đỏ",
+      "price": 1000000,
+      "oldPrice": 2000000,
+      "image": "/dataset/spx2-3.png",
+      "discount": 50
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -10,7 +230,7 @@
     },
     {
       "id": 2,
-      "email": "user@example.com", 
+      "email": "user@example.com",
       "password": "123456",
       "fullName": "Trần Thị User",
       "phone": "0987654321",
@@ -26,5 +246,6 @@
     }
   ]
 }
+
 
 
