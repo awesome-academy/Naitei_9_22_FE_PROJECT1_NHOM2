@@ -63,7 +63,7 @@ export default function Header() {
             <Link href="/login" className="hover:text-gray-300 flex items-center gap-1">
               <FaSignInAlt /> Đăng nhập
             </Link>
-            <Link href="register" className="hover:text-gray-300 flex items-center gap-1">
+            <Link href="/register" className="hover:text-gray-300 flex items-center gap-1">
               <FaUser /> Đăng ký
             </Link>
           </div>
