@@ -16,11 +16,15 @@ import { FiSearch } from "react-icons/fi";
 import { Input } from "../components/ui/input";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux"; // Import useSelector
+import { RootState } from "@/redux/store"; // Import RootState
 
 export default function Header() {
   const [isDesktopMenuCollapsed, setIsDesktopMenuCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const cartCount = useSelector((state: RootState) => state.cart.cartCount); // Lấy cartCount từ Redux store
 
   const menuItems = [
     { text: "TRANG CHỦ", href: "/", hasDropdown: false },
@@ -139,7 +143,8 @@ export default function Header() {
                   className="flex items-center gap-2 text-sm text-gray-700 whitespace-nowrap hover:text-emerald-500 transition-colors"
                 >
                   <FaShoppingBasket className="text-lg" />
-                  <span>0 Sản phẩm</span>
+                  <span>{cartCount} Sản phẩm</span>{" "}
+                  {/* Hiển thị số lượng sản phẩm */}
                 </Link>
               </div>
             </div>
@@ -227,6 +232,4 @@ export default function Header() {
     </header>
   );
 }
-
-
 
