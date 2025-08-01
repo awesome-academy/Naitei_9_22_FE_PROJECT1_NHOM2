@@ -29,7 +29,6 @@
     {
       "id": "1",
       "name": "Cây Dạ Lam",
-      "price": 4599000,
       "oldPrice": 5000000,
       "discount": 10,
       "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
@@ -78,7 +77,6 @@
     {
       "id": "2",
       "name": "Cây co Nhật",
-      "price": 250000,
       "oldPrice": 300000,
       "discount": 10,
       "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
@@ -114,7 +112,6 @@
     {
       "id": "3",
       "name": "Cây Hồng Môn",
-      "price": 250000,
       "oldPrice": 300000,
       "discount": 10,
       "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
@@ -150,7 +147,6 @@
     {
       "id": "4",
       "name": "Cây phát tài",
-      "price": 250000,
       "oldPrice": 300000,
       "discount": 10,
       "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
@@ -184,7 +180,6 @@
     {
       "id": "5",
       "name": "Cây Kim Ngân",
-      "price": 250000,
       "oldPrice": 300000,
       "discount": 10,
       "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
@@ -221,7 +216,7 @@
     {
       "id": "6",
       "name": "Cây dứa nhỏ",
-      "price": 95000,
+
       "oldPrice": 100000,
       "discount": 5,
       "type": ["Cây để bàn", "Cây nội thất"],
@@ -252,7 +247,6 @@
     {
       "id": "7",
       "name": "Cây xương rồng con",
-      "price": 80000,
       "oldPrice": 80000,
       "discount": 0,
       "type": ["Cây để bàn", "Cây nội thất"],
@@ -283,7 +277,6 @@
     {
       "id": "8",
       "name": "Cây sen đá đất",
-      "price": 170000,
       "oldPrice": 200000,
       "discount": 15,
       "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
@@ -314,7 +307,6 @@
     {
       "id": "9",
       "name": "Dương xỉ ổ phụng (Cây ổ phụng)",
-      "price": 180000,
       "oldPrice": 200000,
       "discount": 10,
       "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
@@ -345,7 +337,6 @@
     {
       "id": "10",
       "name": "Dương xỉ Boston",
-      "price": 600000,
       "oldPrice": 600000,
       "discount": 0,
       "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
@@ -376,7 +367,6 @@
     {
       "id": "11",
       "name": "Cây ổ phụng lớn",
-      "price": 800000,
       "oldPrice": 800000,
       "discount": 0,
       "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
@@ -407,7 +397,6 @@
     {
       "id": "12",
       "name": "Cây móng rồng",
-      "price": 90000,
       "oldPrice": 90000,
       "discount": 0,
       "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
@@ -438,7 +427,6 @@
     {
       "id": "13",
       "name": "Cây ngọc bích",
-      "price": 420000,
       "oldPrice": 700000,
       "discount": 40,
       "type": ["Cây để bàn", "Cây nội thất"],
@@ -469,7 +457,6 @@
     {
       "id": "14",
       "name": "Cây lô hội nhỏ",
-      "price": 85500,
       "oldPrice": 90000,
       "discount": 5,
       "type": ["Cây để bàn", "Cây nội thất"],
@@ -500,7 +487,6 @@
     {
       "id": "15",
       "name": "Cây sen đá đỏ",
-      "price": 1200000,
       "oldPrice": 1200000,
       "discount": 0,
       "type": ["Cây để bàn", "Cây nội thất", "Cây có hoa", "Cây nghệ thuật"],
@@ -527,870 +513,6 @@
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng tốt.",
       "color": ["Hồng", "Đỏ", "Xanh lá"],
       "newArival": true
-    }
-  ],
-  "cart": [
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 4
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    },
-    {
-      "id": "1",
-      "variant": {
-        "id": "small",
-        "name": "Chậu nhỏ (15cm)",
-        "price": 4599000,
-        "inStock": true
-      },
-      "quantity": 1
-    }
-  ],
-  "productInfo": [
-    {
-      "id": "1",
-      "name": "Cây lô hội",
-      "oldPrice": "250000",
-      "discount": "0",
-      "description": "Một loài cây mọng nước thuộc họ xương rồng, có nguồn gốc từ bán đảo Ả Rập. Cây lô hội được biết đến với nhiều công dụng trong y học và làm đẹp.",
-      "image": "/dataset/spx2-1.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "2",
-      "name": "Dương xỉ sừng hươu",
-      "oldPrice": "400000",
-      "discount": "20",
-      "description": "Cây được trồng để trang trí nhờ hình dáng độc đáo của lá. Hơn thế, cây được cho là có tác dụng duy trì hòa khí và sự ấm êm trong gia đình theo quan niệm phong thủy.",
-      "image": "/dataset/spx2-2.png",
-      "newArival": true,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "3",
-      "name": "Cây sen đá",
-      "oldPrice": "100000",
-      "discount": "30",
-      "description": "Cây sen đá không chỉ đẹp mà còn mang nhiều ý nghĩa. Về phong thủy, sen đá tượng trưng cho tình yêu bền chặt và sự gắn bó lâu dài. Ngoài ra, cây còn giúp làm sạch không khí, giảm căng thẳng và tạo cảm giác thư giãn. Với đặc điểm mọng nước, sen đá rất dễ chăm sóc, phù hợp cho mọi không gian sống.",
-      "image": "/dataset/spx2-3.png",
-      "newArival": true,
-      "type": [
-        "Cây để bàn",
-        "Cây nội thất",
-        "Cây phong thuỷ",
-        "Cây nghệ thuật"
-      ],
-      "color": ["Đỏ", "Xanh lá", "Tím"]
-    },
-    {
-      "id": "4",
-      "name": "Dạ lan hương",
-      "oldPrice": "300000",
-      "discount": "10",
-      "description": "Hoa có hương thơm dễ chịu, màu sắc tươi tắn, giúp xua tan mệt mỏi và mang lại cảm giác thư giãn. Hoa thường được chọn làm quà Tết, tượng trưng cho lời chúc một năm mới trọn vẹn và ấm áp yêu thương. Về phong thủy, hoa vừa gợi nhớ nỗi buồn sâu kín, vừa thể hiện sự đan xen giữa ganh ghét và lòng yêu thương.",
-      "image": "/dataset/spx2-4.png",
-      "newArival": true,
-      "type": ["Cây nghệ thuật", "Cây có hoa", "Cây phong thuỷ"],
-      "color": ["Tím", "Xanh lam", "Hồng", "Cam"]
-    },
-    {
-      "id": "5",
-      "name": "Cây xương rồng",
-      "oldPrice": "120000",
-      "discount": "0",
-      "description": "Cây xương rồng là một loại cây cảnh đẹp thường được trồng trong nhà hoặc ngoài trời để trang trí. Xương rồng có khả năng chịu nắng tốt và dễ chăm sóc.",
-      "image": "/dataset/spx2-5.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "6",
-      "name": "Cây dứa nhỏ",
-      "oldPrice": "100000",
-      "discount": "5",
-      "description": "Cây dứa nhỏ là một loại cây cảnh dễ trồng, thường được sử dụng để trang trí trong nhà. Cây có lá dài, màu xanh tươi và hoa hình chóp đặc trưng. Dứa nhỏ không chỉ mang lại vẻ đẹp cho không gian sống mà còn giúp thanh lọc không khí.",
-      "image": "/dataset/spx2-6.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "7",
-      "name": "Cây xương rồng con",
-      "oldPrice": "80000",
-      "discount": "0",
-      "description": "Cây xương rồng con là một loại cây cảnh đẹp, thường được trồng trong nhà hoặc văn phòng. Cây có lá dài, màu xanh tươi và hoa hình chóp đặc trưng. Xương rồng con không chỉ mang lại vẻ đẹp cho không gian sống mà còn giúp thanh lọc không khí.",
-      "image": "/dataset/spx2-7.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "8",
-      "name": "Cây sen đá đất",
-      "oldPrice": "200000",
-      "discount": "15",
-      "description": "Sen đá đất là một loài sen đá đại diện cho sức sống bền bỉ và sự vĩnh cửu theo thời gian. Lá cây nhỏ xinh, có sự hòa trộn đặc biệt giữa màu xanh lá với màu xanh da trời mà không loài cây nào có được. Sen đá đất là cây lá nhỏ đem đến rất nhiều tác dụng rất tốt cho sức khỏe con người, chúng giúp hấp thụ các tia bức xạ có hại từ máy tính, điện thoại… Vì thế rất nhiều người ưa chuộng lựa chọn loại cây này làm cây cảnh trang trí nội thất nhà ở, văn phòng.",
-      "image": "/dataset/spx2-8.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "color": ["Đỏ", "Xanh lá", "Tím"]
-    },
-    {
-      "id": "9",
-      "name": "Dương xỉ ổ phụng (Cây ổ phụng)",
-      "oldPrice": "200000",
-      "discount": "10",
-      "description": "Cây Ổ Phụng là loài dương xỉ đặc biệt gây ấn tượng bởi chiếc lá lớn xòe tròn từ gốc, tạo hình như một tổ chim phượng uy nghi. Với xuất xứ từ các rừng mưa nhiệt đới Đông Nam Á như Philippines, Việt Nam hay Trung Quốc, cây thường mọc ký sinh trên thân cây già hoặc bám trên đá ẩm để hút chất dinh dưỡng tự tạo. Theo quan niệm phong thủy Châu Á, từ hình ảnh “ổ phụng” đã mang trong mình ý nghĩa sâu sắc về sự gắn kết gia đình, che chở và hòa khí; đồng thời biểu trưng cho sức sống kiên cường và khả năng vươn lên từ nghịch cảnh như chim phượng tái sinh từ đám tro tàn. Đây chính là lý do nhiều gia đình chọn trồng cây này trong nhà hoặc văn phòng, không chỉ làm đẹp không gian mà còn mang vượng khí, tài lộc và sự bình an đến tổ ấm.",
-      "image": "/dataset/spx2-9.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "10",
-      "name": "Dương xỉ Boston",
-      "oldPrice": "600000",
-      "discount": "0",
-      "description": "Cây dương xỉ Boston không chỉ đẹp mà còn mang lại nhiều lợi ích thiết thực. Chúng giúp thanh lọc không khí, điều hòa độ ẩm, giảm căng thẳng và cải thiện sức khỏe hô hấp. Chiết xuất từ dương xỉ còn có tác dụng chống oxy hóa, chống viêm và hỗ trợ điều trị các bệnh ngoài da. Trong Đông y, dương xỉ được dùng để chữa nhiều chứng bệnh như đau lưng, tiêu chảy, bong gân, bạch biến, và thận hư. Với hình dáng xanh mát, cây còn rất được ưa chuộng trong trang trí nội thất và sân vườn",
-      "image": "/dataset/spx2-10.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "11",
-      "name": "Cây ổ phụng lớn",
-      "oldPrice": "800000",
-      "discount": "0",
-      "description": "Cây Ổ Phụng là loài dương xỉ đặc biệt gây ấn tượng bởi chiếc lá lớn xòe tròn từ gốc, tạo hình như một tổ chim phượng uy nghi. Với xuất xứ từ các rừng mưa nhiệt đới Đông Nam Á như Philippines, Việt Nam hay Trung Quốc, cây thường mọc ký sinh trên thân cây già hoặc bám trên đá ẩm để hút chất dinh dưỡng tự tạo. Theo quan niệm phong thủy Châu Á, từ hình ảnh “ổ phụng” đã mang trong mình ý nghĩa sâu sắc về sự gắn kết gia đình, che chở và hòa khí; đồng thời biểu trưng cho sức sống kiên cường và khả năng vươn lên từ nghịch cảnh như chim phượng tái sinh từ đám tro tàn. Đây chính là lý do nhiều gia đình chọn trồng cây này trong nhà hoặc văn phòng, không chỉ làm đẹp không gian mà còn mang vượng khí, tài lộc và sự bình an đến tổ ấm.",
-      "image": "/dataset/spx2-11.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "color": ["Xanh lá"]
-    },
-    {
-      "id": "12",
-      "name": "Cây móng rồng",
-      "oldPrice": "90000",
-      "discount": "0",
-      "description": "Là một loại cây cảnh độc đáo, mang vẻ đẹp mạnh mẽ và ấn tượng. Với những chiếc lá xanh mượt, dài và nhọn, cây Móng Rồng không chỉ tạo điểm nhấn cho không gian sống mà còn có khả năng thanh lọc không khí, đem lại sự tươi mát và trong lành. Đây là lựa chọn hoàn hảo cho những ai yêu thích sự giản đơn nhưng vẫn muốn tô điểm cho ngôi nhà hay văn phòng của mình bằng một vẻ đẹp thiên nhiên đầy sức sống. Hơn nữa, cây Móng Rồng còn được xem như biểu tượng của sự may mắn, thịnh vượng, giúp mang đến năng lượng tích cực cho không gian.",
-      "image": "/dataset/spx2-12.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
-      "color": ["Tím"]
-    },
-    {
-      "id": "13",
-      "name": "Cây ngọc bích",
-      "oldPrice": "700000",
-      "discount": "40",
-      "description": "Cây ngọc bích hay còn được gọi là cây sen đá ngọc bích, cây phỉ thúy, có tên khoa học là Crassula ovata. Là loại cây có nguồn gốc từ Nam Phi, cây ngọc bích tượng trưng cho tiền tài, sự may mắn và tài lộc.Cây ngọc bích khi sử dụng làm cảnh có tác dụng thanh lọc không khí, kích thích thị giác, mang lại không khí trong lành, tươi mới hơn cho không gian xung quanh, từ đó giúp hạn chế các bệnh về đường hô hấp.Theo phong thủy, cây ngọc bích tùy theo hướng đặt khác nhau sẽ mang đến những tác dụng như: Giúp gia đình hòa thuận, sức khỏe dồi dào, mang đến may mắn, tài lộc, khai thông trí tuệ, khả năng sáng tạo. Ngoài ra, người ta còn trồng cây tạo hình bonsai từ cây ngọc bích để dùng làm món quà cho người thân, bạn bè, quà mừng khai trương cũng vô cùng ý nghĩa.",
-      "image": "/dataset/spx2-13.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Vàng"]
-    },
-    {
-      "id": "14",
-      "name": "Cây lô hội nhỏ",
-      "oldPrice": "90000",
-      "discount": "5",
-      "description": "Cây lô hội nhỏ là một loại cây cảnh đẹp với lá màu xanh mướt. Cây thường được trồng trong nhà hoặc ngoài trời để trang trí.",
-      "image": "/dataset/spx2-14.png",
-      "newArival": false,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "color": ["Trắng", "Xanh lá"]
-    },
-    {
-      "id": "15",
-      "name": "Cây sen đá đỏ",
-      "oldPrice": "1200000",
-      "discount": "0",
-      "description": "Cây sen đá đỏ là một loại cây cảnh đẹp với hoa màu đỏ rực rỡ. Cây thường được trồng trong nhà hoặc ngoài trời để trang trí. Sen đá đỏ có khả năng chịu nắng tốt và dễ chăm sóc.",
-      "image": "/dataset/spx2-15.png",
-      "newArival": true,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây có hoa", "Cây nghệ thuật"],
-      "color": ["Hồng", "Đỏ", "Xanh lá"]
     }
   ],
   "reviews": [
@@ -1513,5 +635,6 @@
     }
   ],
   "newsInfo": [],
-  "orders": []
+  "orders": [],
+  "wishlist": []
 }

@@ -1,8 +1,11 @@
 import { FaSearch, FaStar } from "react-icons/fa";
 import Image from "next/image";
-import { Product, formatCurrentPrice, formatOldPrice } from "../types/Product";
+import { Product, formatCurrentPrice, formatOldPrice, getCurrentPrice } from "../types/Product";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { addToCart } from "@/redux/cart/cartSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 interface ProductCardProps {
   product: Product;
@@ -13,8 +16,19 @@ export default function ProductCard({
   product,
   className = "",
 }: ProductCardProps) {
-  const { name, images, newArival, discount } = product;
+  const { name, images, newArival, discount} = product;
   const hasDiscount = discount > 0;
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      ...product,
+      price: getCurrentPrice(product),
+      quantity: 1,
+    };
+    dispatch(addToCart(cartItem));
+    toast.success("Sản phẩm đã được thêm vào giỏ hàng!");
+  };
 
   return (
     <div
@@ -48,6 +62,7 @@ export default function ProductCard({
             size="sm"
             className="bg-green-500 text-white px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm hover:bg-green-600"
             aria-label="Buy Now"
+            onClick={handleAddToCart}
           >
             <span className="hidden sm:inline">MUA NGAY</span>
             <span className="sm:hidden">MUA</span>

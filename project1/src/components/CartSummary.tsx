@@ -8,6 +8,10 @@ import { createOrder } from "@/services/OrderService";
 import StepProcess from "./StepProcess";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/redux/cart/cartSlice";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface CartItem {
   id: number;
@@ -82,6 +86,8 @@ const SummaryTable = ({
 );
 
 const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [step, setStep] = useState<number>(-1);
 
   const totalBeforeTax = useMemo(
@@ -136,13 +142,22 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
         paidAt: new Date().toISOString(),
       };
       createOrder(paidOrder);
-      alert("Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
-      setStep(-1);
-      setPaymentInfo({ name: "", address: "", phone: "" }); // Reset thông tin cá nhân
+
+      // Xóa giỏ hàng trong localStorage và Redux store
+      localStorage.removeItem("cart");
+      dispatch(clearCart());
+
+      // Hiển thị toast success và chuyển về trang chủ
+      toast.success("Đặt hàng thành công! Cảm ơn bạn đã mua hàng.");
+      router.push('/');
     }
   };
 
-  const renderInputField = (label: string, name: keyof typeof paymentInfo, placeholder: string) => (
+  const renderInputField = (
+    label: string,
+    name: keyof typeof paymentInfo,
+    placeholder: string
+  ) => (
     <div>
       <Label className="block text-sm font-medium mb-1" htmlFor={name}>
         {label}
@@ -189,7 +204,11 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
             </div>
           )}
           {inputFields.map((field) =>
-            renderInputField(field.label, field.name as keyof typeof paymentInfo, field.placeholder)
+            renderInputField(
+              field.label,
+              field.name as keyof typeof paymentInfo,
+              field.placeholder
+            )
           )}
         </div>
       ),

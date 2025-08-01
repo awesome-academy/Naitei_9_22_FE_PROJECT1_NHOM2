@@ -7,40 +7,29 @@ import CartSummary from "@/components/CartSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setCartSuccess } from "@/redux/cart/cartSlice";
+import { toast } from "react-toastify";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.items);
 
-  // Chỉ mock dữ liệu nếu chưa có gì
+  // Lấy dữ liệu từ localStorage khi component được mount
   useEffect(() => {
-    if (cart.length === 0) {
-      const mockCart = [
-        {
-          id: 1,
-          name: "Cây Lưỡi Hổ",
-          price: 150000,
-          quantity: 1,
-          images: ["/dataset/spx2-1.png"],
-        },
-        {
-          id: 2,
-          name: "Cây Trầu Bà",
-          price: 120000,
-          quantity: 2,
-          images: ["/dataset/spx2-5.png"],
-        },
-        {
-          id: 3,
-          name: "Cây Cau Tiểu Trâm",
-          price: 100000,
-          quantity: 1,
-          images: ["/dataset/spx2-15.png"],
-        },
-      ];
-      dispatch(setCartSuccess({ products: mockCart }));
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      try {
+        const parsedCart = JSON.parse(storedCart);
+        if (Array.isArray(parsedCart) && parsedCart.length > 0) {
+          dispatch(setCartSuccess({ products: parsedCart }));
+          return; 
+        }
+      } catch (error: any) {
+        toast.error("Error parsing cart from localStorage");
+      }
     }
-  }, [cart.length, dispatch]);
+
+    
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col items-center justify-center p-6">
