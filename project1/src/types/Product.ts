@@ -60,4 +60,3 @@ export const formatCurrentPrice = (product: Product): string => {
   return formatPrice(getCurrentPrice(product));
 };
 
-
