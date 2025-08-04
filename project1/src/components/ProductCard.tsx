@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import QuantityModal from "./QuantityModal";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   product: Product;
@@ -23,7 +24,7 @@ export default function ProductCard({
   const dispatch = useDispatch();
   const [showQuantityModal, setShowQuantityModal] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
+  const router = useRouter();
   const handleAddToCart = () => {
     const cartItem = {
       ...product,
@@ -34,6 +35,12 @@ export default function ProductCard({
     toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
     setShowQuantityModal(false);
     setQuantity(1);
+  };
+
+
+
+  const handleViewDetails = () => {
+    router.push(`/products/${product.id}`);
   };
 
   const openQuantityModal = () => {
@@ -48,7 +55,9 @@ export default function ProductCard({
   return (
     <>
       <div
-        className={`relative border rounded-lg shadow hover:shadow-xl overflow-hidden bg-white group transition-all duration-300 h-full flex flex-col ${className}`}
+        className={`relative border shadow hover:shadow-xl overflow-hidden bg-white group transition-all duration-300 h-full flex flex-col ${className}
+        cursor-pointer`}
+        onClick={handleViewDetails}
       >
         <div className="relative">
           <Image

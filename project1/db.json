@@ -28,6 +28,26 @@
       "image": "/dataset/spx2-4.png"
     }
   ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Cây cảnh",
+      "count": 10
+    },
+    {
+      "id": "2",
+      "name": "Cây hoa",
+      "count": 5
+    },
+    {
+      "id": "3",
+      "name": "Cây phong thuỷ"
+    },
+    {
+      "id": "4",
+      "name": "Cây nội thất"
+    }
+  ],
   "products": [
     {
       "id": "1",
@@ -717,15 +737,6 @@
       "tags": [6, 7],
       "created_at": "12:10:00 PM"
     }
-  ],
-  "categories": [
-    { "id": 1, "name": "Cây chậu treo" },
-    { "id": 2, "name": "Cây có hoa" },
-    { "id": 3, "name": "Cây dây leo" },
-    { "id": 4, "name": "Cây để bàn" },
-    { "id": 5, "name": "Cây may mắn" },
-    { "id": 6, "name": "Cây trang trí" },
-    { "id": 7, "name": "Cây phong thủy" }
   ],
 
   "tags": [
