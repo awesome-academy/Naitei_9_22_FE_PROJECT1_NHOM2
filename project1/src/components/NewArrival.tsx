@@ -95,8 +95,8 @@ export default function NewArrival() {
   );
 
   return (
-    <SectionLayout 
-      title="Sản phẩm mới" 
+    <SectionLayout
+      title={`Sản phẩm mới (${products.length} sản phẩm)`}
       headerActions={navigationButtons}
       className="[&_img]:!aspect-[4/3]"
     >
