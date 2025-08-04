@@ -119,3 +119,19 @@
   }
 }
 
+@layer utilities {
+  /* Custom CSS filters for SVG icon color changes */
+  .filter-gray-400 {
+    filter: invert(61%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(96%) contrast(89%);
+  }
+
+  .filter-emerald-500 {
+    filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);
+  }
+
+  .hover\:filter-emerald-500:hover {
+    filter: invert(47%) sepia(69%) saturate(959%) hue-rotate(121deg) brightness(98%) contrast(86%);
+  }
+}
+
+

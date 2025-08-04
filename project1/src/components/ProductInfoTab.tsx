@@ -31,4 +31,3 @@ export default function ProductInfoTab({ product }: ProductInfoTabProps) {
     </div>
   );
 }
-

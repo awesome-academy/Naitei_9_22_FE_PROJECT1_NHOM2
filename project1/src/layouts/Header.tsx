@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaPhone,
   FaUser,
   FaSignInAlt,
+  FaSignOutAlt,
   FaShoppingBasket,
   FaBars,
   FaFacebook,
@@ -18,20 +19,45 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux"; // Import useSelector
 import { RootState } from "@/redux/store"; // Import RootState
+import { isAuthenticated, logout, getCurrentUser } from "@/services/auth";
 
 export default function Header() {
   const [isDesktopMenuCollapsed, setIsDesktopMenuCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const pathname = usePathname();
 
   const cartCount = useSelector((state: RootState) => state.cart.cartCount); // Lấy cartCount từ Redux store
 
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuth = () => {
+      const authenticated = isAuthenticated();
+      setIsLoggedIn(authenticated);
+      if (authenticated) {
+        setCurrentUser(getCurrentUser());
+      }
+    };
+
+    checkAuth();
+    // Check auth status when window gains focus (e.g., after login/logout)
+    window.addEventListener('focus', checkAuth);
+    return () => window.removeEventListener('focus', checkAuth);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+  };
+
   const menuItems = [
     { text: "TRANG CHỦ", href: "/", hasDropdown: false },
     { text: "GIỚI THIỆU", href: "/information", hasDropdown: false },
-    { text: "SẢN PHẨM", href: "#", hasDropdown: true },
+    { text: "SẢN PHẨM", href: "/products", hasDropdown: true },
     { text: "SẢN PHẨM MỚI", href: "#", hasDropdown: true },
-    { text: "TIN TỨC", href: "#", hasDropdown: false },
+    { text: "TIN TỨC", href: "/blog", hasDropdown: false },
     { text: "LIÊN HỆ", href: "/contact", hasDropdown: false },
   ];
 
@@ -64,20 +90,39 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Bên phải: đăng nhập / đăng ký */}
+          {/* Bên phải: đăng nhập / đăng xuất / trang cá nhân */}
           <div className="flex items-center space-x-4 translate-x-55">
-            <Link
-              href="/login"
-              className="hover:text-gray-300 flex items-center gap-1"
-            >
-              <FaSignInAlt /> Đăng nhập
-            </Link>
-            <Link
-              href="/register"
-              className="hover:text-gray-300 flex items-center gap-1"
-            >
-              <FaUser /> Đăng ký
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/profile"
+                  className="hover:text-gray-300 flex items-center gap-1"
+                >
+                  <FaUser /> {currentUser?.name || 'Tài khoản'}
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="hover:text-gray-300 flex items-center gap-1"
+                >
+                  <FaSignOutAlt /> Đăng xuất
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="hover:text-gray-300 flex items-center gap-1"
+                >
+                  <FaSignInAlt /> Đăng nhập
+                </Link>
+                <Link
+                  href="/register"
+                  className="hover:text-gray-300 flex items-center gap-1"
+                >
+                  <FaUser /> Đăng ký
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -165,7 +210,19 @@ export default function Header() {
             </button>
             <div className="flex items-center gap-4">
               <FiSearch className="text-xl" />
-              <FaShoppingBasket className="text-xl" />
+              <Link href="/cart" className="relative">
+                <FaShoppingBasket className="text-xl" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              {isLoggedIn && (
+                <Link href="/profile" className="hover:text-emerald-200 transition-colors">
+                  <FaUser className="text-xl" />
+                </Link>
+              )}
             </div>
           </div>
 
@@ -187,6 +244,51 @@ export default function Header() {
                     </Link>
                   </li>
                 ))}
+                
+                {/* Auth section in mobile menu */}
+                <li className="border-t border-emerald-500 pt-2 mt-2">
+                  {isLoggedIn ? (
+                    <>
+                      <Link
+                        href="/profile"
+                        className="block py-2 hover:text-emerald-200 transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <FaUser className="inline mr-2" />
+                        {currentUser?.name || 'Tài khoản'}
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="block w-full text-left py-2 hover:text-emerald-200 transition-colors"
+                      >
+                        <FaSignOutAlt className="inline mr-2" />
+                        Đăng xuất
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="block py-2 hover:text-emerald-200 transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <FaSignInAlt className="inline mr-2" />
+                        Đăng nhập
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="block py-2 hover:text-emerald-200 transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <FaUser className="inline mr-2" />
+                        Đăng ký
+                      </Link>
+                    </>
+                  )}
+                </li>
               </ul>
             </div>
           )}
