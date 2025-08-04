@@ -85,7 +85,7 @@ export default function OnSale() {
         {/* Header with navigation buttons */}
         <div className="flex justify-between items-center mb-4 sm:mb-5">
           <h2 className="text-lg sm:text-xl font-semibold border-b-2 border-green-600 text-green-600 pb-1">
-            Sản phẩm khuyến mãi
+            Sản phẩm khuyến mãi ({products.length} sản phẩm)
           </h2>
 
           {/* Navigation Buttons */}
