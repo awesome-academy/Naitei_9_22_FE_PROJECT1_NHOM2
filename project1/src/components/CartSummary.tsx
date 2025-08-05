@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, useMemo, useState } from "react";
+import { JSX, useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
@@ -12,6 +12,9 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "@/redux/cart/cartSlice";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { getCurrentUser, isAuthenticated } from "@/services/auth";
+import { User } from "@/types/User";
+import { ROUTES } from "@/constants/routes";
 
 interface CartItem {
   id: number;
@@ -89,6 +92,8 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [step, setStep] = useState<number>(-1);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const totalBeforeTax = useMemo(
     () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
@@ -105,7 +110,37 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     address: "",
     phone: "",
   });
+
+  // Tự động điền thông tin user khi user đăng nhập
+  useEffect(() => {
+    if (user) {
+      setPaymentInfo({
+        name: user.fullName || "",
+        address: user.address || "",
+        phone: user.phone || "",
+      });
+    }
+  }, [user]);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  // Kiểm tra trạng thái đăng nhập khi component mount
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        setIsLoading(true);
+        if (isAuthenticated()) {
+          const currentUser = await getCurrentUser();
+          setUser(currentUser);
+        }
+      } catch (error) {
+        console.error('Error checking auth status:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const validatePaymentInfo = () => {
     if (!paymentInfo.name.trim()) return "Vui lòng nhập họ tên.";
@@ -122,7 +157,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
 
   const handleCheckout = () => {
+    // Kiểm tra đăng nhập trước khi bắt đầu quy trình thanh toán
     if (step === -1) {
+      if (!user) {
+        toast.error("Vui lòng đăng nhập để tiếp tục thanh toán");
+        router.push(ROUTES.LOGIN);
+        return;
+      }
       setStep(1);
       setPaymentError(null);
     } else if (step === 1) {
@@ -134,22 +175,42 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
       setPaymentError(null);
       setStep(2);
     } else if (step === 2) {
-      // Đảm bảo đúng tên thuộc tính 'payMentInfo' theo type Order
-      const paidOrder = {
-        cart,
-        payMentInfo: paymentInfo,
-        total: totalAfterTax,
-        paidAt: new Date().toISOString(),
-      };
-      createOrder(paidOrder);
+      if (!user) {
+        toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại");
+        router.push(ROUTES.LOGIN);
+        return;
+      }
 
-      // Xóa giỏ hàng trong localStorage và Redux store
+       const now = new Date().toISOString();
+       const orderId = `ORD${Date.now()}`; 
+       const orderData = {
+         id: orderId,
+         userId: user.id.toString(),
+         items: cart.map(item => ({
+           id: item.id.toString(),
+           name: item.name,
+           price: item.price,
+           quantity: item.quantity,
+           discount: 0, 
+           image: item.images[0] || ""
+         })),
+         total: totalAfterTax,
+         status: "pending" as const,
+         paymentMethod: "Thanh toán khi nhận hàng",
+         shippingAddress: paymentInfo.address,
+         phone: paymentInfo.phone,
+         email: user.email,
+         createdAt: now,
+         updatedAt: now
+       };
+
+      createOrder(orderData);
+
       localStorage.removeItem("cart");
       dispatch(clearCart());
 
-      // Hiển thị toast success và chuyển về trang chủ
       toast.success("Đặt hàng thành công! Cảm ơn bạn đã mua hàng.");
-      router.push('/');
+      router.push(ROUTES.HOME);
     }
   };
 
@@ -227,6 +288,19 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     };
     return stepContent[step] ?? null;
   };
+
+  if (isLoading) {
+    return (
+      <div className="mt-6 flex justify-end w-full overflow-visible">
+        <div className="w-[350px] md:w-[420px]">
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+            <p className="mt-2 text-gray-600">Đang kiểm tra...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-6 flex justify-end w-full overflow-visible">

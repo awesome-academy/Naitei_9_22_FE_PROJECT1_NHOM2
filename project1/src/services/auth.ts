@@ -1,5 +1,6 @@
-import axios from "axios";
+import AxiosCustom from "./AxiosCustom";
 import { setCookie, getCookie, removeCookie, COOKIE_NAMES } from "@/utils/cookies";
+import { getUserById } from "./UserService";
 
 
 export interface RegisterData {
@@ -14,12 +15,12 @@ export interface RegisterData {
 
 export const login = async (email: string, password: string, remember: boolean = false) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, { 
+    const response = await AxiosCustom.post('/auth/login', { 
       email, 
       password
     });
     
-    const { token, success} = response.data;
+    const { token, success, userId } = response.data;
     
     if (token && success) {
       const cookieOptions = {
@@ -30,7 +31,7 @@ export const login = async (email: string, password: string, remember: boolean =
       
       // Lưu token vào cookie
       setCookie(COOKIE_NAMES.AUTH_TOKEN, token, cookieOptions);
-      
+      localStorage.setItem('userId', userId);
     }
     
     return response.data;
@@ -43,7 +44,7 @@ export const register = async (userData: RegisterData) => {
   const { confirmPassword, ...requestData } = userData
   
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, requestData);
+    const response = await AxiosCustom.post('/auth/register', requestData);
     return response.data;
   } catch (error: any) {
     throw error;
@@ -52,8 +53,7 @@ export const register = async (userData: RegisterData) => {
 
 export const logout = () => {
   removeCookie(COOKIE_NAMES.AUTH_TOKEN);
-  removeCookie(COOKIE_NAMES.USER_INFO);
-  
+  localStorage.removeItem('userId');
   if (typeof window !== 'undefined') {
     window.location.href = '/login';
   }
@@ -68,10 +68,10 @@ export const getAuthToken = () => {
   return getCookie(COOKIE_NAMES.AUTH_TOKEN);
 };
 
-export const getCurrentUser = () => {
-  return {
-    id: 1,
-    name: "Người dùng"
-  };
+export const getCurrentUser = async () => {
+  const userId = localStorage.getItem('userId');
+  if (!userId) return null;
+  const user = await getUserById(userId);
+  return user;
 };
 
