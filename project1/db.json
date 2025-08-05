@@ -1,13 +1,12 @@
 {
   "users": [
     {
-      "id": "1",
-      "email": "admin@example.com",
-      "password": "123456",
       "fullName": "Nguyễn Văn Admin",
+      "email": "admin@example.com",
       "phone": "0123456789",
       "website": "https://admin.com",
-      "image": "/dataset/spx2-2.png"
+      "address": "Ngo 14 Me Tri Ha",
+      "id": "1"
     },
     {
       "id": "2",
@@ -54,7 +53,11 @@
       "name": "Cây Dạ Lam",
       "oldPrice": 5000000,
       "discount": 10,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
+      "type": [
+        "Cây trang trí",
+        "Cây phong thuỷ",
+        "Cây nội thất"
+      ],
       "images": [
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png",
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863005/spx2-6_x2lkui.png",
@@ -94,7 +97,9 @@
         "Độ tuổi": "2-3 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp, tránh ánh nắng trực tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": true
     },
     {
@@ -102,7 +107,11 @@
       "name": "Cây co Nhật",
       "oldPrice": 300000,
       "discount": 10,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
+      "type": [
+        "Cây trang trí",
+        "Cây phong thuỷ",
+        "Cây nội thất"
+      ],
       "images": [
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png",
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863005/spx2-6_x2lkui.png",
@@ -129,7 +138,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": true
     },
     {
@@ -137,7 +148,11 @@
       "name": "Cây Hồng Môn",
       "oldPrice": 300000,
       "discount": 10,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
+      "type": [
+        "Cây trang trí",
+        "Cây phong thuỷ",
+        "Cây nội thất"
+      ],
       "images": [
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png",
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863005/spx2-6_x2lkui.png",
@@ -164,7 +179,11 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Đỏ", "Xanh lá", "Tím"],
+      "color": [
+        "Đỏ",
+        "Xanh lá",
+        "Tím"
+      ],
       "newArival": true
     },
     {
@@ -172,7 +191,11 @@
       "name": "Cây phát tài",
       "oldPrice": 300000,
       "discount": 10,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
+      "type": [
+        "Cây trang trí",
+        "Cây phong thuỷ",
+        "Cây nội thất"
+      ],
       "images": [
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png",
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863006/spx2-12_qdkhmk.png"
@@ -197,7 +220,12 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Tím", "Xanh lam", "Hồng", "Cam"],
+      "color": [
+        "Tím",
+        "Xanh lam",
+        "Hồng",
+        "Cam"
+      ],
       "newArival": true
     },
     {
@@ -205,7 +233,11 @@
       "name": "Cây Kim Ngân",
       "oldPrice": 300000,
       "discount": 10,
-      "type": ["Cây trang trí", "Cây phong thuỷ", "Cây nội thất"],
+      "type": [
+        "Cây trang trí",
+        "Cây phong thuỷ",
+        "Cây nội thất"
+      ],
       "images": [
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png",
         "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863005/spx2-6_x2lkui.png",
@@ -233,17 +265,23 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": false
     },
     {
       "id": "6",
       "name": "Cây dứa nhỏ",
-
       "oldPrice": 100000,
       "discount": 5,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "images": ["/dataset/spx2-6.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất"
+      ],
+      "images": [
+        "/dataset/spx2-6.png"
+      ],
       "description": "Cây dứa nhỏ là một loại cây cảnh dễ trồng, thường được sử dụng để trang trí trong nhà. Cây có lá dài, màu xanh tươi và hoa hình chóp đặc trưng. Dứa nhỏ không chỉ mang lại vẻ đẹp cho không gian sống mà còn giúp thanh lọc không khí.",
       "category": "cây cảnh",
       "rating": 0,
@@ -264,7 +302,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": false
     },
     {
@@ -272,8 +312,13 @@
       "name": "Cây xương rồng con",
       "oldPrice": 80000,
       "discount": 0,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "images": ["/dataset/spx2-7.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất"
+      ],
+      "images": [
+        "/dataset/spx2-7.png"
+      ],
       "description": "Cây xương rồng con là một loại cây cảnh đẹp, thường được trồng trong nhà hoặc văn phòng. Cây có lá dài, màu xanh tươi và hoa hình chóp đặc trưng. Xương rồng con không chỉ mang lại vẻ đẹp cho không gian sống mà còn giúp thanh lọc không khí.",
       "category": "cây cảnh",
       "rating": 0,
@@ -294,7 +339,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng tốt.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": true
     },
     {
@@ -302,8 +349,14 @@
       "name": "Cây sen đá đất",
       "oldPrice": 200000,
       "discount": 15,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "images": ["/dataset/spx2-8.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây phong thuỷ"
+      ],
+      "images": [
+        "/dataset/spx2-8.png"
+      ],
       "description": "Sen đá đất là một loài sen đá đại diện cho sức sống bền bỉ và sự vĩnh cửu theo thời gian. Lá cây nhỏ xinh, có sự hòa trộn đặc biệt giữa màu xanh lá với màu xanh da trời mà không loài cây nào có được. Sen đá đất là cây lá nhỏ đem đến rất nhiều tác dụng rất tốt cho sức khỏe con người, chúng giúp hấp thụ các tia bức xạ có hại từ máy tính, điện thoại… Vì thế rất nhiều người ưa chuộng lựa chọn loại cây này làm cây cảnh trang trí nội thất nhà ở, văn phòng.",
       "category": "cây cảnh",
       "rating": 0,
@@ -324,7 +377,11 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Đỏ", "Xanh lá", "Tím"],
+      "color": [
+        "Đỏ",
+        "Xanh lá",
+        "Tím"
+      ],
       "newArival": false
     },
     {
@@ -332,8 +389,14 @@
       "name": "Dương xỉ ổ phụng (Cây ổ phụng)",
       "oldPrice": 200000,
       "discount": 10,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "images": ["/dataset/spx2-9.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây phong thuỷ"
+      ],
+      "images": [
+        "/dataset/spx2-9.png"
+      ],
       "description": "Cây Ổ Phụng là loài dương xỉ đặc biệt gây ấn tượng bởi chiếc lá lớn xòe tròn từ gốc, tạo hình như một tổ chim phượng uy nghi. Với xuất xứ từ các rừng mưa nhiệt đới Đông Nam Á như Philippines, Việt Nam hay Trung Quốc, cây thường mọc ký sinh trên thân cây già hoặc bám trên đá ẩm để hút chất dinh dưỡng tự tạo. Theo quan niệm phong thủy Châu Á, từ hình ảnh “ổ phụng” đã mang trong mình ý nghĩa sâu sắc về sự gắn kết gia đình, che chở và hòa khí; đồng thời biểu trưng cho sức sống kiên cường và khả năng vươn lên từ nghịch cảnh như chim phượng tái sinh từ đám tro tàn. Đây chính là lý do nhiều gia đình chọn trồng cây này trong nhà hoặc văn phòng, không chỉ làm đẹp không gian mà còn mang vượng khí, tài lộc và sự bình an đến tổ ấm.",
       "category": "cây phong thủy",
       "rating": 0,
@@ -354,7 +417,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": false
     },
     {
@@ -362,8 +427,14 @@
       "name": "Dương xỉ Boston",
       "oldPrice": 600000,
       "discount": 0,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
-      "images": ["/dataset/spx2-10.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây trang trí"
+      ],
+      "images": [
+        "/dataset/spx2-10.png"
+      ],
       "description": "Cây dương xỉ Boston không chỉ đẹp mà còn mang lại nhiều lợi ích thiết thực. Chúng giúp thanh lọc không khí, điều hòa độ ẩm, giảm căng thẳng và cải thiện sức khỏe hô hấp. Chiết xuất từ dương xỉ còn có tác dụng chống oxy hóa, chống viêm và hỗ trợ điều trị các bệnh ngoài da. Trong Đông y, dương xỉ được dùng để chữa nhiều chứng bệnh như đau lưng, tiêu chảy, bong gân, bạch biến, và thận hư. Với hình dáng xanh mát, cây còn rất được ưa chuộng trong trang trí nội thất và sân vườn",
       "category": "cây cảnh",
       "rating": 0,
@@ -384,7 +455,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": true
     },
     {
@@ -392,8 +465,14 @@
       "name": "Cây ổ phụng lớn",
       "oldPrice": 800000,
       "discount": 0,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây phong thuỷ"],
-      "images": ["/dataset/spx2-11.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây phong thuỷ"
+      ],
+      "images": [
+        "/dataset/spx2-11.png"
+      ],
       "description": "Cây Ổ Phụng là loài dương xỉ đặc biệt gây ấn tượng bởi chiếc lá lớn xòe tròn từ gốc, tạo hình như một tổ chim phượng uy nghi. Với xuất xứ từ các rừng mưa nhiệt đới Đông Nam Á như Philippines, Việt Nam hay Trung Quốc, cây thường mọc ký sinh trên thân cây già hoặc bám trên đá ẩm để hút chất dinh dưỡng tự tạo. Theo quan niệm phong thủy Châu Á, từ hình ảnh “ổ phụng” đã mang trong mình ý nghĩa sâu sắc về sự gắn kết gia đình, che chở và hòa khí; đồng thời biểu trưng cho sức sống kiên cường và khả năng vươn lên từ nghịch cảnh như chim phượng tái sinh từ đám tro tàn. Đây chính là lý do nhiều gia đình chọn trồng cây này trong nhà hoặc văn phòng, không chỉ làm đẹp không gian mà còn mang vượng khí, tài lộc và sự bình an đến tổ ấm.",
       "category": "cây phong thủy",
       "rating": 0,
@@ -414,7 +493,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Xanh lá"],
+      "color": [
+        "Xanh lá"
+      ],
       "newArival": true
     },
     {
@@ -422,8 +503,14 @@
       "name": "Cây móng rồng",
       "oldPrice": 90000,
       "discount": 0,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây trang trí"],
-      "images": ["/dataset/spx2-12.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây trang trí"
+      ],
+      "images": [
+        "/dataset/spx2-12.png"
+      ],
       "description": "Là một loại cây cảnh độc đáo, mang vẻ đẹp mạnh mẽ và ấn tượng. Với những chiếc lá xanh mượt, dài và nhọn, cây Móng Rồng không chỉ tạo điểm nhấn cho không gian sống mà còn có khả năng thanh lọc không khí, đem lại sự tươi mát và trong lành. Đây là lựa chọn hoàn hảo cho những ai yêu thích sự giản đơn nhưng vẫn muốn tô điểm cho ngôi nhà hay văn phòng của mình bằng một vẻ đẹp thiên nhiên đầy sức sống. Hơn nữa, cây Móng Rồng còn được xem như biểu tượng của sự may mắn, thịnh vượng, giúp mang đến năng lượng tích cực cho không gian.",
       "category": "cây cảnh",
       "rating": 0,
@@ -444,7 +531,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 2-3 lần/tuần, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Tím"],
+      "color": [
+        "Tím"
+      ],
       "newArival": false
     },
     {
@@ -452,8 +541,13 @@
       "name": "Cây ngọc bích",
       "oldPrice": 700000,
       "discount": 40,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "images": ["/dataset/spx2-13.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất"
+      ],
+      "images": [
+        "/dataset/spx2-13.png"
+      ],
       "description": "Cây ngọc bích hay còn được gọi là cây sen đá ngọc bích, cây phỉ thúy, có tên khoa học là Crassula ovata. Là loại cây có nguồn gốc từ Nam Phi, cây ngọc bích tượng trưng cho tiền tài, sự may mắn và tài lộc.Cây ngọc bích khi sử dụng làm cảnh có tác dụng thanh lọc không khí, kích thích thị giác, mang lại không khí trong lành, tươi mới hơn cho không gian xung quanh, từ đó giúp hạn chế các bệnh về đường hô hấp.Theo phong thủy, cây ngọc bích tùy theo hướng đặt khác nhau sẽ mang đến những tác dụng như: Giúp gia đình hòa thuận, sức khỏe dồi dào, mang đến may mắn, tài lộc, khai thông trí tuệ, khả năng sáng tạo. Ngoài ra, người ta còn trồng cây tạo hình bonsai từ cây ngọc bích để dùng làm món quà cho người thân, bạn bè, quà mừng khai trương cũng vô cùng ý nghĩa.",
       "category": "cây cảnh",
       "rating": 0,
@@ -474,7 +568,9 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Vàng"],
+      "color": [
+        "Vàng"
+      ],
       "newArival": true
     },
     {
@@ -482,8 +578,13 @@
       "name": "Cây lô hội nhỏ",
       "oldPrice": 90000,
       "discount": 5,
-      "type": ["Cây để bàn", "Cây nội thất"],
-      "images": ["/dataset/spx2-14.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất"
+      ],
+      "images": [
+        "/dataset/spx2-14.png"
+      ],
       "description": "Cây lô hội nhỏ là một loại cây cảnh đẹp với lá màu xanh mướt. Cây thường được trồng trong nhà hoặc ngoài trời để trang trí.",
       "category": "cây cảnh",
       "rating": 0,
@@ -504,7 +605,10 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng gián tiếp.",
-      "color": ["Trắng", "Xanh lá"],
+      "color": [
+        "Trắng",
+        "Xanh lá"
+      ],
       "newArival": false
     },
     {
@@ -512,8 +616,15 @@
       "name": "Cây sen đá đỏ",
       "oldPrice": 1200000,
       "discount": 0,
-      "type": ["Cây để bàn", "Cây nội thất", "Cây có hoa", "Cây nghệ thuật"],
-      "images": ["/dataset/spx2-15.png"],
+      "type": [
+        "Cây để bàn",
+        "Cây nội thất",
+        "Cây có hoa",
+        "Cây nghệ thuật"
+      ],
+      "images": [
+        "/dataset/spx2-15.png"
+      ],
       "description": "Cây sen đá đỏ là một loại cây cảnh đẹp với hoa màu đỏ rực rỡ. Cây thường được trồng trong nhà hoặc ngoài trời để trang trí. Sen đá đỏ có khả năng chịu nắng tốt và dễ chăm sóc.",
       "category": "cây hoa",
       "rating": 0,
@@ -534,7 +645,11 @@
         "Độ tuổi": "1-2 năm"
       },
       "care_instructions": "Tưới nước 1-2 lần/tháng, đặt nơi có ánh sáng tốt.",
-      "color": ["Hồng", "Đỏ", "Xanh lá"],
+      "color": [
+        "Hồng",
+        "Đỏ",
+        "Xanh lá"
+      ],
       "newArival": true
     }
   ],
@@ -657,174 +772,481 @@
       "createdAt": "2025-07-31T08:15:39.253Z"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": "ORD001",
+      "userId": "2",
+      "items": [
+        {
+          "id": "1",
+          "name": "Cây Dạ Lam",
+          "price": 4599000,
+          "quantity": 1,
+          "discount": 10,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        },
+        {
+          "id": "2",
+          "name": "Cây co Nhật",
+          "price": 250000,
+          "quantity": 2,
+          "discount": 10,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        }
+      ],
+      "total": 5099000,
+      "status": "delivered",
+      "paymentMethod": "Thanh toán khi nhận hàng",
+      "shippingAddress": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "phone": "0987654321",
+      "email": "user@example.com",
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-01-18T14:20:00Z"
+    },
+    {
+      "id": "ORD002",
+      "userId": "2",
+      "items": [
+        {
+          "id": "3",
+          "name": "Cây Hồng Môn",
+          "price": 250000,
+          "quantity": 1,
+          "discount": 10,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        },
+        {
+          "id": "4",
+          "name": "Cây phát tài",
+          "price": 250000,
+          "quantity": 1,
+          "discount": 10,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        }
+      ],
+      "total": 500000,
+      "status": "shipped",
+      "paymentMethod": "Chuyển khoản ngân hàng",
+      "shippingAddress": "456 Đường Lê Lợi, Quận 3, TP.HCM",
+      "phone": "0987654321",
+      "email": "user@example.com",
+      "createdAt": "2024-01-20T09:15:00Z",
+      "updatedAt": "2024-01-22T11:45:00Z"
+    },
+    {
+      "id": "ORD003",
+      "userId": "2",
+      "items": [
+        {
+          "id": "5",
+          "name": "Cây Kim Ngân",
+          "price": 250000,
+          "quantity": 1,
+          "discount": 10,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        },
+        {
+          "id": "6",
+          "name": "Cây dứa nhỏ",
+          "price": 95000,
+          "quantity": 3,
+          "discount": 5,
+          "image": "/dataset/spx2-6.png"
+        }
+      ],
+      "total": 535000,
+      "status": "processing",
+      "paymentMethod": "Thanh toán khi nhận hàng",
+      "shippingAddress": "789 Đường Võ Văn Tần, Quận 7, TP.HCM",
+      "phone": "0987654321",
+      "email": "user@example.com",
+      "createdAt": "2024-01-25T16:45:00Z",
+      "updatedAt": "2024-01-25T16:45:00Z"
+    },
+    {
+      "id": "ORD004",
+      "userId": "2",
+      "items": [
+        {
+          "id": "7",
+          "name": "Cây xương rồng con",
+          "price": 80000,
+          "quantity": 2,
+          "discount": 0,
+          "image": "/dataset/spx2-7.png"
+        },
+        {
+          "id": "8",
+          "name": "Cây sen đá đất",
+          "price": 170000,
+          "quantity": 1,
+          "discount": 15,
+          "image": "/dataset/spx2-8.png"
+        }
+      ],
+      "total": 330000,
+      "status": "pending",
+      "paymentMethod": "Chuyển khoản ngân hàng",
+      "shippingAddress": "321 Đường Trần Hưng Đạo, Quận 5, TP.HCM",
+      "phone": "0987654321",
+      "email": "user@example.com",
+      "createdAt": "2024-01-28T14:20:00Z",
+      "updatedAt": "2024-01-28T14:20:00Z"
+    },
+    {
+      "id": "ORD005",
+      "userId": "2",
+      "items": [
+        {
+          "id": "9",
+          "name": "Dương xỉ ổ phụng (Cây ổ phụng)",
+          "price": 180000,
+          "quantity": 1,
+          "discount": 10,
+          "image": "/dataset/spx2-9.png"
+        },
+        {
+          "id": "10",
+          "name": "Dương xỉ Boston",
+          "price": 600000,
+          "quantity": 1,
+          "discount": 0,
+          "image": "/dataset/spx2-10.png"
+        },
+        {
+          "id": "11",
+          "name": "Cây ổ phụng lớn",
+          "price": 800000,
+          "quantity": 1,
+          "discount": 0,
+          "image": "/dataset/spx2-11.png"
+        }
+      ],
+      "total": 1580000,
+      "status": "cancelled",
+      "paymentMethod": "Thanh toán khi nhận hàng",
+      "shippingAddress": "654 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM",
+      "phone": "0987654321",
+      "email": "user@example.com",
+      "createdAt": "2024-01-30T11:30:00Z",
+      "updatedAt": "2024-02-01T09:15:00Z"
+    },
+    {
+      "id": "683e",
+      "userId": "1",
+      "items": [
+        {
+          "id": "1",
+          "name": "Cây Lưỡi Hổ",
+          "price": 150000,
+          "quantity": 1,
+          "discount": 0,
+          "image": "/dataset/spx2-1.png"
+        },
+        {
+          "id": "2",
+          "name": "Cây Trầu Bà",
+          "price": 120000,
+          "quantity": 2,
+          "discount": 0,
+          "image": "/dataset/spx2-5.png"
+        },
+        {
+          "id": "3",
+          "name": "Cây Cau Tiểu Trâm",
+          "price": 100000,
+          "quantity": 1,
+          "discount": 0,
+          "image": "/dataset/spx2-15.png"
+        },
+        {
+          "id": "1",
+          "name": "Cây Dạ Lam",
+          "price": 4599000,
+          "quantity": 4,
+          "discount": 0,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        }
+      ],
+      "total": 20774600,
+      "status": "pending",
+      "paymentMethod": "Thanh toán khi nhận hàng",
+      "shippingAddress": "Ngo 14 Me Tri Ha",
+      "phone": "0123456789",
+      "email": "admin@example.com"
+    },
+    {
+      "id": "ORD1754374244549",
+      "userId": "1",
+      "items": [
+        {
+          "id": "1",
+          "name": "Cây Dạ Lam",
+          "price": 4500000,
+          "quantity": 1,
+          "discount": 0,
+          "image": "https://res.cloudinary.com/dhmutopv5/image/upload/v1753863007/spx2-15_ymqj8l.png"
+        }
+      ],
+      "total": 4950000,
+      "status": "pending",
+      "paymentMethod": "Thanh toán khi nhận hàng",
+      "shippingAddress": "Ngo 14 Me Tri Ha",
+      "phone": "0123456789",
+      "email": "admin@example.com",
+      "createdAt": "2025-08-05T06:10:44.549Z",
+      "updatedAt": "2025-08-05T06:10:44.549Z"
+    }
+  ],
   "wishlist": [],
   "blogs": [
     {
-      "id": 1,
+      "id": "1",
       "date": "Thứ 4, ngày 30, tháng 7, năm 2025",
       "title": "9 mẹo giữ cây văn phòng luôn xanh dù bận rộn",
-      "comments": [1, 2],
+      "comments": [
+        1,
+        2
+      ],
       "description": "Đi công tác cả tuần mà vẫn muốn chậu cây trên bàn xanh mướt? 9 mẹo trong bài giúp bạn bỏ quên tưới vẫn không lo cây héo.",
       "contents": "Bạn đã bao giờ đi nghỉ 5-7 ngày rồi trở về và thấy cây văn phòng mềm oặt, lá rũ xuống như chiếc ô đã xếp? Nếu có, bài viết này là dành cho bạn. Chúng ta sẽ cùng áp dụng chín mẹo nhỏ nhưng cực kỳ hiệu quả để giữ chậu cây luôn căng mọng, kể cả khi chủ nhân bận rộn.\n\n**1. Tưới ngập rồi để ráo**. Nghe quen nhưng rất dễ làm sai. Hãy nhúng toàn bộ chậu vào xô nước cho tới khi bong bóng khí ngừng nổi, nhấc ra, nghiêng 45° chờ nước thừa chảy hết. Thao tác này đảm bảo đất bão hòa ẩm nhưng rễ không ngâm lâu. [img1]\n\n**2. Khay sỏi giữ ẩm**. Lót đá cuội dày 2 cm, đổ nước xấp xỉ mặt sỏi. Hơi nước bốc lên xuyên suốt kỳ vắng mặt, rễ vẫn thoáng khí. Nếu văn phòng lắp điều hòa 24/24, khay sỏi gần như “cứu mạng” cho các loài lá mỏng.\n\n**3. Trộn crystal-gel**. 10 % hạt polymer nở gấp 100 lần sẽ hoạt động như pin dự phòng cho đất – hút no nước rồi nhả dần trong 4–5 ngày.\n\n**4. Giảm bốc hơi** bằng cách đặt chậu khỏi luồng gió lạnh trực tiếp, dời ra xa quạt tản nhiệt máy tính ít nhất 40 cm.\n\n**5. Bóng LED 6500 K hẹn giờ 6 h/ngày** nếu khu vực bàn làm việc không giáp cửa sổ – cây vẫn quang hợp nhẹ nhàng.\n\n**6. Dùng phân tan chậm** (Osmocote 14-14-14, hạt 3 mm) cắm quanh mép chậu, nhả dinh dưỡng trong 40 ngày – đảm bảo lá không úa vàng do thiếu đạm.\n\n**7. Lau lá với khăn ẩm pha 2 giọt sữa tươi** để mở lỗ khí khổng, giảm bụi bẩn bít tắc.\n\n**8. Xoay chậu 90°/tuần** để tán lá nhận sáng đều, không lệch bên phải – mẹo nhỏ cho ảnh “check-in” sau kỳ công tác.\n\n**9. Chọn giống chịu hạn** như Snake Plant, ZZ Plant, Pothos Marble Queen nếu bạn thường xuyên xa bàn. [img2]\n\nThực hiện trọn bộ gợi ý trên, bạn có thể rời văn phòng cả tuần mà lá vẫn xanh, rìa lá không cháy, đất không mốc trắng. Thời gian đầu hãy thử vắng 3 ngày, kiểm tra tình trạng cây rồi tăng dần; sau 2-3 lần, bạn sẽ nắm được nhu cầu nước của từng chậu và hoàn toàn yên tâm xách vali lên đường.",
-      "images": ["/dataset/spx2-1.png", "/dataset/spx2-2.png"],
-      "categories": [7],
-      "tags": [1, 2, 7],
+      "images": [
+        "/dataset/spx2-1.png",
+        "/dataset/spx2-2.png"
+      ],
+      "categories": [
+        7
+      ],
+      "tags": [
+        1,
+        2,
+        7
+      ],
       "created_at": "09:15:00 AM"
     },
-
     {
-      "id": 2,
+      "id": "2",
       "date": "Thứ 3, ngày 29, tháng 7, năm 2025",
       "title": "Top 3 cây hoa mini dưới 200k cho căn hộ nhỏ",
-      "comments": [3],
+      "comments": [
+        3
+      ],
       "description": "Căn hộ chật nhưng vẫn muốn có màu sắc? 3 giống hoa mini này chỉ tốn chưa tới 200 k và diện tích bằng quyển sách.",
       "contents": "Sở hữu căn hộ studio 25 m² đồng nghĩa mọi vật trang trí phải cân nhắc đến từng centimet. Nhưng không gian hạn chế không phải là lý do bỏ qua sắc hoa. Dưới đây là ba loài “bé hạt tiêu” có thể biến kệ sách thành khu vườn rực rỡ mà chi phí chưa đến 200 000 đ.\n\n**Lan Ý Baby – nữ hoàng thanh lọc không khí**. Cao 20–25 cm, phiến lá xanh bóng, bông vươn cao như cánh buồm trắng. Lan Ý thích ẩm nhẹ và ánh sáng khuếch tán; tưới phun sương 2 lần/tuần, đặt cạnh bếp khử mùi cực tốt. Giá thị trường chỉ 70 000–80 000 đ/chậu.\n\n**Dứa Cảnh Nến Mini – ngọn nến nhiệt đới**. Bract đỏ cam rực, bền màu tới 10 tuần. Trồng chậu nhựa số 10, giá 60–70 k. Bí kíp: giữ nước trong bẹ lá nhưng đổi nước 3 ngày/lần để tránh thối cổ thân. Khi bract tàn, cắt sát, cây con mọc quanh gốc, bạn sẽ nhân giống được 2–3 chậu mới. [img1]\n\n**Sen Đá Nâu – viên kẹo chocolate của cửa sổ**. Rosette lá nâu đỏ ánh đồng khi nhận 4 h nắng sáng. Diện tích đáy chậu chỉ 6 cm, phù hợp đặt trên thanh ngang cửa trượt. Sen đá ưa khô: tưới 10 ngày/lần bằng cách ngâm đáy chậu 5 phút rồi để ráo. [img2]\n\nTổng chi phí bộ ba: 190 000 đ (đã gồm chậu, đất trộn 5 lít và sỏi phủ). Xếp theo đường chéo ở kệ treo tường, bạn sẽ có mảng tiểu cảnh 3 tầng màu sắc mà không chiếm hơn một ô kệ sách A4.",
-      "images": ["/dataset/spx2-5.png", "/dataset/spx2-6.png"],
-      "categories": [2, 4],
-      "tags": [8, 4],
+      "images": [
+        "/dataset/spx2-5.png",
+        "/dataset/spx2-6.png"
+      ],
+      "categories": [
+        2,
+        4
+      ],
+      "tags": [
+        8,
+        4
+      ],
       "created_at": "14:40:00 PM"
     },
-
     {
-      "id": 3,
+      "id": "3",
       "date": "Thứ 2, ngày 28, tháng 7, năm 2025",
       "title": "Nhân giống Trầu Bà chỉ với một chai nước",
-      "comments": [4, 5],
+      "comments": [
+        4,
+        5
+      ],
       "description": "Không cần đất, chỉ 7 ngày để có cây con Trầu Bà rễ trắng dài 5 cm từ một cành giâm trong nước.",
       "contents": "Trầu Bà (Pothos) nổi tiếng dễ nhân giống. Bắt đầu bằng việc chọn cành bánh tẻ – không quá già, không quá non – dài 15 cm, chứa ít nhất hai mắt ngủ. Dùng kéo vô trùng cắt chéo 45°, phần cắt nằm ngay dưới mắt ngủ để kích thích rễ bật mạnh. Loại bỏ 2 lá gốc, chỉ giữ 3 lá trên cùng giảm thoát hơi nước.\n\nChuẩn bị chai thuỷ tinh miệng rộng, cao 20 cm; đổ nước lọc đã để qua đêm khử clo, hoà 1 giọt B1 + 2 giọt H₂O₂ 3 % để diệt khuẩn. Nhúng cành sao cho **mắt dưới ngập nước, mắt trên hở không khí**. [img1]\n\nĐặt chai ở cửa sổ hướng Bắc (ánh sáng tán xạ), nhiệt 25–28 °C. Thay nước cách ngày; mỗi lần rửa thành chai bằng cọ mềm tránh rêu xanh. Ngày thứ 5, rễ trắng nhú như sợi miến; ngày thứ 10, rễ dài 5 cm. Bạn có thể:\n\n* Giữ thuỷ sinh: nhỏ 1 ml phân thuỷ sinh/1 lít nước mỗi 2 tuần, thay nước 7 ngày/lần.\n* Chuyển sang đất: trộn 50 % peat + 30 % perlite + 20 % xơ dừa, tưới ẩm liên tục 2 tuần đầu.\n\nSau 1 tháng, cây con bung 4 lá mới, sẵn sàng treo lên kệ hoặc uốn vòng leo khung dây. [img2]",
-      "images": ["/dataset/spx2-9.png", "/dataset/spx2-10.png"],
-      "categories": [3, 4],
-      "tags": [3, 5, 6],
+      "images": [
+        "/dataset/spx2-9.png",
+        "/dataset/spx2-10.png"
+      ],
+      "categories": [
+        3,
+        4
+      ],
+      "tags": [
+        3,
+        5,
+        6
+      ],
       "created_at": "10:05:00 AM"
     },
-
     {
-      "id": 4,
+      "id": "4",
       "date": "Chủ nhật, ngày 27, tháng 7, năm 2025",
       "title": "Tự pha giá thể xỉ than trồng Sen Đá: rẻ, nhẹ, thoát nước tốt",
-      "comments": [6],
+      "comments": [
+        6
+      ],
       "description": "50 % xỉ than rang khô + 30 % pumice + 20 % tro trấu: hỗn hợp giá thể siêu nhẹ, thoát nước dưới 3 giây cho Sen Đá.",
       "contents": "Giá thể Sen Đá lý tưởng cần thoát nước cực nhanh nhưng vẫn giữ ẩm vừa đủ, đồng thời nhẹ để treo ban-công. Xỉ than công trình là nguyên liệu rẻ nhất nhưng phải xử lý sạch. Ngâm xỉ 24 h, đãi bỏ bụi, rang chảo gang 300 °C 20 phút diệt nấm. Sàng lấy hạt 3-5 mm. [img1]\n\nĐá pumice núi lửa xốp như tổ ong, trọng lượng cực nhẹ, thấm nước qua mao quản nhỏ rồi nhả dần – kết hợp xỉ tạo cấu trúc hai pha khí-nước tối ưu. Tro trấu bổ sung silic, kali và làm hạt đất lăn tự do, tránh nén chặt.\n\nTrộn theo tỉ lệ khối 5-3-2 (xỉ-pumice-tro) + 5 % phân trùn quế hạt. Thử nghiệm: đổ 200 ml nước lên 1 lít hỗn hợp, nước rút hết trong 2,5 s → đạt tiêu chuẩn thoát nước cho Crassula, Echeveria. Giá thể thành phẩm nhẹ hơn đất thịt 60 %, treo 10 chậu lớn cũng không lo quá tải lan can. [img2]",
-      "images": ["/dataset/spx2-11.png", "/dataset/spx2-12.png"],
-      "categories": [4],
-      "tags": [4, 6],
+      "images": [
+        "/dataset/spx2-11.png",
+        "/dataset/spx2-12.png"
+      ],
+      "categories": [
+        4
+      ],
+      "tags": [
+        4,
+        6
+      ],
       "created_at": "18:20:00 PM"
     },
-
     {
-      "id": 5,
+      "id": "5",
       "date": "Thứ 7, ngày 26, tháng 7, năm 2025",
       "title": "Đặt Lưỡi Hổ ở đâu để hút tài lộc?",
-      "comments": [7],
+      "comments": [
+        7
+      ],
       "description": "3 vị trí phong thuỷ cho Lưỡi Hổ: Đông-Nam phòng khách, hướng Bắc bàn làm việc, cạnh cửa sổ phòng ngủ.",
       "contents": "Trong **Bát Trạch**, góc Đông-Nam phòng khách đại diện cung Tài Lộc (Mộc). Lưỡi Hổ (Sansevieria) mang năng lượng Mộc mạnh, đặt chậu cao 80 cm ở đây sẽ khuếch đại dòng tiền. Chọn chậu men đen – hành Thuỷ – càng sinh Mộc. [img1]\n\nBàn làm việc hướng Bắc thuộc Thuỷ, kích hoạt cung Quan Lộc. Một chậu mini đường kính 10 cm, cao 25 cm bên trái laptop sẽ lọc formaldehyde, giảm đau đầu do khí độc máy in. Công ty Nhật dùng Lưỡi Hổ như “máy lọc khí” tự nhiên.\n\nPhòng ngủ thiếu O₂ ban đêm; Lưỡi Hổ nhả O₂ do chu trình CAM. Đặt chậu cách đầu giường 1 m, tránh trực tiếp máy lạnh. Lau lá 2 tuần/lần bằng khăn ẩm + 2 giọt sữa tươi giúp lá bóng, bề mặt giảm bám bụi.\n\nLưu ý: cây ưa khô, chỉ tưới khi đất khô 70 %. Mùa mưa giảm tưới xuống 3 tuần/lần để tránh thối cổ thân. [img2]",
-      "images": ["/dataset/spx2-13.png", "/dataset/spx2-14.png"],
-      "categories": [5, 7],
-      "tags": [2, 9],
+      "images": [
+        "/dataset/spx2-13.png",
+        "/dataset/spx2-14.png"
+      ],
+      "categories": [
+        5,
+        7
+      ],
+      "tags": [
+        2,
+        9
+      ],
       "created_at": "07:45:00 AM"
     },
-
     {
-      "id": 6,
+      "id": "6",
       "date": "Thứ 6, ngày 25, tháng 7, năm 2025",
       "title": "Lá cây đổi màu báo hiệu điều gì? Khi nào cần thay chậu?",
-      "comments": [8],
+      "comments": [
+        8
+      ],
       "description": "Nhìn màu lá đoán bệnh: vàng giữa gân thiếu Mg, mép lá nâu chậu chật hoặc dư muối, phấn trắng do nấm.",
       "contents": "Lá là “bảng điện tâm đồ” của thực vật. Vàng giữa lá nhưng gân vẫn xanh → thiếu Magie. Pha 1 g MgSO₄/1 lít nước ấm, phun ướt hai mặt lá, lặp lại sau 5 ngày; sau 2 tuần lá xanh trở lại. [img1]\n\nMép lá nâu khô? 70 % do rễ chật chậu. Nhấc bầu: rễ trắng cuộn kín đáy, đất khô nhanh bất thường. Thay sang chậu lớn hơn 20 %, cắt 10 % rễ già, xả nước qua chậu 3 lần trôi muối.\n\nPhấn trắng phủ lá là nấm powdery mildew. Cắt lá nặng, xịt Copper-Oxychloride 0,3 % 2 lần (cách 7 ngày), tăng luồng gió quạt nhỏ. [img2]\n\nKhi nào cần thay chậu? ① Chu kỳ tưới rút xuống <24 h. ② Rễ trồi khỏi lỗ đáy. ③ Lá nhỏ dần, màu nhạt dù bón phân. Ba dấu hiệu cùng xuất hiện → hãy nâng chậu thêm một size và bổ sung đất tơi xốp.",
-      "images": ["/dataset/spx2-14.png", "/dataset/spx2-15.png"],
-      "categories": [1, 6],
-      "tags": [6, 7],
+      "images": [
+        "/dataset/spx2-14.png",
+        "/dataset/spx2-15.png"
+      ],
+      "categories": [
+        1,
+        6
+      ],
+      "tags": [
+        6,
+        7
+      ],
       "created_at": "12:10:00 PM"
     }
   ],
-
   "tags": [
-    { "id": 1, "name": "Dễ chăm" },
-    { "id": 2, "name": "Phong thủy" },
-    { "id": 3, "name": "DIY" },
-    { "id": 4, "name": "Sen Đá" },
-    { "id": 5, "name": "Trầu Bà" },
-    { "id": 6, "name": "Kỹ thuật" },
-    { "id": 7, "name": "Làm vườn" },
-    { "id": 8, "name": "Mini plant" },
-    { "id": 9, "name": "Chia sẻ" }
+    {
+      "id": "1",
+      "name": "Dễ chăm"
+    },
+    {
+      "id": "2",
+      "name": "Phong thủy"
+    },
+    {
+      "id": "3",
+      "name": "DIY"
+    },
+    {
+      "id": "4",
+      "name": "Sen Đá"
+    },
+    {
+      "id": "5",
+      "name": "Trầu Bà"
+    },
+    {
+      "id": "6",
+      "name": "Kỹ thuật"
+    },
+    {
+      "id": "7",
+      "name": "Làm vườn"
+    },
+    {
+      "id": "8",
+      "name": "Mini plant"
+    },
+    {
+      "id": "9",
+      "name": "Chia sẻ"
+    }
   ],
-
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "blogId": 1,
       "userId": 2,
       "content": "Mẹo hay quá, mình áp dụng ngay!",
       "date": "30/07/2025 10:00 AM"
     },
     {
-      "id": 2,
+      "id": "2",
       "blogId": 1,
       "userId": 3,
       "content": "Đã thử và cây vẫn tươi sau chuyến công tác 5 ngày.",
       "date": "30/07/2025 18:15 PM",
       "replyTo": 1
     },
-
     {
-      "id": 3,
+      "id": "3",
       "blogId": 2,
       "userId": 1,
       "content": "Mình vote Lan Ý baby, hoa thơm nhẹ mà bền.",
       "date": "29/07/2025 15:00 PM"
     },
-
     {
-      "id": 4,
+      "id": "4",
       "blogId": 3,
       "userId": 2,
       "content": "Cắt đúng đốt mắt thì ra rễ cực nhanh!",
       "date": "28/07/2025 11:20 AM"
     },
     {
-      "id": 5,
+      "id": "5",
       "blogId": 3,
       "userId": 3,
       "content": "Trầu Bà trồng nước sạch hơn đất nhiều.",
       "date": "28/07/2025 14:45 PM",
       "replyTo": 4
     },
-
     {
-      "id": 6,
+      "id": "6",
       "blogId": 4,
       "userId": 1,
       "content": "Xỉ rang xong đỡ bụi hẳn, cám ơn chia sẻ.",
       "date": "27/07/2025 20:10 PM"
     },
-
     {
-      "id": 7,
+      "id": "7",
       "blogId": 5,
       "userId": 2,
       "content": "Mình vừa dời chậu ra cửa sổ Đông-Nam, chờ kết quả!",
       "date": "26/07/2025 08:30 AM"
     },
-
     {
-      "id": 8,
+      "id": "8",
       "blogId": 6,
       "userId": 3,
       "content": "Bảng màu lá hữu ích quá, đỡ phải mò bệnh.",
       "date": "25/07/2025 13:00 PM"
     },
-
     {
-      "id": 9,
+      "id": "9",
       "blogId": 1,
       "userId": 1,
       "content": "Cảm ơn đã chia sẻ kinh nghiệm!",
       "date": "30/07/2025 19:00 PM"
     },
     {
-      "id": 10,
+      "id": "10",
       "blogId": 4,
       "userId": 3,
       "content": "Bạn rang ở nhiệt bao nhiêu vậy?",
@@ -832,7 +1254,7 @@
       "replyTo": 6
     },
     {
-      "id": 11,
+      "id": "11",
       "blogId": 1,
       "userId": 3,
       "content": "Mình đã thử đặt Lưỡi Hổ ở hướng Bắc, thấy không khí trong phòng dễ chịu hơn.",

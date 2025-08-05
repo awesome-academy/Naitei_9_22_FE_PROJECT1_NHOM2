@@ -17,3 +17,13 @@ export const getUsersForComment = async (): Promise<UserForComment[]> => {
     image: user.image,
   }));
 };
+
+export const getUserById = async (id: string) => {
+  const { data } = await axiosInstance.get<User>(`/users/${id}`);
+  return data;
+};
+
+export const updateUser = async (id: string, userData: Partial<User>) => {
+  const { data } = await axiosInstance.put<User>(`/users/${id}`, userData);
+  return data;
+};
