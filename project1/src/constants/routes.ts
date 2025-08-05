@@ -12,7 +12,7 @@ export const ROUTES = {
   PRODUCT_DETAIL: "/products/:id",
   CATEGORY: "/products/category/:category",
   // Protected routes
- 
+  ADMIN: "/admin",
 } as const;
 
 export type RouteKeys = keyof typeof ROUTES;

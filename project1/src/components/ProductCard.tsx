@@ -30,6 +30,7 @@ export default function ProductCard({
   const [showQuantityModal, setShowQuantityModal] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+
   const handleAddToCart = () => {
     const cartItem = {
       ...product,
@@ -46,8 +47,8 @@ export default function ProductCard({
     router.push(`/products/${product.id}`);
   };
 
-  const openQuantityModal = (e?: React.MouseEvent) => {
-    e?.stopPropagation(); // Ngăn chặn event bubbling
+  const openQuantityModal = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setShowQuantityModal(true);
   };
 
@@ -59,8 +60,7 @@ export default function ProductCard({
   return (
     <>
       <div
-        className={`relative border shadow hover:shadow-xl overflow-hidden bg-white group transition-all duration-300 h-full flex flex-col ${className}
-        cursor-pointer`}
+        className={`relative border shadow hover:shadow-xl overflow-hidden bg-white group transition-all duration-300 h-full flex flex-col ${className} cursor-pointer`}
         onClick={handleViewDetails}
       >
         <div className="relative">
@@ -80,7 +80,9 @@ export default function ProductCard({
             </Badge>
           )}
           {newArival && (
-            <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600">
+            <Badge
+              className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600"
+            >
               NEW
             </Badge>
           )}
@@ -89,10 +91,7 @@ export default function ProductCard({
               size="sm"
               className="bg-green-500 text-white px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm hover:bg-green-600"
               aria-label="Buy Now"
-              onClick={(e) => {
-                e.stopPropagation();
-                openQuantityModal();
-              }}
+              onClick={openQuantityModal}
             >
               <span className="hidden sm:inline">MUA NGAY</span>
               <span className="sm:hidden">MUA</span>
@@ -102,6 +101,10 @@ export default function ProductCard({
               size="sm"
               className="bg-white border border-gray-300 p-1.5 sm:p-2 hover:bg-gray-50"
               aria-label="View Details"
+              onClick={e => {
+                e.stopPropagation();
+                handleViewDetails();
+              }}
             >
               <FaSearch className="text-gray-600 text-xs sm:text-sm" />
             </Button>
@@ -145,4 +148,3 @@ export default function ProductCard({
     </>
   );
 }
-
