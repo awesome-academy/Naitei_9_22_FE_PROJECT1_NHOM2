@@ -1,6 +1,11 @@
-import { FaSearch, FaStar} from "react-icons/fa";
+import { FaSearch, FaStar } from "react-icons/fa";
 import Image from "next/image";
-import { Product, formatCurrentPrice, formatOldPrice, getCurrentPrice } from "../types/Product";
+import {
+  Product,
+  formatCurrentPrice,
+  formatOldPrice,
+  getCurrentPrice,
+} from "../types/Product";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { addToCart } from "@/redux/cart/cartSlice";
@@ -19,7 +24,7 @@ export default function ProductCard({
   product,
   className = "",
 }: ProductCardProps) {
-  const { name, images, newArival, discount} = product;
+  const { name, images, newArival, discount } = product;
   const hasDiscount = discount > 0;
   const dispatch = useDispatch();
   const [showQuantityModal, setShowQuantityModal] = useState(false);
@@ -37,13 +42,12 @@ export default function ProductCard({
     setQuantity(1);
   };
 
-
-
   const handleViewDetails = () => {
     router.push(`/products/${product.id}`);
   };
 
-  const openQuantityModal = () => {
+  const openQuantityModal = (e?: React.MouseEvent) => {
+    e?.stopPropagation(); // Ngăn chặn event bubbling
     setShowQuantityModal(true);
   };
 
@@ -76,9 +80,7 @@ export default function ProductCard({
             </Badge>
           )}
           {newArival && (
-            <Badge
-              className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600"
-            >
+            <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600">
               NEW
             </Badge>
           )}
@@ -87,7 +89,10 @@ export default function ProductCard({
               size="sm"
               className="bg-green-500 text-white px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm hover:bg-green-600"
               aria-label="Buy Now"
-              onClick={openQuantityModal}
+              onClick={(e) => {
+                e.stopPropagation();
+                openQuantityModal();
+              }}
             >
               <span className="hidden sm:inline">MUA NGAY</span>
               <span className="sm:hidden">MUA</span>
