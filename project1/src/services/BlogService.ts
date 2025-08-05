@@ -38,3 +38,17 @@ export const getCommentsByBlog = async (blogId: number): Promise<Comment[]> => {
   );
   return data;
 };
+
+export const addComment = async (
+  comment: Omit<Comment, "id">
+): Promise<Comment> => {
+  try {
+    // JSON server sẽ tự động tạo ID khi POST
+    const response = await axiosInstance.post<Comment>("/comments", comment);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    throw error;
+  }
+};
+

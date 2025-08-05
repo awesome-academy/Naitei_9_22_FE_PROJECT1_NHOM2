@@ -6,7 +6,8 @@
       "phone": "0123456789",
       "website": "https://admin.com",
       "address": "Ngo 14 Me Tri Ha",
-      "id": "1"
+      "id": "1",
+      "password":"123456"
     },
     {
       "id": "2",
