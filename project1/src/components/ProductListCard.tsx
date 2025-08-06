@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { addToWishlist } from "@/services/ProductService";
 import { Search } from "lucide-react";
 import { Heart } from "lucide-react";
+import QuantityModal from "@/components/QuantityModal";
 
 interface ProductListCardProps {
   product: Product;
@@ -21,6 +22,8 @@ interface ProductListCardProps {
 export default function ProductListCard({ product }: ProductListCardProps) {
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showQuantityModal, setShowQuantityModal] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const router = useRouter();
   const dispatch = useDispatch();
   const handleImageError = () => {
@@ -80,12 +83,43 @@ const handleAddToWishlist = async () => {
   const hasValidImage = product.images && product.images.length > 0;
   const imageUrl = hasValidImage ? product.images[0] : null;
 
+  const handleBuyNowClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowQuantityModal(true);
+  };
+
+  const closeQuantityModal = () => {
+    setShowQuantityModal(false);
+    setQuantity(1);
+  };
+
+  const handleAddToCartWithQuantity = async () => {
+    setIsLoading(true);
+    
+    try {
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: getCurrentPrice(product),
+        images: product.images,
+        quantity: quantity,
+      };
+      dispatch(addToCart(cartItem));
+      toast.success("Đã thêm vào giỏ hàng");
+      closeQuantityModal();
+    } catch (error) {
+      toast.error("Có lỗi xảy ra");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Action buttons config
   const actionButtons = [
     {
         id: 'buy',
         label: 'MUA NGAY',
-        onClick: handleAddToCart,
+        onClick: handleBuyNowClick,
         className: primaryButtonClasses,
         icon: null
     },
@@ -106,76 +140,88 @@ const handleAddToWishlist = async () => {
   ];
 
   return (
-    <div 
-      className="bg-white shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
-      onClick={handleProductClick}
-    >
-      <div className="flex gap-4">
-        {/* Product Image */}
-        <div className="w-54 h-58 flex-shrink-0">
-          <div className="relative w-full h-full bg-gray-100 overflow-hidden">
-            {imageUrl && !imageError ? (
-              <Image
-                src={imageUrl}
-                alt={product.name}
-                fill
-                className="object-cover"
-                onError={handleImageError}
-                priority
-              />
-            ) : (
-              <ImageSkeleton className="w-full h-full" />
-            )}
-          </div>
-        </div>
-
-        {/* Product Info */}
-        <div className="flex-1 space-y-2 p-4">
-          <div>
-            <h1 className="text-xl text-gray-900">{product.name}</h1>
-              <div className="flex items-center space-x-2">
-                <StarRating rating={product.rating} className="text-lg" />
-              </div>
-          </div>
-
-          <div className="text-gray-700 leading-relaxed border-gray-200">
-            <p className="text-sm line-clamp-2">{product.description}</p>
-          </div>
-          {/* Price */}
-          <div className="space-y-2">
-            <div className="flex items-center space-x-4">
-              <span className="text-xl font-semibold text-red-600">
-                {formatPrice(getCurrentPrice(product))}
-              </span>
-              {product.oldPrice && (
-              <span className="text-lg text-gray-500 line-through">
-                {formatPrice(product.oldPrice)}
-              </span>
+    <>
+      <div 
+        className="bg-white shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
+        onClick={handleProductClick}
+      >
+        <div className="flex gap-4">
+          {/* Product Image */}
+          <div className="w-54 h-58 flex-shrink-0">
+            <div className="relative w-full h-full bg-gray-100 overflow-hidden">
+              {imageUrl && !imageError ? (
+                <Image
+                  src={imageUrl}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  onError={handleImageError}
+                  priority
+                />
+              ) : (
+                <ImageSkeleton className="w-full h-full" />
               )}
             </div>
-         </div>
+          </div>
 
-                            
+          {/* Product Info */}
+          <div className="flex-1 space-y-2 p-4">
+            <div>
+              <h1 className="text-xl text-gray-900">{product.name}</h1>
+                <div className="flex items-center space-x-2">
+                  <StarRating rating={product.rating} className="text-lg" />
+                </div>
+            </div>
 
-          {/* Quantity & Add to Cart */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-                {actionButtons.map((button) => (
-                <Button
-                  key={button.id}
-                  variant="default"
-                  size="default"
-                  onClick={button.onClick}
-                  className={button.className}
-                >
-                  {button.icon}
-                  {button.label}
-                </Button>
-                ))}
+            <div className="text-gray-700 leading-relaxed border-gray-200">
+              <p className="text-sm line-clamp-2">{product.description}</p>
+            </div>
+            {/* Price */}
+            <div className="space-y-2">
+              <div className="flex items-center space-x-4">
+                <span className="text-xl font-semibold text-red-600">
+                  {formatPrice(getCurrentPrice(product))}
+                </span>
+                {product.oldPrice && (
+                <span className="text-lg text-gray-500 line-through">
+                  {formatPrice(product.oldPrice)}
+                </span>
+                )}
+              </div>
+           </div>
+
+                                
+
+            {/* Quantity & Add to Cart */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                  {actionButtons.map((button) => (
+                  <Button
+                    key={button.id}
+                    variant="default"
+                    size="default"
+                    onClick={button.onClick}
+                    className={button.className}
+                  >
+                    {button.icon}
+                    {button.label}
+                  </Button>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <QuantityModal
+        isOpen={showQuantityModal}
+        onClose={closeQuantityModal}
+        product={product}
+        quantity={quantity}
+        onQuantityChange={setQuantity}
+        onAddToCart={handleAddToCartWithQuantity}
+      />
+    </>
   );
 }
+

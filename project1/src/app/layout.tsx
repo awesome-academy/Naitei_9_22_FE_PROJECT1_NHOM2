@@ -6,6 +6,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import ReduxProvider from "@/providers/ReduxProvider"; 
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,23 +34,28 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReduxProvider>
-          <div className="sticky top-0 z-50 bg-white shadow-sm">
-            <Header />
-          </div>
-          {children}
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-          <Footer />
+          <AuthProvider>
+            <div className="sticky top-0 z-50 bg-white shadow-sm">
+              <Header />
+            </div>
+
+            {children}
+
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+
+            <Footer />
+          </AuthProvider>
         </ReduxProvider>
       </body>
     </html>
