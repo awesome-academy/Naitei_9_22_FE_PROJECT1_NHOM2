@@ -39,8 +39,8 @@ export default function CategoryFilter({ selectedCategories, onCategoryChange }:
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
-      <div className="p-3 text-emerald-600 border-b-2 border-emerald-600 bg-gray-50">
+    <div className="overflow-hidden">
+      <div className="p-3 text-emerald-500 border-b-2 border-emerald-600 bg-gray-50">
         <h4 className="font-bold text-lg">Danh mục sản phẩm</h4>
       </div>
       <div className="p-3 space-y-2">

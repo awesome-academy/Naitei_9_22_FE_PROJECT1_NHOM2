@@ -37,7 +37,7 @@ export default function ProfilePage() {
         const ordersData = await getOrders();
         setOrders(ordersData);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        toast.error('Error fetching user data');
       } finally {
         setLoading(false);
       }

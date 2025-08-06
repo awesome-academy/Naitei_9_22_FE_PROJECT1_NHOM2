@@ -65,7 +65,7 @@ export default function ProductHeaderControls({
               onValueChange={handleSort}
             >
               <SelectTrigger className="border border-gray-300 rounded px-3 py-4 text-sm bg-white">
-                <SelectValue placeholder="Tên sản phẩm" />
+                <SelectValue placeholder="Tên A-Z" />
               </SelectTrigger>
               <SelectContent>
                 {sortOptions.map((option) => (
