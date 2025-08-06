@@ -6,37 +6,17 @@ import OnSale from "../components/OnSale";
 import Slider from "../components/Slider";
 import Image from "next/image";
 import NewsCard from "@/components/NewsCard";
+import Loading from "@/components/Loading";
 import img_demo from "../../public/slider/banner.png";
-import img3 from "../../public/dataset/spx2-3.png";
-import img4 from "../../public/dataset/spx2-4.png";
-import img5 from "../../public/dataset/spx2-5.png";
 import NewsletterPopup from "@/components/Popup";
-
-const newsList = [
-  {
-    image: img3,
-    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
-    title: "15 thiết kế phòng ngủ tuyệt đẹp làm vạn người mê",
-    description:
-      "Cùng Sài Gòn Hoa tìm hiểu một vài xu hướng thiết kế sân vườn được ưa chuộng hiện nay nhé! Kết hợp hàng rào",
-  },
-  {
-    image: img4,
-    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
-    title: "Tạo Tiểu Cảnh Góc Sân Cho Nhà Phố, Biệt Thự Đẹp",
-    description:
-      "Khi bước từ ngoài ngõ vào hay từ trong nhà đi ra, góc sân luôn là điểm nhìn đầu tiên của chúng ta.",
-  },
-  {
-    image: img5,
-    date: "Thứ 7 ,ngày 31, tháng 12, năm 2015",
-    title: "Cách bố trí hoa chậu trước cửa ấn tượng",
-    description:
-      "Như thể hiện sự thân thiện cũng như sự hiểu khách của gia chủ, phần không gian trước cửa",
-  },
-];
+import { useBlogData } from "@/hooks/useBlogData";
 
 export default function Home() {
+  const { blogs, loading, error } = useBlogData();
+  
+  // Lấy 3 blog mới nhất
+  const latestBlogs = blogs.slice(0, 3);
+
   return (
     <>
       <NewsletterPopup delay={50} />
@@ -87,11 +67,29 @@ export default function Home() {
           <h2 className="text-lg sm:text-xl font-semibold border-b-2 border-green-600 mb-4 sm:mb-5 text-green-600 pb-1">
             Tin tức
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {newsList.map((news, idx) => (
-              <NewsCard key={idx} {...news} />
-            ))}
-          </div>
+          {loading ? (
+            <Loading message="Đang tải tin tức..." />
+          ) : error ? (
+            <div className="text-red-500 text-center py-8">
+              <p>Lỗi khi tải tin tức: {error}</p>
+            </div>
+          ) : latestBlogs.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+              {latestBlogs.map((blog) => (
+                <NewsCard 
+                  key={blog.id} 
+                  image={blog.images[0] || '/dataset/unavailable.JPG'}
+                  date={blog.date}
+                  title={blog.title}
+                  description={blog.description || blog.contents.substring(0, 100) + '...'}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-gray-500 text-center py-8">
+              <p>Chưa có tin tức nào.</p>
+            </div>
+          )}
         </div>
       </section>
     </>
