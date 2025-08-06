@@ -116,8 +116,7 @@ export const register = async (userData: RegisterData) => {
 
 export const logout = () => {
   removeCookie(COOKIE_NAMES.AUTH_TOKEN);
-  removeCookie(COOKIE_NAMES.USER_INFO);
-  
+  localStorage.removeItem('userId');
   if (typeof window !== 'undefined') {
     localStorage.removeItem('userId');
     window.location.href = '/login';
