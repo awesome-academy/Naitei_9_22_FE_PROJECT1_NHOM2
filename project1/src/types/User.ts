@@ -6,4 +6,5 @@ export interface User {
   website: string;
   address?: string;
   image: string;
+  password: string;
 }

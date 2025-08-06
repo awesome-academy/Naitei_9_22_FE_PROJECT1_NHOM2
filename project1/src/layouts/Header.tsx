@@ -56,7 +56,6 @@ export default function Header() {
     { text: "TRANG CHỦ", href: "/", hasDropdown: false },
     { text: "GIỚI THIỆU", href: "/information", hasDropdown: false },
     { text: "SẢN PHẨM", href: "/products", hasDropdown: true },
-    { text: "SẢN PHẨM MỚI", href: "#", hasDropdown: true },
     { text: "TIN TỨC", href: "/blog", hasDropdown: false },
     { text: "LIÊN HỆ", href: "/contact", hasDropdown: false },
   ];

@@ -1,19 +1,8 @@
-"use client";
-
-import React, { useEffect, useState, useMemo } from "react";
+import React from "react";
 import { toast } from "react-toastify";
-
-import { getUsersForComment } from "@/services/UserService";
-import {
-  mapCommentsWithUsers,
-  groupCommentsByParent,
-  getTotalCommentsCount,
-} from "@/utils/commentUtils";
 import { MESSAGES } from "@/constants/blog";
-
-import type { Blog } from "@/types/Blog";
-import type { Comment } from "@/types/Comment";
-import type { UserForComment } from "@/types/UserForComment";
+import { useAuth } from "@/contexts/AuthContext";
+import useCommentActions from "@/hooks/useCommentActions";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
 
@@ -22,87 +11,84 @@ interface BlogCommentProps {
   comments: Comment[];
 }
 
-export default function BlogComment({
-  selectedBlog,
-  comments,
-}: BlogCommentProps) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [users, setUsers] = useState<UserForComment[]>([]);
+export default function BlogComment({ selectedBlog, comments }: BlogCommentProps) {
+  // Use custom hook for handling comments and replies
+  const {
+    loading,
+    authLoading,
+    error,
+    processedComments,
+    commentText,
+    replyText,
+    handleReplyClick,
+    handleCancelReply,
+    handleReplySubmit,
+    handleCommentSubmit,
+    handleLoginRequired,
+    handleCommentTextChange,
+    handleReplyTextChange,
+  } = useCommentActions({ selectedBlog, comments });
 
-  /* ------------ Gộp logic xử lý comments với useMemo ------------ */
-  const processedComments = useMemo(() => {
-    if (!selectedBlog || !comments || !users.length) return [];
+  const { isLoggedIn, currentUser } = useAuth();
 
-    // Filter comments for this blog
-    const blogComments = comments.filter(
-      (c) => c.blogId === Number(selectedBlog.id)
-    );
-
-    // Map comments with users và group by parent
-    const commentsWithUsers = mapCommentsWithUsers(blogComments, users);
-    const groupedComments = groupCommentsByParent(commentsWithUsers);
-
-    return groupedComments;
-  }, [selectedBlog, comments, users]);
-
-  /* ------------ Chỉ lấy users ------------ */
-  useEffect(() => {
-    if (!selectedBlog || !comments) return;
-
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Get users - chỉ lấy thông tin cần thiết cho comment
-        const users = await getUsersForComment();
-        setUsers(users);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : MESSAGES.ERROR_FETCH);
-        console.error("Error processing comments:", err);
-        toast.error("Không thể tải bình luận. Vui lòng thử lại!");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, [selectedBlog, comments]);
-
-  if (loading) return <p>{MESSAGES.LOADING_COMMENTS}</p>;
+  if (loading || authLoading) return <p>{MESSAGES.LOADING_COMMENTS}</p>;
   if (error) return <p className="text-red-500">Lỗi: {error}</p>;
 
-  /* ------------ UI ------------ */
   return (
     <div className="flex flex-col gap-8">
       <h3 className="uppercase text-gray-500 font-semibold">
-        bình luận ({getTotalCommentsCount(processedComments)})
+        Bình luận ({processedComments.length})
       </h3>
+
+      {/* Display user info when logged in */}
+      {isLoggedIn && currentUser && (
+        <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+          <p className="text-sm text-green-700">
+            Đăng nhập với tài khoản: <strong>{currentUser.fullName}</strong>
+          </p>
+        </div>
+      )}
+
       <div className="flex flex-col gap-6">
         {processedComments.map((c, idx) => (
           <React.Fragment key={c.id}>
-            <CommentItem data={c} />
-            {idx !== processedComments.length - 1 && (
-              <div className="my-[0.1]" />
+            <CommentItem
+              data={c}
+              onReply={handleReplyClick}
+              isLoggedIn={isLoggedIn}
+            />
+
+            {/* Inline reply form */}
+            {handleReplyTextChange === c.id && (
+              <div className="ml-8 mt-4">
+                <CommentForm
+                  isLoggedIn={isLoggedIn}
+                  onLoginRequired={handleLoginRequired}
+                  onSubmit={handleReplySubmit}
+                  onCancelReply={handleCancelReply}
+                  isReplyForm={true}
+                  placeholder="Trả lời bình luận"
+                  value={replyText}  // Bind reply text state
+                  onChange={handleReplyTextChange}  // Handle reply text change
+                />
+              </div>
             )}
+
+            {idx !== processedComments.length - 1 && <div className="my-[0.1]" />}
           </React.Fragment>
         ))}
       </div>
 
-      {/* --- Form viết bình luận --- */}
+      {/* --- Form for submitting new comment --- */}
       <CommentForm
-        isLoggedIn={false} // Tạm thời set false để test, thực tế sẽ lấy từ auth context
-        onLoginRequired={() => {
-          // Chuyển đến trang đăng nhập hoặc hiển thị modal login
-          console.log("Chuyển đến trang đăng nhập");
-          // Có thể dùng router.push("/login") hoặc mở modal
-        }}
-        onSubmit={(data) => {
-          // Xử lý submit comment
-          console.log("Comment submitted:", data);
-        }}
+        isLoggedIn={isLoggedIn}
+        onLoginRequired={handleLoginRequired}
+        onSubmit={handleCommentSubmit}
+        placeholder="Viết bình luận của bạn..."
+        value={commentText}  // Bind comment text state
+        onChange={handleCommentTextChange}  // Handle comment text change
       />
     </div>
   );
 }
+
