@@ -24,8 +24,8 @@ export default function ColorFilter({ selectedColors, onColorChange }: ColorFilt
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden mt-4">
-      <div className="p-3 text-emerald-500 border-b-2 border-emerald-500">
+    <div className="overflow-hidden">
+      <div className="p-3 text-emerald-500 border-b-2 border-emerald-600">
         <h4 className="font-bold text-lg">Tìm theo màu</h4>
       </div>
       <div className="p-3">

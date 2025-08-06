@@ -7,13 +7,14 @@ import ProductGrid from "@/components/ProductGrid";
 import ProductHeaderControls from "@/components/ProductHeaderControls";
 import { getProducts } from "@/services/ProductService";
 import { getCurrentPrice, Product } from "@/types/Product";
+import { toast } from "react-toastify";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState('default');
+  const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [itemsPerPage, setItemsPerPage] = useState(15);
   
@@ -29,7 +30,7 @@ export default function ProductsPage() {
         setProducts(data);
         setFilteredProducts(data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        toast.error('Error fetching products');
       } finally {
         setLoading(false);
       }
@@ -128,7 +129,6 @@ export default function ProductsPage() {
   ];
 
   const sortOptions = [
-    { value: 'default', label: 'Tên sản phẩm' },
     { value: 'name', label: 'Tên A-Z' },
     { value: 'price-low-high', label: 'Giá thấp - cao' },
     { value: 'price-high-low', label: 'Giá cao - thấp' },
