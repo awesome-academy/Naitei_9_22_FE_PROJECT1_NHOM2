@@ -3,6 +3,8 @@
 import React from "react";
 import dbData from "../../../db.json";
 import OrdersTable from "./OrdersTable";
+import {Button} from "../ui/button"
+
 
 // Generate dữ liệu test
 const mockOrders = dbData.users.slice(0, 4).map((user, index) => {
@@ -32,21 +34,6 @@ export default function OrdersTab() {
   ).length;
   const shippedOrders = mockOrders.filter((o) => o.status === "shipped").length;
 
-  const statusOptions = [
-    { value: "", label: "Tất cả trạng thái" },
-    { value: "pending", label: "Chờ xử lý" },
-    { value: "completed", label: "Hoàn thành" },
-    { value: "shipped", label: "Đã giao hàng" },
-    { value: "cancelled", label: "Đã hủy" },
-  ];
-
-  const stats = [
-    { title: "Tổng đơn hàng", value: totalOrders, color: "blue" },
-    { title: "Chờ xử lý", value: pendingOrders, color: "yellow" },
-    { title: "Hoàn thành", value: completedOrders, color: "green" },
-    { title: "Đã giao", value: shippedOrders, color: "purple" },
-  ];
-
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       {/* Header */}
@@ -54,9 +41,9 @@ export default function OrdersTab() {
         <h1 className="text-3xl font-bold text-gray-900">
           Quản lý đơn hàng
         </h1>
-        <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+        {/* <Button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
           + Tạo đơn hàng mới
-        </button>
+        </Button> */}
       </div>
 
       {/* Stats */}

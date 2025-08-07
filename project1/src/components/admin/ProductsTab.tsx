@@ -1,8 +1,40 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import productsData from "../../../db.json";
 import ProductsTable from "./ProductsTable";
+import ProductFormModal from "./ProductFormModal";
+import { Button } from "../ui/button";
+
+interface ProductVariant {
+  id: string;
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+interface ProductSpecification {
+  [key: string]: string;
+}
+
+interface Product {
+  id?: string;
+  name: string;
+  oldPrice: number;
+  discount: number;
+  type: string[];
+  images: string[];
+  description: string;
+  category: string;
+  rating: number;
+  reviewCount: number;
+  inStock: boolean;
+  variants: ProductVariant[];
+  specifications: ProductSpecification;
+  care_instructions: string;
+  color: string[];
+  newArival: boolean;
+}
 
 const mockProducts = productsData.products.map((product) => ({
   ...product,
@@ -12,6 +44,9 @@ const mockProducts = productsData.products.map((product) => ({
 }));
 
 export default function ProductsTab() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+
   const totalProducts = mockProducts.length;
   const activeProducts = mockProducts.filter(
     (p) => p.status === "active"
@@ -19,34 +54,45 @@ export default function ProductsTab() {
   const outOfStock = mockProducts.filter((p) => p.stock === 0).length;
   const categories = [...new Set(mockProducts.map((p) => p.category))].length;
 
-  // Danh sách option cho trạng thái
-  const statusOptions = [
-    { value: "", label: "Tất cả trạng thái" },
-    { value: "active", label: "Active" },
-    { value: "inactive", label: "Inactive" },
-  ];
+  const handleAddProduct = () => {
+    setEditingProduct(null);
+    setIsModalOpen(true);
+  };
 
-  const stats = [
-    { title: "Tổng sản phẩm", value: totalProducts, color: "purple" },
-    { title: "Còn hàng", value: activeProducts, color: "green" },
-    { title: "Hết hàng", value: outOfStock, color: "yellow" },
-    { title: "Danh mục", value: categories, color: "blue" },
-  ];
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingProduct(null);
+  };
+
+  const handleSaveProduct = async (productData: Product) => {
+    // Test chức năng
+    console.log("Saving product:", productData);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-900">Quản lý sản phẩm</h1>
-        <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+        <Button
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          onClick={handleAddProduct}
+        >
           + Thêm sản phẩm mới
-        </button>
+        </Button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-          <h3 className="text-lg font-semibold text-purple-900">Tổng sản phẩm</h3>
+          <h3 className="text-lg font-semibold text-purple-900">
+            Tổng sản phẩm
+          </h3>
           <p className="text-2xl font-bold text-purple-600">{totalProducts}</p>
         </div>
         <div className="bg-green-50 p-4 rounded-lg border border-green-200">
@@ -85,7 +131,15 @@ export default function ProductsTab() {
         </select>
       </div>
 
-      <ProductsTable />
+      <ProductsTable onEditProduct={handleEditProduct} />
+
+      {/* Product Form Modal */}
+      <ProductFormModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveProduct}
+        product={editingProduct}
+      />
     </div>
   );
 }
