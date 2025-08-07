@@ -7,7 +7,7 @@
       "website": "https://admin.com",
       "address": "Ngo 14 Me Tri Ha",
       "id": "1",
-      "password":"123456"
+      "password": "123456"
     },
     {
       "id": "2",
@@ -771,6 +771,27 @@
       "userId": 1,
       "userName": "Người dùng",
       "createdAt": "2025-07-31T08:15:39.253Z"
+    },
+    {
+      "id": "3beb",
+      "productId": "1",
+      "rating": 5,
+      "comment": "ok",
+      "createdAt": "2025-08-06T08:41:40.045Z"
+    },
+    {
+      "id": "62c1",
+      "productId": "1",
+      "rating": 5,
+      "comment": "ôk",
+      "createdAt": "2025-08-06T08:50:04.106Z"
+    },
+    {
+      "id": "b87c",
+      "productId": "1",
+      "rating": 5,
+      "comment": "ddddd",
+      "createdAt": "2025-08-07T03:44:23.844Z"
     }
   ],
   "orders": [
