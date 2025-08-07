@@ -15,6 +15,40 @@ import {
 } from "@/components/ui/table";
 import TablePagination from "./TablePagination";
 
+interface ProductVariant {
+  id: string;
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+interface ProductSpecification {
+  [key: string]: string;
+}
+
+interface Product {
+  id?: string;
+  name: string;
+  oldPrice: number;
+  discount: number;
+  type: string[];
+  images: string[];
+  description: string;
+  category: string;
+  rating: number;
+  reviewCount: number;
+  inStock: boolean;
+  variants: ProductVariant[];
+  specifications: ProductSpecification;
+  care_instructions: string;
+  color: string[];
+  newArival: boolean;
+}
+
+interface ProductsTableProps {
+  onEditProduct: (product: Product) => void;
+}
+
 const mockProducts = productsData.products.map((product) => ({
   ...product,
   stock: 50,
@@ -32,7 +66,7 @@ const getStatusText = (status: string) => {
   return status === "active" ? "Còn hàng" : "Hết hàng";
 };
 
-export default function ProductsTable() {
+export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const totalPages = Math.ceil(mockProducts.length / itemsPerPage);
@@ -119,7 +153,7 @@ export default function ProductsTable() {
                   <div className="flex gap-2">
                     <IconButton
                       icon={<EditIcon className="w-5 h-5" />}
-                      onClick={() => console.log("Edit product:", product.id)}
+                      onClick={() => onEditProduct(product)}
                       tooltip="Sửa sản phẩm"
                       variant="ghost"
                       size="sm"

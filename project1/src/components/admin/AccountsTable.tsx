@@ -83,6 +83,7 @@ export default function AccountsTable() {
                       variant="ghost"
                       size="sm"
                       className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
+                      onClick={() => onEditAccount(account)}
                     />
                     <IconButton
                       icon={<DeleteIcon className="w-5 h-5" />}

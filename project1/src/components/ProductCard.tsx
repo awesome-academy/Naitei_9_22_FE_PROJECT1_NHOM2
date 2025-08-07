@@ -30,7 +30,6 @@ export default function ProductCard({
   const [showQuantityModal, setShowQuantityModal] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
-
   const handleAddToCart = () => {
     const cartItem = {
       ...product,
