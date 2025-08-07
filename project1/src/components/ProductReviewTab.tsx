@@ -23,7 +23,6 @@ export default function ProductReviewTab({ product, onWriteReview }: ProductRevi
         const reviewsData = await getReviews(product.id);
         setReviews(reviewsData);
       } catch (error) {
-        console.error('Error loading reviews:', error);
         toast.error('Không thể tải đánh giá');
       } finally {
         setReviewsLoading(false);
@@ -78,11 +77,11 @@ export default function ProductReviewTab({ product, onWriteReview }: ProductRevi
                 <div key={review.id} className="border-b border-gray-100 pb-4 last:border-b-0">
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
-                      {review.userName.charAt(0).toUpperCase()}
+                      {(review.userName && review.userName.charAt(0).toUpperCase()) || '?'}
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="font-medium text-gray-900">{review.userName}</h4>
+                        <h4 className="font-medium text-gray-900">{review.userName || 'Ẩn danh'}</h4>
                         <StarRating rating={review.rating} className="text-yellow-400 text-sm" size="sm" />
                       </div>
                       <p className="text-gray-700 text-sm mb-2">{review.comment}</p>
