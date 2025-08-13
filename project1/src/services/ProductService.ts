@@ -1,4 +1,4 @@
-import { Product, CartItem, Review } from "../types/Product";
+import { Product, Review } from "../types/Product";
 import axiosInstance from "./AxiosCustom";
 
 export async function getProducts(): Promise<Product[]> {

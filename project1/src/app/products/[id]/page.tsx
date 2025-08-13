@@ -7,7 +7,7 @@ import { addToCart } from "@/redux/cart/cartSlice";
 import { useState, useEffect, use } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import { Product, ProductVariant, getCurrentPrice } from "@/types/Product";
+import { Product, getCurrentPrice } from "@/types/Product";
 import { Button } from "@/components/ui/button";
 import { ImageSkeleton } from "@/components/ui/skeletons";
 import { Heart, Search, ChevronLeft, ChevronRight } from "lucide-react";
@@ -25,7 +25,6 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
     const resolvedParams = use(params);
     const { product, loading, error } = useProductDetail(resolvedParams.id);
     const [quantity, setQuantity] = useState(1);
-    const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
     const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [imageErrors, setImageErrors] = useState<{[key: string]: boolean}>({});
@@ -44,9 +43,6 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
 
   useEffect(() => {
     if (product) {
-      if (product.variants && product.variants.length > 0) {
-        setSelectedVariant(product.variants[0]);
-      }
       setRelatedProductsStartIndex(0);
       // Load related products
       getRelatedProducts(product.category, product.id).then(setRelatedProducts);
@@ -54,7 +50,7 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
   }, [product, resolvedParams.id]);
 
     const handleAddToCart = async () => {
-        if(!selectedVariant || !product) return;
+        if(!product) return;
         
         const cartItem = {
             id: product.id,
