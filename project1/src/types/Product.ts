@@ -8,18 +8,11 @@ export interface Product {
   category: string;
   rating: number;
   inStock: boolean;
-  variants?: ProductVariant[];
   specifications?: Record<string, string>;
   newArival: boolean;
   type?: string[];
 }
 
-export interface ProductVariant {
-  id: number;
-  name: string;
-  price: number;
-  inStock: boolean;
-}
 
 export interface Review {
   id: number;
@@ -30,13 +23,6 @@ export interface Review {
   userName: string;
   createdAt: string;
 }
-
-export interface CartItem {
-  id: number;
-  variant?: ProductVariant;
-  quantity: number;
-  product?: Product;
-} 
 
 // Helper function to calculate current price from oldPrice
 export const getCurrentPrice = (product: Product): number => {
