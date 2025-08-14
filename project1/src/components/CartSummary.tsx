@@ -184,15 +184,15 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
        const now = new Date().toISOString();
        const orderId = `ORD${Date.now()}`; 
        const orderData = {
-         id: orderId,
+         _id: orderId,
          userId: user.id.toString(),
          items: cart.map(item => ({
-           id: item.id.toString(),
+           product_id: item.id.toString(),
            name: item.name,
            price: item.price,
            quantity: item.quantity,
            discount: 0, 
-           image: item.images[0] || ""
+           image: item.images[0]
          })),
          total: totalAfterTax,
          status: "pending" as const,
@@ -204,8 +204,8 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
          updatedAt: now
        };
 
-      createOrder(orderData);
 
+      createOrder(orderData);
       localStorage.removeItem("cart");
       dispatch(clearCart());
 

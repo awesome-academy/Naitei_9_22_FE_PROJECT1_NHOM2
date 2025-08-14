@@ -1,14 +1,14 @@
 export interface OrderItem {
-  id: string;
+  product_id: string;
   name: string;
   price: number;
   quantity: number;
   discount: number;
-  image: string;
+  image_url: string;
 }
 
 export interface Order {
-  id: string;
+  _id: string;
   userId: string;
   items: OrderItem[];
   total: number;
