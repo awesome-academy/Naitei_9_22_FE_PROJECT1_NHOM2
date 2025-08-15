@@ -117,7 +117,7 @@ export default function OrderHistory({ orders }: OrderHistoryProps) {
                       <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div className="flex items-center gap-3">
                           <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
-                            <Image src={item.image_url} alt={item.name} width={48} height={48} />
+                            <Image src={item.image} alt={item.name} width={48} height={48} />
                           </div>
                           <div>
                             <p className="font-medium">{item.name}</p>

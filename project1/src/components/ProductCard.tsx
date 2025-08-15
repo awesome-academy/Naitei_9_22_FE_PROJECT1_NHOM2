@@ -32,7 +32,10 @@ export default function ProductCard({
   const router = useRouter();
   const handleAddToCart = () => {
     const cartItem = {
-      ...product,
+      product_id: product.id,
+      name: product.name,
+      images: product.images,
+      discount: product.discount,
       price: getCurrentPrice(product),
       quantity: quantity,
     };
