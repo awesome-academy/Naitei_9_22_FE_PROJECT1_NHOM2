@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useProductDetail } from "@/hooks/useProductDetail";
-import { getRelatedProducts, addToWishlist } from "@/services/ProductService";
+import { getRelatedProducts } from "@/services/ProductService";
 import { addToCart } from "@/redux/cart/cartSlice";
 import { useState, useEffect, use } from "react";
 import { toast } from "react-toastify";
@@ -20,6 +20,7 @@ import ProductDetailTabs from "@/components/ProductDetailTabs";
 import ProductDetailSkeleton from "@/components/ProductDetailSkeleton";
 import { useDispatch } from "react-redux";
 import { CartItem } from "@/types/Cart";
+import { useProductActions } from "@/hooks/useProductActions";
 
 export default function ProductDetail({params}: {params: Promise<{id: number}>}){
     const resolvedParams = use(params);
@@ -53,10 +54,11 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
         if(!product) return;
         
         const cartItem = {
-            id: product.id,
+            product_id: product.id,
             name: product.name,
             price: getCurrentPrice(product),
             images: product.images,
+            discount: product.discount,
             quantity,
         }
         
@@ -80,19 +82,16 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
     setRelatedImageErrors((prev) => ({ ...prev, [imageUrl]: true }));
   };
 
+  const { search, addWishlist } = useProductActions();
+
   const handleSearch = () => {
     if (!product) return;
-    router.push(`/search?q=${product.name}`);
+    search(product);
   };
 
   const handleAddToWishlist = async () => {
     if (!product) return;
-    try {
-      const response = await addToWishlist(product.id);
-      toast.success("Đã thêm vào danh sách yêu thích");
-    } catch (error: any) {
-      toast.error("Có lỗi xảy ra");
-    }
+    await addWishlist(product.id);
   };
 
   const handleShare = () => {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { User, ShoppingBag } from "lucide-react";
+import { User, ShoppingBag, Heart } from "lucide-react";
 import { getCurrentUser, logout } from "@/services/auth";
 import { getOrderByUserId } from "@/services/OrderService";
 import { updateUser } from "@/services/UserService";
@@ -11,6 +11,7 @@ import { Order } from "@/types/Order";
 import { User as UserType } from "@/types/User";
 import ProfileInfo from "@/components/ProfileInfo";
 import OrderHistory from "@/components/OrderHistory";
+import ProfileWishlist from "@/components/ProfileWishlist";
 import { toast } from "react-toastify";
 import { ProfileSkeleton } from "@/components/ui/skeletons";
 import { useRouter } from "next/navigation";
@@ -106,12 +107,8 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="space-y-6"
-        >
-          <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3 lg:w-[600px]">
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <User className="w-4 h-4" />
               Thông tin cá nhân
@@ -119,6 +116,10 @@ export default function ProfilePage() {
             <TabsTrigger value="orders" className="flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" />
               Lịch sử mua hàng
+            </TabsTrigger>
+            <TabsTrigger value="wishlist" className="flex items-center gap-2">
+              <Heart className="w-4 h-4" />
+              Yêu thích
             </TabsTrigger>
           </TabsList>
 
@@ -133,6 +134,10 @@ export default function ProfilePage() {
 
           <TabsContent value="orders" className="space-y-6">
             <OrderHistory orders={orders} />
+          </TabsContent>
+
+          <TabsContent value="wishlist" className="space-y-6">
+            <ProfileWishlist />
           </TabsContent>
         </Tabs>
       </div>

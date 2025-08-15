@@ -15,14 +15,7 @@ import { useRouter } from "next/navigation";
 import { getCurrentUser, isAuthenticated } from "@/services/auth";
 import { User } from "@/types/User";
 import { ROUTES } from "@/constants/routes";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  images: string[];
-}
+import { CartItem } from "@/types/Cart";
 
 interface CartSummaryProps {
   cart: CartItem[];
@@ -185,13 +178,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
        const orderId = `ORD${Date.now()}`; 
        const orderData = {
          _id: orderId,
-         userId: user.id.toString(),
+         userId: user.id,
          items: cart.map(item => ({
-           product_id: item.id.toString(),
+           product_id: item.product_id,
            name: item.name,
            price: item.price,
            quantity: item.quantity,
-           discount: 0, 
+           discount: item.discount, 
            image: item.images[0]
          })),
          total: totalAfterTax,
@@ -204,8 +197,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
          updatedAt: now
        };
 
-
-      createOrder(orderData);
+      try {
+        createOrder(orderData);
+      } catch (error) {
+        console.error('Error creating order:', error);
+        toast.error("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");
+        return;
+      }
       localStorage.removeItem("cart");
       dispatch(clearCart());
 
@@ -264,13 +262,15 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
               {paymentError}
             </div>
           )}
-          {inputFields.map((field) =>
-            renderInputField(
-              field.label,
-              field.name as keyof typeof paymentInfo,
-              field.placeholder
-            )
-          )}
+          {inputFields.map((field) => (
+            <div key={field.name}>
+              {renderInputField(
+                field.label,
+                field.name as keyof typeof paymentInfo,
+                field.placeholder
+              )}
+            </div>
+          ))}
         </div>
       ),
       2: (
