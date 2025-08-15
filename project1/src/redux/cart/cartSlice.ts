@@ -20,8 +20,8 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
-      const { id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
+      const { product_id, quantity } = action.payload;
+      const existingItem = state.items.find((item) => item.product_id === product_id);
 
       if (existingItem) {
         existingItem.quantity += quantity;
@@ -40,7 +40,7 @@ const cartSlice = createSlice({
       );
     },
     removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload.id);
+      state.items = state.items.filter((item) => item.product_id !== action.payload.id);
 
       state.cartCount = state.items.reduce(
         (total, item) => total + item.quantity,
@@ -56,7 +56,7 @@ const cartSlice = createSlice({
       action: PayloadAction<{ id: number; quantity: number }>
     ) => {
       const { id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
+      const existingItem = state.items.find((item) => item.product_id === id);
       if (existingItem && quantity > 0) {
         existingItem.quantity = quantity;
       }
@@ -104,7 +104,7 @@ const cartSlice = createSlice({
       action: PayloadAction<{ id: number; actionType: "inc" | "dec" }>
     ) => {
       const { id, actionType } = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
+      const existingItem = state.items.find((item) => item.product_id === id);
 
       if (existingItem) {
         if (actionType === "inc") {
@@ -112,7 +112,7 @@ const cartSlice = createSlice({
         } else if (actionType === "dec") {
           existingItem.quantity -= 1;
           if (existingItem.quantity <= 0) {
-            state.items = state.items.filter((item) => !(item.id === id));
+            state.items = state.items.filter((item) => !(item.product_id === id));
           }
         }
       }
@@ -127,15 +127,15 @@ const cartSlice = createSlice({
       );
     },
     removeOrderedItem: (state, action: PayloadAction<CartItem>) => {
-      const { id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
+      const { product_id, quantity } = action.payload;
+      const existingItem = state.items.find((item) => item.product_id === product_id);
 
       if (existingItem) {
         if (existingItem.quantity >= quantity) {
           existingItem.quantity -= quantity;
         }
         if (existingItem.quantity <= 0) {
-          state.items = state.items.filter((item) => item.id !== id);
+          state.items = state.items.filter((item) => item.product_id !== product_id);
         }
       }
 

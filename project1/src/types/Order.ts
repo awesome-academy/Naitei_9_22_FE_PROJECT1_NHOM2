@@ -1,15 +1,15 @@
 export interface OrderItem {
-  product_id: string;
+  product_id: number;
   name: string;
   price: number;
   quantity: number;
   discount: number;
-  image_url: string;
+  image: string;
 }
 
 export interface Order {
   _id: string;
-  userId: string;
+  userId: number;
   items: OrderItem[];
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';

@@ -21,19 +21,19 @@ export const deleteOrder = async (orderId: string): Promise<Order> => {
 
 export const createOrder = async (orderData: Order): Promise<Order> => {
   try {
-    const response = await AxiosCustom.post("orders/newOrder", orderData);
+    const response = await AxiosCustom.post("/orders/newOrder", orderData);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const getOrderByUserId = async (userId: string): Promise<Order | null> => {
+export const getOrderByUserId = async (userId: string): Promise<Order[]> => {
   try {
-    const response = await AxiosCustom.get(`/orders/${userId}`);
-    return response.data.data;
+    const response = await AxiosCustom.get(`/orders/user/${userId}`);
+    return response.data.data || [];
   } catch (error) {
-    throw error;
+    return [];
   }
 };
 
