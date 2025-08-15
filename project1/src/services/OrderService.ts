@@ -28,10 +28,10 @@ export const createOrder = async (orderData: Order): Promise<Order> => {
   }
 };
 
-export const getOrderById = async (orderId: string): Promise<Order | null> => {
+export const getOrderByUserId = async (userId: string): Promise<Order | null> => {
   try {
-    const response = await AxiosCustom.get(`/orders/${orderId}`);
-    return response.data;
+    const response = await AxiosCustom.get(`/orders/${userId}`);
+    return response.data.data;
   } catch (error) {
     throw error;
   }
