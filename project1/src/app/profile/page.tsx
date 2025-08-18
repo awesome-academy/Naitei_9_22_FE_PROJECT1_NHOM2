@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { User, ShoppingBag } from "lucide-react";
+import { User, ShoppingBag, Heart } from "lucide-react";
 import { getCurrentUser, logout } from "@/services/auth";
 import { getOrderByUserId } from "@/services/OrderService";
 import { updateUser } from "@/services/UserService";
@@ -11,10 +11,29 @@ import { Order } from "@/types/Order";
 import { User as UserType } from "@/types/User";
 import ProfileInfo from "@/components/ProfileInfo";
 import OrderHistory from "@/components/OrderHistory";
+import ProfileWishlist from "@/components/ProfileWishlist";
 import { toast } from "react-toastify";
 import { ProfileSkeleton } from "@/components/ui/skeletons";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
+
+const tabsConfig = [
+  {
+    value: "profile",
+    label: "Thông tin cá nhân",
+    icon: User,
+  },
+  {
+    value: "orders", 
+    label: "Lịch sử mua hàng",
+    icon: ShoppingBag,
+  },
+  {
+    value: "wishlist",
+    label: "Yêu thích", 
+    icon: Heart,
+  },
+];
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -36,7 +55,6 @@ export default function ProfilePage() {
 
         setUser(currentUser);
 
-        // currentUser.id hoặc currentUser._id tuỳ backend trả về
         const id = String(currentUser.id);
         const ordersData = await getOrderByUserId(id);
         setOrders(ordersData);
@@ -69,6 +87,19 @@ export default function ProfilePage() {
     } catch {
       toast.error("Cập nhật thông tin thất bại");
     }
+  };
+
+  const tabContentMap: Record<string, React.JSX.Element | null> = {
+    profile: user ? (
+      <ProfileInfo
+        user={user}
+        onLogout={handleLogout}
+        onViewOrders={handleViewOrders}
+        onUpdateProfile={handleUpdateProfile}
+      />
+    ) : null,
+    orders: <OrderHistory orders={orders} />,
+    wishlist: <ProfileWishlist />,
   };
 
   if (loading) return <ProfileSkeleton />;
@@ -106,34 +137,24 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="space-y-6"
-        >
-          <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Thông tin cá nhân
-            </TabsTrigger>
-            <TabsTrigger value="orders" className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4" />
-              Lịch sử mua hàng
-            </TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3 lg:w-[600px]">
+            {tabsConfig.map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <TabsTrigger key={tab.value} value={tab.value} className="flex items-center gap-2">
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </TabsTrigger>
+              );
+            })}
           </TabsList>
 
-          <TabsContent value="profile" className="space-y-6">
-            <ProfileInfo
-              user={user}
-              onLogout={handleLogout}
-              onViewOrders={handleViewOrders}
-              onUpdateProfile={handleUpdateProfile}
-            />
-          </TabsContent>
-
-          <TabsContent value="orders" className="space-y-6">
-            <OrderHistory orders={orders} />
-          </TabsContent>
+          {tabsConfig.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value} className="space-y-6">
+              {tabContentMap[tab.value]}
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </div>

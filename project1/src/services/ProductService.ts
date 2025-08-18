@@ -1,5 +1,6 @@
 import { Product, Review } from "../types/Product";
 import axiosInstance from "./AxiosCustom";
+import { getCookie, COOKIE_NAMES } from "@/utils/cookies";
 
 export async function getProducts(): Promise<Product[]> {
   const response = await axiosInstance.get<Product[]>("/products");
@@ -42,11 +43,33 @@ export const getRelatedProducts = async (category: string, excludeId: number): P
 
 export const addToWishlist = async (productId: number) => {
   try{
-    const response = await axiosInstance.post(`/wishlist`, {productId});
+    const response = await axiosInstance.post(`/wishlist`, {productId}, {
+      headers: {
+        Authorization: `Bearer ${getCookie(COOKIE_NAMES.AUTH_TOKEN)}`
+      }
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
+}
+
+export const getWishlist = async () => {
+  const res = await axiosInstance.get(`/wishlist`, {
+    headers: {
+      Authorization: `Bearer ${getCookie(COOKIE_NAMES.AUTH_TOKEN)}`
+    }
+  });
+  return res.data as Product[];
+}
+
+export const removeFromWishlist = async (productId: number | string) => {
+  const res = await axiosInstance.delete(`/wishlist/${productId}`, {
+    headers: {
+      Authorization: `Bearer ${getCookie(COOKIE_NAMES.AUTH_TOKEN)}`
+    }
+  });
+  return res.data;
 }
 
 export const getReviews = async (productId: number): Promise<Review[]> => {

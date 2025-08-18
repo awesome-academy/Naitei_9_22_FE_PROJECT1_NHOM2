@@ -10,7 +10,7 @@ import { ImageSkeleton } from "@/components/ui/skeletons";
 import { addToCart } from "@/redux/cart/cartSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { addToWishlist } from "@/services/ProductService";
+import { useProductActions } from "@/hooks/useProductActions";
 import { Search } from "lucide-react";
 import { Heart } from "lucide-react";
 import QuantityModal from "@/components/QuantityModal";
@@ -41,10 +41,11 @@ export default function ProductListCard({ product }: ProductListCardProps) {
     
     try {
       const cartItem = {
-        id: product.id,
+        product_id: product.id,
         name: product.name,
         price: getCurrentPrice(product),
         images: product.images,
+        discount: product.discount,
         quantity: 1,
       };
       dispatch(addToCart(cartItem));
@@ -65,19 +66,14 @@ export default function ProductListCard({ product }: ProductListCardProps) {
   };
 
   
-  const handleSearch = () => {
-    if (!product) return;
-    router.push(`/search?q=${product.name}`);
+  const { search, addWishlist } = useProductActions();
+
+  const handleSearch = (e: React.MouseEvent) => {
+    search(product, e);
   }
 
-const handleAddToWishlist = async () => {
-    if (!product) return;
-    try{
-        const response = await addToWishlist(product.id);
-        toast.success("Đã thêm vào danh sách yêu thích");
-    } catch (error: any) {
-        toast.error("Có lỗi xảy ra");
-    }
+const handleAddToWishlist = async (e: React.MouseEvent) => {
+    await addWishlist(product.id, e);
 }
 
   const hasValidImage = product.images && product.images.length > 0;
@@ -98,10 +94,11 @@ const handleAddToWishlist = async () => {
     
     try {
       const cartItem = {
-        id: product.id,
+        product_id: product.id,
         name: product.name,
         price: getCurrentPrice(product),
         images: product.images,
+        discount: product.discount,
         quantity: quantity,
       };
       dispatch(addToCart(cartItem));
