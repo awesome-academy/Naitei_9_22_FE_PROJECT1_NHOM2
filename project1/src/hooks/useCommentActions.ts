@@ -3,10 +3,13 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 import { getUsersForComment } from "@/services/UserService";
-import { mapCommentsWithUsers, groupCommentsByParent } from "@/utils/commentUtils";
+import {
+  mapCommentsWithUsers,
+  groupCommentsByParent,
+} from "@/utils/commentUtils";
 import { MESSAGES } from "@/constants/blog";
 import { useAuth } from "@/contexts/AuthContext";
-import { addComment } from "@/services/BlogService";
+import { addComment, deleteComment } from "@/services/BlogService";
 import type { Blog } from "@/types/Blog";
 import type { Comment } from "@/types/Comment";
 import type { UserForComment } from "@/types/UserForComment";
@@ -29,8 +32,6 @@ export default function useCommentActions({
   const { isLoggedIn, currentUser, loading: authLoading } = useAuth();
   const [replyToComment, setReplyToComment] = useState<number | null>(null);
   const [showReplyForm, setShowReplyForm] = useState<number | null>(null);
-  const [commentText, setCommentText] = useState("");  // State for the comment text
-  const [replyText, setReplyText] = useState("");      // State for the reply text
 
   // Reset comments state when the comments prop changes
   useEffect(() => {
@@ -62,7 +63,14 @@ export default function useCommentActions({
   // Process comments
   const processedComments = useMemo(() => {
     if (!selectedBlog || !localComments || !users.length) return [];
-    const blogComments = localComments.filter((c) => c.blogId === Number(selectedBlog.id));
+    let blogComments = localComments.filter(
+      (c) => c.blogId === Number(selectedBlog.id)
+    );
+    // Sort by date (newest first)
+    blogComments = blogComments.sort((a, b) => {
+      // date is string in dd/mm/yyyy or ISO format
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
     const commentsWithUsers = mapCommentsWithUsers(blogComments, users);
     return groupCommentsByParent(commentsWithUsers);
   }, [selectedBlog, localComments, users]);
@@ -83,17 +91,6 @@ export default function useCommentActions({
   const handleCancelReply = () => {
     setReplyToComment(null);
     setShowReplyForm(null);
-    setReplyText("");  // Reset reply text area
-  };
-
-  // Handle comment text change
-  const handleCommentTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCommentText(e.target.value);
-  };
-
-  // Handle reply text change
-  const handleReplyTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReplyText(e.target.value);
   };
 
   // Handle reply submit
@@ -113,12 +110,7 @@ export default function useCommentActions({
       };
 
       const savedComment = await addComment(newComment);
-      const commentWithId: Comment = {
-        ...newComment,
-        id: savedComment.id || Date.now(),
-      };
-
-      setLocalComments((prev) => [...prev, commentWithId]);
+      setLocalComments((prev) => [savedComment, ...prev]);
       toast.success("Phản hồi đã được gửi thành công!");
 
       // Reset relevant states
@@ -133,7 +125,7 @@ export default function useCommentActions({
   const handleCommentSubmit = async (data: { comment: string }) => {
     if (!isLoggedIn || !currentUser) {
       toast.error("Bạn cần đăng nhập để bình luận");
-      return;
+      return { success: false };
     }
 
     try {
@@ -146,19 +138,17 @@ export default function useCommentActions({
       };
 
       const savedComment = await addComment(newComment);
-      const commentWithId: Comment = {
-        ...newComment,
-        id: savedComment.id || Date.now(),
-      };
-
-      setLocalComments((prev) => [...prev, commentWithId]);
+      setLocalComments((prev) => [savedComment, ...prev]);
       toast.success("Bình luận đã được gửi thành công!");
 
       // Reset relevant states
       resetStates();
+
+      return { success: true, comment: savedComment };
     } catch (error) {
       console.error("Error submitting comment:", error);
       toast.error("Có lỗi xảy ra khi gửi bình luận");
+      return { success: false };
     }
   };
 
@@ -166,8 +156,23 @@ export default function useCommentActions({
   const resetStates = () => {
     setReplyToComment(null);
     setShowReplyForm(null);
-    setCommentText("");  // Clear the comment text
-    setReplyText("");    // Clear the reply text
+  };
+
+  // Handle comment delete
+  const handleCommentDelete = async (commentId: number) => {
+    try {
+      await deleteComment(commentId);
+      // Remove comment from local state
+      setLocalComments((prev) =>
+        prev.filter(
+          (comment) => comment.id !== commentId && comment.replyTo !== commentId
+        )
+      );
+      toast.success("Đã xóa bình luận thành công!");
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      toast.error("Có lỗi xảy ra khi xóa bình luận");
+    }
   };
 
   // Handle login redirect
@@ -181,15 +186,13 @@ export default function useCommentActions({
     authLoading,
     error,
     processedComments,
-    commentText,
-    replyText,
+    showReplyForm,
     handleReplyClick,
     handleCancelReply,
     handleReplySubmit,
     handleCommentSubmit,
+    handleCommentDelete,
     handleLoginRequired,
-    handleCommentTextChange,
-    handleReplyTextChange,
+    setLocalComments,
   };
 }
-

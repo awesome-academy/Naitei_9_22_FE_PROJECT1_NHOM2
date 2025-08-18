@@ -3,7 +3,7 @@
 import React from "react";
 import { useProductDetail } from "@/hooks/useProductDetail";
 import { getRelatedProducts } from "@/services/ProductService";
-import { addToCart } from "@/redux/cart/cartSlice";
+import { useCartStore } from "@/store/zustand/Zustand";
 import { useState, useEffect, use } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
@@ -18,23 +18,32 @@ import { isAuthenticated } from "@/services/auth";
 import StarRating from "@/components/star-rating";
 import ProductDetailTabs from "@/components/ProductDetailTabs";
 import ProductDetailSkeleton from "@/components/ProductDetailSkeleton";
-import { useDispatch } from "react-redux";
 import { CartItem } from "@/types/Cart";
 import { useProductActions } from "@/hooks/useProductActions";
 
-export default function ProductDetail({params}: {params: Promise<{id: number}>}){
-    const resolvedParams = use(params);
-    const { product, loading, error } = useProductDetail(resolvedParams.id);
-    const [quantity, setQuantity] = useState(1);
-    const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-    const [imageErrors, setImageErrors] = useState<{[key: string]: boolean}>({});
-    const [relatedImageErrors, setRelatedImageErrors] = useState<{[key: string]: boolean}>({});
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [relatedProductsStartIndex, setRelatedProductsStartIndex] = useState(0);
+export default function ProductDetail({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
+  const resolvedParams = use(params);
+  const { product, loading, error } = useProductDetail(resolvedParams.id);
+  const [quantity, setQuantity] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [imageErrors, setImageErrors] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [relatedImageErrors, setRelatedImageErrors] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const router = useRouter();
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [relatedProductsStartIndex, setRelatedProductsStartIndex] = useState(0);
+
+  // Lấy action từ zustand
+  const { addToCart } = useCartStore();
 
   // Shared button styles
   const baseButtonClasses =
@@ -50,25 +59,25 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
     }
   }, [product, resolvedParams.id]);
 
-    const handleAddToCart = async () => {
-        if(!product) return;
-        
-        const cartItem = {
-            product_id: product.id,
-            name: product.name,
-            price: getCurrentPrice(product),
-            images: product.images,
-            discount: product.discount,
-            quantity,
-        }
-        
-        try{
-            dispatch(addToCart(cartItem));
-            toast.success("Đã thêm vào giỏ hàng");
-        } catch (error: any) {
-            toast.error("Có lỗi xảy ra");
-        }
+  const handleAddToCart = async () => {
+    if (!product) return;
+
+    const cartItem: CartItem = {
+      product_id: product.id,
+      name: product.name,
+      price: getCurrentPrice(product),
+      images: product.images,
+      discount: product.discount,
+      quantity,
+    };
+
+    try {
+      addToCart(cartItem); // dùng zustand thay redux
+      toast.success("Đã thêm vào giỏ hàng");
+    } catch (error: any) {
+      toast.error("Có lỗi xảy ra");
     }
+  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN").format(price) + " đ";
@@ -468,3 +477,4 @@ export default function ProductDetail({params}: {params: Promise<{id: number}>})
     </div>
   );
 }
+

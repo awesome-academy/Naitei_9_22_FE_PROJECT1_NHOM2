@@ -12,9 +12,9 @@ export const mapCommentsWithUsers = (
   users: UserForComment[] // Sử dụng type tối ưu
 ): CommentWithUser[] => {
   // Create user lookup map for O(1) access
-  const userMap: Record<number, UserForComment> = {};
+  const userMap: Record<string, UserForComment> = {};
   users.forEach((user) => {
-    userMap[user.id] = user;
+    userMap[String(user.id)] = user;
   });
 
   // Map comments with user info

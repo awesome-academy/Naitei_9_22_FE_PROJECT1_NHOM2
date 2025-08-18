@@ -1,33 +1,43 @@
-import React from "react";
-import { toast } from "react-toastify";
+"use client";
+import React, { useEffect, useState } from "react";
 import { MESSAGES } from "@/constants/blog";
 import { useAuth } from "@/contexts/AuthContext";
 import useCommentActions from "@/hooks/useCommentActions";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
+import type { Blog } from "@/types/Blog";
+import type { Comment as BlogComment } from "@/types/Comment";
+import useCommentSocket from "@/hooks/useCommentSocket";
 
 interface BlogCommentProps {
   selectedBlog: Blog;
-  comments: Comment[];
+  comments: BlogComment[];
 }
 
-export default function BlogComment({ selectedBlog, comments }: BlogCommentProps) {
+export default function BlogComment({
+  selectedBlog,
+  comments,
+}: BlogCommentProps) {
   // Use custom hook for handling comments and replies
   const {
     loading,
     authLoading,
     error,
     processedComments,
-    commentText,
-    replyText,
+    showReplyForm,
     handleReplyClick,
-    handleCancelReply,
     handleReplySubmit,
     handleCommentSubmit,
+    handleCommentDelete,
     handleLoginRequired,
-    handleCommentTextChange,
-    handleReplyTextChange,
+    setLocalComments,
   } = useCommentActions({ selectedBlog, comments });
+
+  const { handleSubmitWithSocket } = useCommentSocket({
+    selectedBlog,
+    setLocalComments,
+    handleCommentSubmit,
+  });
 
   const { isLoggedIn, currentUser } = useAuth();
 
@@ -40,41 +50,29 @@ export default function BlogComment({ selectedBlog, comments }: BlogCommentProps
         Bình luận ({processedComments.length})
       </h3>
 
-      {/* Display user info when logged in */}
-      {isLoggedIn && currentUser && (
-        <div className="bg-green-50 p-3 rounded-lg border border-green-200">
-          <p className="text-sm text-green-700">
-            Đăng nhập với tài khoản: <strong>{currentUser.fullName}</strong>
-          </p>
-        </div>
-      )}
-
       <div className="flex flex-col gap-6">
-        {processedComments.map((c, idx) => (
+        {processedComments.map((c) => (
           <React.Fragment key={c.id}>
             <CommentItem
               data={c}
-              onReply={handleReplyClick}
-              isLoggedIn={isLoggedIn}
+              onReply={(commentId) =>
+                handleReplyClick(commentId, c.userName || "Người dùng")
+              }
+              onDelete={handleCommentDelete}
+              currentUser={currentUser}
             />
 
             {/* Inline reply form */}
-            {handleReplyTextChange === c.id && (
+            {showReplyForm === c.id && (
               <div className="ml-8 mt-4">
                 <CommentForm
                   isLoggedIn={isLoggedIn}
                   onLoginRequired={handleLoginRequired}
                   onSubmit={handleReplySubmit}
-                  onCancelReply={handleCancelReply}
                   isReplyForm={true}
-                  placeholder="Trả lời bình luận"
-                  value={replyText}  // Bind reply text state
-                  onChange={handleReplyTextChange}  // Handle reply text change
                 />
               </div>
             )}
-
-            {idx !== processedComments.length - 1 && <div className="my-[0.1]" />}
           </React.Fragment>
         ))}
       </div>
@@ -83,12 +81,8 @@ export default function BlogComment({ selectedBlog, comments }: BlogCommentProps
       <CommentForm
         isLoggedIn={isLoggedIn}
         onLoginRequired={handleLoginRequired}
-        onSubmit={handleCommentSubmit}
-        placeholder="Viết bình luận của bạn..."
-        value={commentText}  // Bind comment text state
-        onChange={handleCommentTextChange}  // Handle comment text change
+        onSubmit={handleSubmitWithSocket}
       />
     </div>
   );
 }
-

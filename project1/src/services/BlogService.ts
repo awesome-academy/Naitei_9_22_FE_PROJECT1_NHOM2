@@ -52,3 +52,11 @@ export const addComment = async (
   }
 };
 
+export const deleteComment = async (commentId: number): Promise<void> => {
+  try {
+    await axiosInstance.delete(`/comments/${commentId}`);
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    throw error;
+  }
+};
