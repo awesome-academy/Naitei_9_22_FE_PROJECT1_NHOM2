@@ -2,20 +2,18 @@
 
 import React from "react";
 import { Trash } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { setQuantity, removeFromCart } from "@/redux/cart/cartSlice";
-import { RootState } from "@/redux/store";
+import { useCartStore } from "@/store/zustand/Zustand"; // import zustand store
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 
 const CartTable: React.FC = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state: RootState) => state.cart.items);
+  // Lấy state và actions từ zustand
+  const { items: cart, setQuantity, removeFromCart } = useCartStore();
 
   const handleQuantityChange = (id: number, quantity: number) => {
     if (quantity < 1) return;
-    dispatch(setQuantity({ id, quantity }));
+    setQuantity(id, quantity);
   };
 
   const headers = [
@@ -47,7 +45,7 @@ const CartTable: React.FC = () => {
 
         <tbody>
           {cart.map((item) => (
-            <tr key={item.id} className="text-center">
+            <tr key={item.product_id} className="text-center">
               {/* hình */}
               <td className="border-l border-b border-gray-300 p-2 flex justify-center">
                 <Image
@@ -76,7 +74,7 @@ const CartTable: React.FC = () => {
                   min={1}
                   value={item.quantity}
                   onChange={(e) =>
-                    handleQuantityChange(item.id, parseInt(e.target.value))
+                    handleQuantityChange(item.product_id, parseInt(e.target.value))
                   }
                   className="w-16 text-center"
                 />
@@ -90,7 +88,7 @@ const CartTable: React.FC = () => {
               {/* nút xoá */}
               <td className="border border-gray-300 p-2">
                 <button
-                  onClick={() => dispatch(removeFromCart({ id: item.id }))}
+                  onClick={() => removeFromCart(item.product_id)}
                   className="text-gray-700 hover:text-red-500"
                 >
                   <Trash size={20} />
@@ -103,5 +101,5 @@ const CartTable: React.FC = () => {
     </div>
   );
 };
-
 export default CartTable;
+

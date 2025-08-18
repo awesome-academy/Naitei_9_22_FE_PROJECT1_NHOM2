@@ -1,8 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { clearCart } from "@/redux/cart/cartSlice"; // Adjust this import based on your actual Redux setup
+import { useCartStore } from "@/store/zustand/Zustand"; // import zustand store
 import { useRouter } from "next/navigation";
 
 interface CartActionsProps {
@@ -11,16 +10,17 @@ interface CartActionsProps {
 }
 
 const CartActions: React.FC<CartActionsProps> = ({ onCancel, onContinue }) => {
-  const dispatch = useDispatch();
+  const { clearCart } = useCartStore(); // lấy action từ zustand
   const router = useRouter();
 
   const handleCancel = () => {
     // Clear localStorage
-    localStorage.removeItem("cart");
+    localStorage.removeItem("cart-storage");
 
-    // Clear Redux store cart state
-    dispatch(clearCart());
-    
+    // Clear Zustand store cart state
+    clearCart();
+    router.push("/");
+
     // Call the original onCancel function if provided
     if (onCancel) {
       onCancel();
@@ -30,7 +30,7 @@ const CartActions: React.FC<CartActionsProps> = ({ onCancel, onContinue }) => {
   const handleContinue = () => {
     // Navigate to home page
     router.push("/");
-    
+
     // Call the original onContinue function if provided
     if (onContinue) {
       onContinue();

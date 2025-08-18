@@ -17,8 +17,7 @@ import { FiSearch } from "react-icons/fi";
 import { Input } from "../components/ui/input";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux"; // Import useSelector
-import { RootState } from "@/redux/store"; // Import RootState
+import { useCartStore } from "@/store/zustand/Zustand";
 import { isAuthenticated, logout, getCurrentUser } from "@/services/auth";
 
 export default function Header() {
@@ -28,7 +27,7 @@ export default function Header() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const pathname = usePathname();
 
-  const cartCount = useSelector((state: RootState) => state.cart.cartCount); // Lấy cartCount từ Redux store
+  const { cartCount } = useCartStore();
 
   // Check authentication status on component mount
   useEffect(() => {
@@ -42,8 +41,8 @@ export default function Header() {
 
     checkAuth();
     // Check auth status when window gains focus (e.g., after login/logout)
-    window.addEventListener('focus', checkAuth);
-    return () => window.removeEventListener('focus', checkAuth);
+    window.addEventListener("focus", checkAuth);
+    return () => window.removeEventListener("focus", checkAuth);
   }, []);
 
   const handleLogout = () => {
@@ -97,7 +96,7 @@ export default function Header() {
                   href="/profile"
                   className="hover:text-gray-300 flex items-center gap-1"
                 >
-                  <FaUser /> {currentUser?.name || 'Tài khoản'}
+                  <FaUser /> {currentUser?.name || "Tài khoản"}
                 </Link>
                 <button
                   onClick={handleLogout}
@@ -218,7 +217,10 @@ export default function Header() {
                 )}
               </Link>
               {isLoggedIn && (
-                <Link href="/profile" className="hover:text-emerald-200 transition-colors">
+                <Link
+                  href="/profile"
+                  className="hover:text-emerald-200 transition-colors"
+                >
                   <FaUser className="text-xl" />
                 </Link>
               )}
@@ -243,7 +245,7 @@ export default function Header() {
                     </Link>
                   </li>
                 ))}
-                
+
                 {/* Auth section in mobile menu */}
                 <li className="border-t border-emerald-500 pt-2 mt-2">
                   {isLoggedIn ? (
@@ -254,7 +256,7 @@ export default function Header() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <FaUser className="inline mr-2" />
-                        {currentUser?.name || 'Tài khoản'}
+                        {currentUser?.name || "Tài khoản"}
                       </Link>
                       <button
                         onClick={() => {
