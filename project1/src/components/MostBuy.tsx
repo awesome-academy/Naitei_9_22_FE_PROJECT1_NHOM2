@@ -1,18 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { Product, formatCurrentPrice, formatOldPrice, getCurrentPrice } from "../types/Product";
+import {
+  Product,
+  formatCurrentPrice,
+  formatOldPrice,
+  getCurrentPrice,
+} from "../types/Product";
 import { useEffect, useState, useMemo } from "react";
 import { getProducts } from "@/services/ProductService";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/cart/cartSlice";
+import { useCartStore } from "@/store/zustand/Zustand"; // import zustand store
 import { toast } from "react-toastify";
 import QuantityModal from "./QuantityModal";
 
 // Function to get random products
-const getRandomProducts = (products: Product[], count: number = 7): Product[] => {
+const getRandomProducts = (
+  products: Product[],
+  count: number = 7
+): Product[] => {
   const shuffled = [...products].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 };
@@ -23,8 +30,8 @@ export default function MostBuy() {
   const [showQuantityModal, setShowQuantityModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
-  
+  const { addToCart } = useCartStore(); // dùng zustand thay redux
+
   const displayProducts = useMemo(() => {
     return getRandomProducts(products, 7);
   }, [products]);
@@ -41,13 +48,16 @@ export default function MostBuy() {
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
-    
+
     const cartItem = {
-      ...selectedProduct,
+      product_id: selectedProduct.id,
+      name: selectedProduct.name,
       price: getCurrentPrice(selectedProduct),
-      quantity: quantity
+      quantity: quantity,
+      images: selectedProduct.images,
+      discount: selectedProduct.discount,
     };
-    dispatch(addToCart(cartItem));
+    addToCart(cartItem); 
     toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
     setShowQuantityModal(false);
     setActiveProduct(null);
@@ -106,7 +116,7 @@ export default function MostBuy() {
                     )}
                   </div>
                 </div>
-                
+
                 {activeProduct === index && (
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-white p-1 rounded-md shadow-md z-10">
                     <Button

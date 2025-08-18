@@ -8,8 +8,7 @@ import {
 } from "../types/Product";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { addToCart } from "@/redux/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useCartStore } from "@/store/zustand/Zustand"; // import zustand store
 import { toast } from "react-toastify";
 import { useState } from "react";
 import QuantityModal from "./QuantityModal";
@@ -26,10 +25,11 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { name, images, newArival, discount } = product;
   const hasDiscount = discount > 0;
-  const dispatch = useDispatch();
+  const { addToCart } = useCartStore(); // dùng zustand thay redux
   const [showQuantityModal, setShowQuantityModal] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+
   const handleAddToCart = () => {
     const cartItem = {
       product_id: product.id,
@@ -39,7 +39,7 @@ export default function ProductCard({
       price: getCurrentPrice(product),
       quantity: quantity,
     };
-    dispatch(addToCart(cartItem));
+    addToCart(cartItem); // dùng zustand
     toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
     setShowQuantityModal(false);
     setQuantity(1);
@@ -82,9 +82,7 @@ export default function ProductCard({
             </Badge>
           )}
           {newArival && (
-            <Badge
-              className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600"
-            >
+            <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600">
               NEW
             </Badge>
           )}
@@ -103,7 +101,7 @@ export default function ProductCard({
               size="sm"
               className="bg-white border border-gray-300 p-1.5 sm:p-2 hover:bg-gray-50"
               aria-label="View Details"
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 handleViewDetails();
               }}
@@ -150,3 +148,4 @@ export default function ProductCard({
     </>
   );
 }
+

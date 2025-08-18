@@ -8,24 +8,21 @@ import { createOrder } from "@/services/OrderService";
 import StepProcess from "./StepProcess";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useDispatch } from "react-redux";
-import { clearCart } from "@/redux/cart/cartSlice";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { getCurrentUser, isAuthenticated } from "@/services/auth";
 import { User } from "@/types/User";
 import { ROUTES } from "@/constants/routes";
 import { CartItem } from "@/types/Cart";
+import { useCartStore } from "@/store/zustand/Zustand";
+
+const TAX_RATE = 0.1;
+const steps = ["Thông tin giỏ hàng", "Thông tin thanh toán", "Xác nhận"];
 
 interface CartSummaryProps {
   cart: CartItem[];
 }
 
-const TAX_RATE = 0.1;
-
-const steps = ["Thông tin giỏ hàng", "Thông tin thanh toán", "Xác nhận"];
-
-// Component render row trong bảng
 const SummaryRow = ({
   label,
   value,
@@ -55,7 +52,6 @@ const SummaryRow = ({
   </TableRow>
 );
 
-// Component render bảng tổng tiền
 const SummaryTable = ({
   totalBeforeTax,
   tax,
@@ -82,8 +78,8 @@ const SummaryTable = ({
 );
 
 const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const { clearCart } = useCartStore();
   const [step, setStep] = useState<number>(-1);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -104,7 +100,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     phone: "",
   });
 
-  // Tự động điền thông tin user khi user đăng nhập
   useEffect(() => {
     if (user) {
       setPaymentInfo({
@@ -116,7 +111,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
   }, [user]);
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
-  // Kiểm tra trạng thái đăng nhập khi component mount
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
@@ -126,7 +120,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
           setUser(currentUser);
         }
       } catch (error) {
-        console.error('Error checking auth status:', error);
+        console.error("Error checking auth status:", error);
       } finally {
         setIsLoading(false);
       }
@@ -150,7 +144,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
 
   const handleCheckout = () => {
-    // Kiểm tra đăng nhập trước khi bắt đầu quy trình thanh toán
     if (step === -1) {
       if (!user) {
         toast.error("Vui lòng đăng nhập để tiếp tục thanh toán");
@@ -174,38 +167,38 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
         return;
       }
 
-       const now = new Date().toISOString();
-       const orderId = `ORD${Date.now()}`; 
-       const orderData = {
-         _id: orderId,
-         userId: user.id,
-         items: cart.map(item => ({
-           product_id: item.product_id,
-           name: item.name,
-           price: item.price,
-           quantity: item.quantity,
-           discount: item.discount, 
-           image: item.images[0]
-         })),
-         total: totalAfterTax,
-         status: "pending" as const,
-         paymentMethod: "Thanh toán khi nhận hàng",
-         shippingAddress: paymentInfo.address,
-         phone: paymentInfo.phone,
-         email: user.email,
-         createdAt: now,
-         updatedAt: now
-       };
+      const now = new Date().toISOString();
+      const orderId = `ORD${Date.now()}`;
+      const orderData = {
+        _id: orderId,
+        userId: user.id,
+        items: cart.map((item) => ({
+          product_id: item.product_id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          discount: item.discount,
+          image: item.images[0],
+        })),
+        total: totalAfterTax,
+        status: "pending" as const,
+        paymentMethod: "Thanh toán khi nhận hàng",
+        shippingAddress: paymentInfo.address,
+        phone: paymentInfo.phone,
+        email: user.email,
+        createdAt: now,
+        updatedAt: now,
+      };
 
       try {
         createOrder(orderData);
       } catch (error) {
-        console.error('Error creating order:', error);
+        console.error("Error creating order:", error);
         toast.error("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");
         return;
       }
       localStorage.removeItem("cart");
-      dispatch(clearCart());
+      clearCart();
 
       toast.success("Đặt hàng thành công! Cảm ơn bạn đã mua hàng.");
       router.push(ROUTES.HOME);
@@ -235,8 +228,16 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
 
   const inputFields = [
     { label: "Họ tên", name: "name", placeholder: "Nhập họ tên" },
-    { label: "Địa chỉ", name: "address", placeholder: "Nhập địa chỉ giao hàng" },
-    { label: "Số điện thoại", name: "phone", placeholder: "Nhập số điện thoại" },
+    {
+      label: "Địa chỉ",
+      name: "address",
+      placeholder: "Nhập địa chỉ giao hàng",
+    },
+    {
+      label: "Số điện thoại",
+      name: "phone",
+      placeholder: "Nhập số điện thoại",
+    },
   ];
 
   const confirmationFields = [
