@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { FORM_PLACEHOLDERS, MESSAGES } from "@/constants/blog";
 
 interface CommentFormProps {
-  isLoggedIn?: boolean; // Thêm prop để check đăng nhập
-  onSubmit?: (formData: { comment: string }) => void;
-  onLoginRequired?: () => void; // Callback khi cần đăng nhập
+  isLoggedIn?: boolean;
+  onSubmit?: (formData: { comment: string }) => Promise<void> | void;
+  onLoginRequired?: () => void;
+  resetTrigger?: boolean; // Trigger để reset form từ bên ngoài
+  isReplyForm?: boolean; // Phân biệt form reply
 }
 
 const CommentForm: React.FC<CommentFormProps> = ({
   isLoggedIn = false,
   onSubmit,
   onLoginRequired,
+  resetTrigger = false,
+  isReplyForm = false,
 }) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Reset form khi resetTrigger thay đổi
+  useEffect(() => {
+    if (resetTrigger) {
+      setComment("");
+    }
+  }, [resetTrigger]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Kiểm tra đăng nhập trước khi submit
@@ -23,17 +37,29 @@ const CommentForm: React.FC<CommentFormProps> = ({
       return;
     }
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      comment: formData.get("comment") as string,
-    };
+    if (!comment.trim()) {
+      return;
+    }
 
-    onSubmit?.(data);
+    setIsSubmitting(true);
+    try {
+      const data = { comment: comment.trim() };
+      await onSubmit?.(data);
+      setComment(""); // Clear form sau khi submit thành công
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="flex flex-col gap-5">
-      <h3 className="uppercase text-gray-500 font-semibold">viết bình luận</h3>
+      {!isReplyForm && (
+        <h3 className="uppercase text-gray-500 font-semibold">
+          viết bình luận
+        </h3>
+      )}
 
       {!isLoggedIn ? (
         // Hiển thị khi chưa đăng nhập
@@ -53,20 +79,26 @@ const CommentForm: React.FC<CommentFormProps> = ({
       ) : (
         // Form bình luận khi đã đăng nhập
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          {/* Người dùng đã đăng nhập, chỉ cần nhập comment */}
           <Textarea
             name="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             placeholder={FORM_PLACEHOLDERS.COMMENT}
-            className="h-[200px]"
+            className={isReplyForm ? "h-[120px]" : "h-[200px]"}
             required
           />
 
           <div className="flex justify-end">
             <Button
               type="submit"
-              className="w-[150px] h-[50px] rounded-[20px] bg-green-600 hover:bg-green-700 text-white"
+              disabled={isSubmitting || !comment.trim()}
+              className="w-[150px] h-[50px] rounded-[20px] bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
             >
-              {MESSAGES.SUBMIT_BUTTON}
+              {isSubmitting
+                ? "Đang gửi..."
+                : isReplyForm
+                ? "Gửi phản hồi"
+                : MESSAGES.SUBMIT_BUTTON}
             </Button>
           </div>
         </form>
