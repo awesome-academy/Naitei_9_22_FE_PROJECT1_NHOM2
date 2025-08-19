@@ -75,3 +75,41 @@ export const getCurrentUser = async () => {
   return user;
 };
 
+
+export const loginWithGoogle = async (auth_token: string) => {
+  try{
+    const response = await AxiosCustom.post('/auth/google', { auth_token });
+    const { token, success, userId } = response.data;
+    if (token && success) {
+      const cookieOptions = {
+        expires: 7,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax' as const
+      };
+      setCookie(COOKIE_NAMES.AUTH_TOKEN, token, cookieOptions);
+      localStorage.setItem('userId', userId);
+      }
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+export const loginWithFacebook = async (auth_token: string) => {
+  try{
+    const response = await AxiosCustom.post('/auth/facebook', { auth_token });
+    const { token, success, userId } = response.data;
+    if (token && success) {
+      const cookieOptions = {
+        expires: 7,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax' as const
+      };
+      setCookie(COOKIE_NAMES.AUTH_TOKEN, token, cookieOptions);
+      localStorage.setItem('userId', userId);
+      }
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};

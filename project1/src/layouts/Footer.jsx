@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -9,8 +12,9 @@ import {
 } from "react-icons/fa";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { isAuthenticated, getCurrentUser } from "@/services/auth";
+import { ADMIN_ROLE } from "@/constants/role";
 
-// Data arrays for footer sections
 const footerSections = [
   {
     title: "THÔNG TIN KHÁCH HÀNG",
@@ -44,13 +48,7 @@ const footerSections = [
   },
   {
     title: "TIN TỨC",
-    links: [
-      "› Tin mới",
-      "› Khuyến mại",
-      "› Tuyển dụng",
-      "› Download",
-      "› Tags",
-    ],
+    links: ["› Tin mới", "› Khuyến mại", "› Tuyển dụng", "› Download", "› Tags"],
   },
 ];
 
@@ -70,6 +68,28 @@ const socialIcons = [
 ];
 
 export default function Footer() {
+  const [role, setRole] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authenticated = isAuthenticated();
+      setIsLoggedIn(authenticated);
+      if (authenticated) {
+        const user = await getCurrentUser();
+        setRole(user?.role || ""); 
+      }
+    };
+
+    checkAuth();
+    window.addEventListener("focus", checkAuth);
+    return () => window.removeEventListener("focus", checkAuth);
+  }, []);
+
+  if (role === ADMIN_ROLE) {
+    return null;
+  }
+
   return (
     <footer className="bg-[#2a2a2a] text-gray-300 text-sm">
       {/* Top Line */}
@@ -90,7 +110,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Đăng ký nhận email */}
+          {/* Email Subscription */}
           <div className="flex flex-col gap-3">
             <span className="uppercase font-semibold text-sm text-white tracking-wide">
               ĐĂNG KÝ NHẬN EMAIL TỪ CHÚNG TÔI
@@ -112,7 +132,6 @@ export default function Footer() {
       {/* Middle Section */}
       <div className="px-4 py-12">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-12">
-          {/* Cột 1: Logo và mô tả */}
           <div className="lg:col-span-2">
             <h1 className="text-4xl text-emerald-500 font-light mb-2">
               Green<span className="italic font-semibold">Shop</span>
@@ -122,8 +141,8 @@ export default function Footer() {
             </p>
             <p className="text-gray-400 leading-relaxed mb-6">
               Green shop được thành lập từ 8/2010 được sự tin tưởng của khách
-              hàng trong suốt thời gian hoạt động đến nay cửa hàng ngày một phát
-              triển
+              hàng trong suốt thời gian hoạt động đến nay cửa hàng ngày một
+              phát triển
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -139,7 +158,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 4 Cột còn lại */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {footerSections.map((section, index) => (
               <div key={`section-${index}`}>
@@ -180,6 +198,4 @@ export default function Footer() {
     </footer>
   );
 }
-
-
 
