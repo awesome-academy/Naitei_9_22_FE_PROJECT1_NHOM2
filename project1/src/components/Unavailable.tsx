@@ -12,7 +12,7 @@ export default function Unavailable({
   return (
     <div className="w-full flex flex-col items-center py-10 text-gray-500">
       <Image
-        src="/dataset/unavailable.jpg"
+        src="/dataset/unavailable.JPG"
         alt={`No ${subject}`}
         width={500}
         height={200}
