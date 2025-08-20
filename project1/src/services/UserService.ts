@@ -20,7 +20,16 @@ export const getUserById = async (id: string) => {
   return data;
 };
 
-export const updateUser = async (id: string, userData: Partial<User>) => {
+export const createUser = async (userData: Partial<User>): Promise<User> => {
+  const { data } = await axiosInstance.post<User>("/users", userData);
+  return data;
+};
+
+export const updateUser = async (id: string, userData: Partial<User>): Promise<User> => {
   const { data } = await axiosInstance.put<User>(`/users/${id}`, userData);
   return data;
+};
+
+export const deleteUser = async (id: string): Promise<void> => {
+  await axiosInstance.delete(`/users/${id}`);
 };

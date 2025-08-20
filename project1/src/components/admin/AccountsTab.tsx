@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AccountsTable from "./AccountsTable";
 import AccountFormModal from "./AccountFormModal";
 import { Input } from "../ui/input";
@@ -12,6 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import {
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "@/services/UserService";
+import { User } from "@/types/User";
 
 // Danh sách option cho vai trò
 const roleOptions = [
@@ -20,33 +27,49 @@ const roleOptions = [
   { value: "admin", label: "Admin" },
 ];
 
-// Danh sách option cho trạng thái
-const statusOptions = [
-  { value: "all", label: "Tất cả trạng thái" },
-  { value: "active", label: "Active" },
-  { value: "inactive", label: "Inactive" },
-];
-
-interface Account {
-  id?: string;
-  fullName: string;
-  email: string;
-  phone?: string;
-  website?: string;
-  address?: string;
-  password?: string;
-}
-
 export default function AccountsTab() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingAccount, setEditingAccount] = useState<Account | null>(null);
+  const [editingAccount, setEditingAccount] = useState<User | null>(null);
+  const [accounts, setAccounts] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRole, setSelectedRole] = useState("all");
+
+  // Fetch accounts from API
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        setLoading(true);
+        const users = await getUsers();
+        setAccounts(users);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAccounts();
+  }, []);
+
+  // Filter accounts based on search and filters
+  const filteredAccounts = useMemo(() => {
+    return accounts.filter((account) => {
+      const matchesSearch =
+        account.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        account.email.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesRole =
+        selectedRole === "all" || account.role === selectedRole;
+
+      return matchesSearch && matchesRole;
+    });
+  }, [accounts, searchTerm, selectedRole]);
 
   const handleAddAccount = () => {
     setEditingAccount(null);
     setIsModalOpen(true);
   };
 
-  const handleEditAccount = (account: Account) => {
+  const handleEditAccount = (account: User) => {
     setEditingAccount(account);
     setIsModalOpen(true);
   };
@@ -56,10 +79,48 @@ export default function AccountsTab() {
     setEditingAccount(null);
   };
 
-  const handleSaveAccount = async (accountData: Account) => {
-    // Test chức năng
-    console.log("Saving account:", accountData);
+  const handleSaveAccount = async (accountData: Partial<User>) => {
+    try {
+      if (editingAccount) {
+        // Cập nhật tài khoản hiện có
+        await updateUser(editingAccount.id, accountData);
+      } else {
+        // Thêm tài khoản mới
+        await createUser(accountData);
+      }
+
+      // Refresh danh sách tài khoản
+      const users = await getUsers();
+      setAccounts(users);
+
+      // Đóng modal
+      handleCloseModal();
+    } catch (error) {}
   };
+
+  const handleDeleteAccount = async (account: User) => {
+    if (
+      window.confirm(`Bạn chắc chắn muốn xóa tài khoản "${account.fullName}"?`)
+    ) {
+      try {
+        await deleteUser(account.id);
+
+        // Refresh danh sách tài khoản
+        const users = await getUsers();
+        setAccounts(users);
+      } catch (error) {}
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="flex justify-center items-center h-32">
+          <div className="text-gray-500">Đang tải dữ liệu...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -80,8 +141,10 @@ export default function AccountsTab() {
           type="text"
           placeholder="Tìm kiếm tài khoản..."
           className="flex-1"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Select>
+        <Select value={selectedRole} onValueChange={setSelectedRole}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Tất cả vai trò" />
           </SelectTrigger>
@@ -93,21 +156,13 @@ export default function AccountsTab() {
             ))}
           </SelectContent>
         </Select>
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Tất cả trạng thái" />
-          </SelectTrigger>
-          <SelectContent>
-            {statusOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </div>
 
-      <AccountsTable onEditAccount={handleEditAccount} />
+      <AccountsTable
+        accounts={filteredAccounts}
+        onEditAccount={handleEditAccount}
+        onDeleteAccount={handleDeleteAccount}
+      />
 
       {/* Account Form Modal */}
       <AccountFormModal
