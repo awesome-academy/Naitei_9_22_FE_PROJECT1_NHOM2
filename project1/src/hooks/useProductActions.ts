@@ -12,7 +12,7 @@ export function useProductActions() {
   const search = useCallback((product: Product, e?: React.MouseEvent) => {
     if (e && typeof e.stopPropagation === "function") e.stopPropagation();
     if (!product) return;
-    router.push(`/search?q=${product.name}`);
+    router.push(`/products/${product.id}`);
   }, [router]);
 
   const addWishlist = useCallback(async (productId: number, e?: React.MouseEvent) => {
