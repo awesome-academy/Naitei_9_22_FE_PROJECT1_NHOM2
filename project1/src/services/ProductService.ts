@@ -114,7 +114,6 @@ export const getCategories = async (): Promise<{ name: string; count: number }[]
 
     return categoriesArray;
   } catch (error) {
-    console.error('Error fetching categories:', error);
     throw error;
   }
 }

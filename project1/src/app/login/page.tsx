@@ -1,13 +1,15 @@
 'use client';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, createElement } from 'react';
 import { useRouter } from 'next/navigation';
 import {Button} from '@/components/ui/button';
 import { ROUTES } from '@/constants/routes';
-import { login } from '@/services/auth';
+import { login, loginWithGoogle, loginWithFacebook } from '@/services/auth';
 import { Input } from "@/components/ui/input"
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-
+import GoogleLoginComponent from '@/components/GoogleLogin';
+import FacebookLoginComponent from '@/components/FacebookLogin';
+import { SuccessResponse } from '@greatsumini/react-facebook-login';
 export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -16,6 +18,47 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
+
+    const handleGoogleLogin = async (credential: string) => {
+        const token = credential;
+        try{
+            await loginWithGoogle(token);
+            router.push("/");
+        } catch (error: any) {
+            setError(error.response.data.message || "Đăng nhập thất bại");
+            setIsLoading(false);
+        }
+    }
+
+
+    const handleFacebookLogin = async (res: SuccessResponse) => {
+        const token = res.accessToken;
+        try{
+            await loginWithFacebook(token);
+            router.push("/");
+        }catch(error: any) {
+            setError("Đăng nhập thất bại");
+            setIsLoading(false);
+        }
+    }
+
+
+    // Thay đổi object loginMethod thành array socialLogins
+    const socialLogins = [
+        {
+            id: 'google',
+            name: 'Google', 
+            component: GoogleLoginComponent,
+            handler: (token: string) => handleGoogleLogin(token)
+        },
+        {
+            id: 'facebook',
+            name: 'Facebook',
+            component: FacebookLoginComponent, 
+            handler: (token: string) => handleFacebookLogin({ accessToken: token } as any)
+        }
+    ];
+    
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
@@ -115,6 +158,7 @@ export default function Login() {
                             >
                                 {isLoading ? "ĐANG ĐĂNG NHẬP..." : "ĐĂNG NHẬP"}
                             </Button>
+                            
                         </form>
                     </div>
 
@@ -124,7 +168,7 @@ export default function Login() {
                             Đăng ký tài khoản ngay để có thể mua hàng nhanh chóng và dễ dàng hơn ! 
                             Ngoài ra còn có thể theo dõi tình trạng đơn hàng của mình.
                         </p>
-                        <div className="flex">
+                        <div className="space-y-4">
                             <Button
                                 onClick={() => router.push("/register")}
                                 size="default"
@@ -133,6 +177,28 @@ export default function Login() {
                             >
                                 ĐĂNG KÝ
                             </Button>
+                            
+                            {/* Divider */}
+                            <div className="relative my-6">
+                                <div className="absolute inset-0 flex items-center">
+                                    <div className="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div className="relative flex justify-center text-sm">
+                                    <span className="bg-white px-3 text-gray-500 text-xs">Hoặc đăng nhập với</span>
+                                </div>
+                            </div>
+                            
+                            {/* Social Login Section */}
+                            <div className="w-full space-y-3">
+                                {socialLogins.map((login) => {
+                                    const Component = login.component;
+                                    return (
+                                        <div key={login.id} className="w-full">
+                                            <Component handleLogin={login.handler} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
