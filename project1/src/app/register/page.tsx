@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { validateRegistrationData, type RegistrationData } from '@/utils/validation';
 import { Label } from '@/components/ui/label';
+import { toast } from 'react-toastify';
 
 
 export default function Register() {
@@ -55,7 +56,8 @@ export default function Register() {
             const result = await register(userData);
             
             if (result.success) {
-                router.push("/login");
+                toast.success("Đăng ký thành công! Vui lòng đăng nhập.");
+                router.replace("/login");
             } else {
                 setErrors([result.message || "Đăng ký không thành công. Vui lòng thử lại."]);
             }

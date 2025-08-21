@@ -23,7 +23,7 @@ export default function Login() {
         const token = credential;
         try{
             await loginWithGoogle(token);
-            router.push("/");
+            router.replace("/");
         } catch (error: any) {
             setError(error.response.data.message || "Đăng nhập thất bại");
             setIsLoading(false);
@@ -35,7 +35,7 @@ export default function Login() {
         const token = res.accessToken;
         try{
             await loginWithFacebook(token);
-            router.push("/");
+            router.replace("/");
         }catch(error: any) {
             setError("Đăng nhập thất bại");
             setIsLoading(false);
@@ -69,7 +69,8 @@ export default function Login() {
             
             if (response.token) {
                 // Login thành công - token đã được lưu vào cookie
-                router.push("/");
+                window.dispatchEvent(new Event("auth-change"));
+                router.replace("/");
             } else {
                 setError(response.message || "Email hoặc mật khẩu không đúng");
             }

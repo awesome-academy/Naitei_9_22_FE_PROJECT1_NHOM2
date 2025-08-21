@@ -55,7 +55,7 @@ export const logout = () => {
   removeCookie(COOKIE_NAMES.AUTH_TOKEN);
   localStorage.removeItem('userId');
   if (typeof window !== 'undefined') {
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 };
 
