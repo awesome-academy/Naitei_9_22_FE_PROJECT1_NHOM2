@@ -16,6 +16,8 @@ import {
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
 import Breadcrumb from "../../components/Breadcrumb";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 import { useBlogData } from "@/hooks/useBlogData";
 import { useBlogFilter } from "@/hooks/useBlogFilter";
@@ -95,6 +97,13 @@ const BlogPage = () => {
           ) : (
             /* -------- DESKTOP: sidebar + main -------- */
             <div className="flex flex-col gap-5">
+              <div className="flex justify-end mb-2">
+                <Link href="/blog/create-blog" passHref>
+                  <Button className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 text-sm rounded shadow">
+                    Tạo blog
+                  </Button>
+                </Link>
+              </div>
               <div className="grid lg:grid-cols-[230px_1fr] gap-8">
                 {/* SIDEBAR */}
                 <BlogSidebar
