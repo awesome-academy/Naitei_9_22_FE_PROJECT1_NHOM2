@@ -1,58 +1,107 @@
 "use client";
 
-import React, { useState } from "react";
-import productsData from "../../../db.json";
+import React, { useState, useEffect, useMemo } from "react";
 import ProductsTable from "./ProductsTable";
-import ProductFormModal from "./ProductFormModal";
+import ProductFormModal from "./ProductFormModal/index";
+import ProductsSearch from "./ProductsSearch";
 import { Button } from "../ui/button";
-
-interface ProductVariant {
-  id: string;
-  name: string;
-  price: number;
-  inStock: boolean;
-}
-
-interface ProductSpecification {
-  [key: string]: string;
-}
-
-interface Product {
-  id?: string;
-  name: string;
-  oldPrice: number;
-  discount: number;
-  type: string[];
-  images: string[];
-  description: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  inStock: boolean;
-  variants: ProductVariant[];
-  specifications: ProductSpecification;
-  care_instructions: string;
-  color: string[];
-  newArival: boolean;
-}
-
-const mockProducts = productsData.products.map((product) => ({
-  ...product,
-  stock: 50,
-  status: product.inStock ? "active" : "inactive",
-  createdAt: "2025-01-01",
-}));
+import { Product } from "@/types/Product";
+import {
+  getProducts,
+  getAllType,
+  createProduct,
+  updateProductById,
+  deleteProductById,
+} from "@/services/ProductService";
 
 export default function ProductsTab() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [types, setTypes] = useState<string[]>([]);
 
-  const totalProducts = mockProducts.length;
-  const activeProducts = mockProducts.filter(
-    (p) => p.status === "active"
-  ).length;
-  const outOfStock = mockProducts.filter((p) => p.stock === 0).length;
-  const categories = [...new Set(mockProducts.map((p) => p.category))].length;
+  // State cho tìm kiếm và lọc
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [sortBy, setSortBy] = useState<"default" | "price-asc" | "price-desc">(
+    "default"
+  );
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData = await getProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    // Lấy tất cả type hiện có
+    const fetchTypes = async () => {
+      try {
+        const typesData = await getAllType();
+        setTypes(typesData);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách type:", error);
+      }
+    };
+    fetchTypes();
+  }, []);
+
+  // Lọc và sắp xếp sản phẩm
+  const filteredAndSortedProducts = useMemo(() => {
+    const filtered = products.filter((product) => {
+      // Lọc theo tên sản phẩm
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      // Lọc theo danh mục
+      const matchesCategory =
+        selectedCategory === "all" ||
+        (product.type &&
+          product.type.some((type) => type === selectedCategory));
+
+      // Lọc theo trạng thái
+      const matchesStatus =
+        selectedStatus === "all" ||
+        (selectedStatus === "active" && product.inStock) ||
+        (selectedStatus === "inactive" && !product.inStock);
+
+      return matchesSearch && matchesCategory && matchesStatus;
+    });
+
+    // Sắp xếp sản phẩm
+    if (sortBy === "default") {
+      return filtered;
+    }
+
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case "price-asc":
+          return a.oldPrice - b.oldPrice;
+        case "price-desc":
+          return b.oldPrice - a.oldPrice;
+        default:
+          return 0;
+      }
+    });
+
+    return sorted;
+  }, [products, searchTerm, selectedCategory, selectedStatus, sortBy]);
+
+  const totalProducts = products.length;
+  const activeProducts = products.filter((p) => p.inStock).length;
+  const outOfStock = products.filter((p) => !p.inStock).length;
 
   const handleAddProduct = () => {
     setEditingProduct(null);
@@ -69,10 +118,55 @@ export default function ProductsTab() {
     setEditingProduct(null);
   };
 
-  const handleSaveProduct = async (productData: Product) => {
-    // Test chức năng
-    console.log("Saving product:", productData);
+  const handleSaveProduct = async (productData: Omit<Product, "id">) => {
+    try {
+      if (editingProduct) {
+        // Cập nhật sản phẩm
+        const updatedProduct = await updateProductById(
+          editingProduct.id,
+          productData
+        );
+        setProducts((prev) =>
+          prev.map((p) => (p.id === editingProduct.id ? updatedProduct : p))
+        );
+      } else {
+        // Thêm sản phẩm mới
+        const newProduct = await createProduct(productData);
+        setProducts((prev) => [...prev, newProduct]);
+      }
+
+      // Cập nhật danh sách types
+      const updatedTypes = await getAllType();
+      setTypes(updatedTypes);
+
+      handleCloseModal();
+    } catch (error) {
+      console.error("Lỗi khi lưu sản phẩm:", error);
+    }
   };
+
+  const handleDeleteProduct = async (productId: number | string) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+      try {
+        await deleteProductById(productId);
+        setProducts((prev) => prev.filter((p) => p.id !== productId));
+
+        // Cập nhật danh sách types
+        const updatedTypes = await getAllType();
+        setTypes(updatedTypes);
+      } catch (error) {}
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="flex justify-center items-center h-32">
+          <p>Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -105,33 +199,28 @@ export default function ProductsTab() {
         </div>
         <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
           <h3 className="text-lg font-semibold text-blue-900">Danh mục</h3>
-          <p className="text-2xl font-bold text-blue-600">{categories}</p>
+          <p className="text-2xl font-bold text-blue-600">{types.length}</p>
         </div>
       </div>
 
-      {/* Tìm kiếm */}
-      <div className="mb-6 flex gap-4">
-        <input
-          type="text"
-          placeholder="Tìm kiếm sản phẩm..."
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">Tất cả danh mục</option>
-          {[...new Set(mockProducts.map((p) => p.category))].map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">Tất cả trạng thái</option>
-          <option value="active">Hoạt động</option>
-          <option value="inactive">Không hoạt động</option>
-        </select>
-      </div>
+      {/* Tìm kiếm và lọc */}
+      <ProductsSearch
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        selectedStatus={selectedStatus}
+        onStatusChange={setSelectedStatus}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
+        types={types}
+      />
 
-      <ProductsTable onEditProduct={handleEditProduct} />
+      <ProductsTable
+        products={filteredAndSortedProducts}
+        onEditProduct={handleEditProduct}
+        onDeleteProduct={handleDeleteProduct}
+      />
 
       {/* Product Form Modal */}
       <ProductFormModal
@@ -139,6 +228,7 @@ export default function ProductsTab() {
         onClose={handleCloseModal}
         onSave={handleSaveProduct}
         product={editingProduct}
+        existingTags={types}
       />
     </div>
   );
