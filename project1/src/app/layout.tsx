@@ -4,9 +4,9 @@ import "./globals.css";
 
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import ReduxProvider from "@/providers/ReduxProvider"; 
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/contexts/AuthContext";
+import SWRProvider from "@/providers/SWRProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,30 +33,30 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ReduxProvider>
           <AuthProvider>
-            <div className="sticky top-0 z-50 bg-white shadow-sm">
-              <Header />
-            </div>
+            <SWRProvider>
+              <div className="sticky top-0 z-50 bg-white shadow-sm">
+                <Header />
+              </div>
 
-            {children}
+              {children}
 
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
 
-            <Footer />
+              <Footer />
+            </SWRProvider>
           </AuthProvider>
-        </ReduxProvider>
       </body>
     </html>
   );

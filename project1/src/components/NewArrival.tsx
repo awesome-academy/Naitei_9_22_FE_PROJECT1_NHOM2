@@ -1,39 +1,35 @@
 "use client";
+
 import ProductCard from "./ProductCard";
 import SectionLayout from "./SectionLayout";
 import { Product } from "../types/Product";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { getProducts } from "@/services/ProductService";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { Button } from "@/components/ui/button"; // Import Button component
+import { Button } from "@/components/ui/button";
+import useSWR from "swr";
 
 export default function NewArrival() {
-  const [products, setProducts] = React.useState<Product[]>([]);
-  const [loading, setLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(0);
-  // Responsive items per page: mobile 4, tablet 6, desktop 8
   const [itemsPerPage, setItemsPerPage] = React.useState(4);
 
-  useEffect(() => {
-    getProducts()
-      .then((allProducts) => {
-        // Filter products with newArival = true
-        const newProducts = allProducts.filter(product => product.newArival === true);
-        setProducts(newProducts);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
+  // Replace useState and useEffect with useSWR
+  const { data: allProducts = [], error, isLoading } = useSWR<Product[]>('/products', getProducts);
+
+  // Filter new arrival products using useMemo
+  const products = useMemo(() => {
+    return allProducts.filter(product => product.newArival === true);
+  }, [allProducts]);
 
   // Update items per page based on screen size
   useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.innerWidth < 640) {
-        setItemsPerPage(4); // Mobile: 2 columns x 2 rows
+        setItemsPerPage(4);
       } else if (window.innerWidth < 1024) {
-        setItemsPerPage(6); // Tablet: 3 columns x 2 rows
+        setItemsPerPage(6);
       } else {
-        setItemsPerPage(8); // Desktop: 4 columns x 2 rows
+        setItemsPerPage(8);
       }
     };
 
@@ -42,7 +38,11 @@ export default function NewArrival() {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
-  if (loading) {
+  if (error) {
+    return <div className="text-center py-8 text-red-500">Error loading products</div>;
+  }
+
+  if (isLoading) {
     return <div className="text-center py-8">Đang tải sản phẩm mới...</div>;
   }
 
@@ -132,6 +132,4 @@ export default function NewArrival() {
     </SectionLayout>
   );
 }
-
-
 

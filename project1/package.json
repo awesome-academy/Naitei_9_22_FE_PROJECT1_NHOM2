@@ -45,10 +45,11 @@
     "react-toastify": "^11.0.5",
     "recharts": "^3.1.0",
     "redux-persist": "^6.0.0",
-    "tailwind-merge": "^3.3.1",
-    "zustand": "^5.0.7",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "swr": "^2.3.6",
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
