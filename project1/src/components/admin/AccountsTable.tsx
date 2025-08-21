@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { IconButton } from "@/components/ui/icon-button";
 import { EditIcon, DeleteIcon } from "@/assets/icons";
-import usersData from "../../../db.json";
+import { User } from "@/types/User";
 import {
   Table,
   TableHeader,
@@ -14,18 +14,20 @@ import {
 } from "@/components/ui/table";
 import TablePagination from "./TablePagination";
 
-// Thêm các trường bổ sung
-const mockAccounts = usersData.users.map((user) => ({
-  ...user,
-  status: "active",
-  role: "user",
-  createdAt: "2025-27-07",
-}));
+interface AccountsTableProps {
+  accounts: User[];
+  onEditAccount: (account: User) => void;
+  onDeleteAccount: (account: User) => void;
+}
 
-export default function AccountsTable() {
+export default function AccountsTable({
+  accounts,
+  onEditAccount,
+  onDeleteAccount,
+}: AccountsTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(mockAccounts.length / itemsPerPage);
+  const totalPages = Math.ceil(accounts.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -33,8 +35,8 @@ export default function AccountsTable() {
 
   // Tính toán dữ liệu cho trang hiện tại
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, mockAccounts.length);
-  const currentAccounts = mockAccounts.slice(startIndex, endIndex);
+  const endIndex = Math.min(startIndex + itemsPerPage, accounts.length);
+  const currentAccounts = accounts.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -43,14 +45,13 @@ export default function AccountsTable() {
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50">
-              <TableHead className="min-w-[60px]">ID</TableHead>
+              <TableHead className="min-w-[60px]">STT</TableHead>
               {[
-                { label: "Email" },
                 { label: "Họ tên" },
+                { label: "Email" },
                 { label: "SĐT" },
                 { label: "Vai trò" },
-                { label: "Trạng thái" },
-                { label: "Ngày tạo" },
+                { label: "Địa chỉ" },
                 { label: "Thao tác" },
               ].map((col) => (
                 <TableHead key={col.label}>{col.label}</TableHead>
@@ -58,23 +59,24 @@ export default function AccountsTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentAccounts.map((account) => (
+            {currentAccounts.map((account, idx) => (
               <TableRow key={account.id} className="hover:bg-gray-50">
-                <TableCell>{account.id}</TableCell>
-                <TableCell>{account.email}</TableCell>
+                <TableCell>{startIndex + idx + 1}</TableCell>
                 <TableCell>{account.fullName}</TableCell>
-                <TableCell>{account.phone}</TableCell>
+                <TableCell>{account.email}</TableCell>
+                <TableCell>{account.phone || "N/A"}</TableCell>
                 <TableCell>
-                  <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
-                    {account.role}
+                  <span
+                    className={
+                      account.role === "admin"
+                        ? "px-2 py-1 rounded-full text-xs bg-red-100 text-red-800"
+                        : "px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800"
+                    }
+                  >
+                    {account.role === "admin" ? "Admin" : "Customer"}
                   </span>
                 </TableCell>
-                <TableCell>
-                  <span className="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
-                    {account.status}
-                  </span>
-                </TableCell>
-                <TableCell>{account.createdAt}</TableCell>
+                <TableCell>{account.address || "N/A"}</TableCell>
                 <TableCell>
                   <div className="flex gap-2">
                     <IconButton
@@ -91,6 +93,7 @@ export default function AccountsTable() {
                       variant="ghost"
                       size="sm"
                       className="text-red-600 hover:text-red-800 hover:bg-red-50"
+                      onClick={() => onDeleteAccount(account)}
                     />
                   </div>
                 </TableCell>
@@ -107,7 +110,7 @@ export default function AccountsTable() {
         onPageChange={handlePageChange}
         startIndex={startIndex}
         endIndex={endIndex}
-        totalItems={mockAccounts.length}
+        totalItems={accounts.length}
         label="tài khoản"
       />
     </div>
