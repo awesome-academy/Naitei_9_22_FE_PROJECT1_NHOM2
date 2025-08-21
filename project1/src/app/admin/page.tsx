@@ -7,6 +7,7 @@ import ProductsTab from '@/components/admin/ProductsTab';
 import StatisticTab from '@/components/admin/StatisticTab';
 import { Button } from '@/components/ui/button';
 import { StatsIcon, OrdIcon, PrdIcon, AccIcon } from '@/assets/icons';
+import AdminRoute from '@/components/admin/AdminRoute';
 
 
 interface Tab {
@@ -73,6 +74,7 @@ export default function AdminPage() {
   };
 
   return (
+    <AdminRoute>
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
@@ -111,5 +113,6 @@ export default function AdminPage() {
         </div>
       </div>
     </div>
+    </AdminRoute>
   );
 } 
