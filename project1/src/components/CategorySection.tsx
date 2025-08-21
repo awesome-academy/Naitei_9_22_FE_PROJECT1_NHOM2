@@ -44,7 +44,7 @@ export default function CategorySection({
       <header className="flex justify-between items-center">
         <h2 className="text-green-600 font-semibold">Danh mục sản phẩm</h2>
 
-        {selectedCategory > 0 && (
+        {selectedCategory != 0 && (
           <Button
             variant="outline"
             size="sm"
