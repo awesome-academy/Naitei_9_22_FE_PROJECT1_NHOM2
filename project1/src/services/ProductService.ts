@@ -90,6 +90,26 @@ export const submitReview = async (reviewData: Omit<Review, 'id'>): Promise<Revi
   }
 }
 
+export const searchProducts = async (query: string): Promise<Product[]> => {
+  try {
+    if (!query.trim()) {
+      return [];
+    }
+    
+    const response = await axiosInstance.get(`/products/search?q=${encodeURIComponent(query)}`);
+    
+    if (response.data && response.data.products) {
+      return response.data.products;
+    }
+    
+    return Array.isArray(response.data) ? response.data : [];
+    
+  } catch (error) {
+    console.error('Error searching products:', error);
+    throw error;
+  }
+};
+
 export const getCategories = async (): Promise<{ name: string; count: number }[]> => {
   try {
     const products = await getProducts();
