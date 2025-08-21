@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
     domains: [
       'images.unsplash.com',
       'localhost',
-      'res.cloudinary.com'
+      'res.cloudinary.com',
+      'luevenir.wordpress.com',
+      'vietq.vn'
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

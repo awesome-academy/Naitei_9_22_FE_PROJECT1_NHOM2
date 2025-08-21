@@ -2,17 +2,18 @@
 
 import ProductCard from "./ProductCard";
 import { Product } from "../types/Product";
-import { useEffect, useState, useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { getProducts } from "@/services/ProductService";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import useSWR from "swr";
 
 export default function OnSale() {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  // Responsive items per page: mobile 4, tablet 6, desktop 6
   const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  // Replace useState and useEffect with useSWR
+  const { data: allProducts = [], error, isLoading } = useSWR<Product[]>('/products', getProducts);
 
   const products = useMemo(() => {
     return allProducts.filter((product) => product.discount > 0);
@@ -29,15 +30,6 @@ export default function OnSale() {
     return Math.ceil(products.length / itemsPerPage);
   }, [products.length, itemsPerPage]);
 
-  useEffect(() => {
-    getProducts()
-      .then((allProducts) => {
-        setAllProducts(allProducts);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
-
   // Update items per page based on screen size
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -49,10 +41,12 @@ export default function OnSale() {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="text-center py-8">Đang tải sản phẩm khuyến mãi...</div>
-    );
+  if (error) {
+    return <div className="text-center py-8 text-red-500">Error loading products</div>;
+  }
+
+  if (isLoading) {
+    return <div className="text-center py-8">Đang tải sản phẩm khuyến mãi...</div>;
   }
 
   // Show message if no sale products found
@@ -70,6 +64,8 @@ export default function OnSale() {
       </section>
     );
   }
+
+  // ...existing code for handlePrevious, handleNext, and return JSX...
 
   const handlePrevious = () => {
     setCurrentPage((prev) => (prev > 0 ? prev - 1 : totalPages - 1));
