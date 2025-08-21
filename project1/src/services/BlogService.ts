@@ -15,14 +15,19 @@ export const getBlog = async (id: number): Promise<Blog> => {
   return data;
 };
 
+export const createBlog = async (blogData: Partial<Blog>): Promise<Blog> => {
+  const response = await axiosInstance.post<Blog>("/blogs", blogData);
+  return response.data;
+};
+
 /* ------ CATEGORIES & TAGS ------ */
 export const getCategories = async (): Promise<Category[]> => {
-  const { data } = await axiosInstance.get<Category[]>("/categories");
+  const { data } = await axiosInstance.get<Category[]>("/categories/blogs");
   return data;
 };
 
 export const getTags = async (): Promise<Tag[]> => {
-  const { data } = await axiosInstance.get<Tag[]>("/tags");
+  const { data } = await axiosInstance.get<Tag[]>("/tags/");
   return data;
 };
 
