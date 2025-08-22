@@ -113,3 +113,19 @@ export const loginWithFacebook = async (auth_token: string) => {
     throw error;
   }
 };
+
+export const completeProfile = async (phone: string, address: string) => {
+  try {
+    const response = await AxiosCustom.post('/auth/complete-profile', {
+      phone,
+      address
+    }, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};

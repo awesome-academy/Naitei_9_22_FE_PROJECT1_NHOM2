@@ -22,8 +22,13 @@ export default function Login() {
     const handleGoogleLogin = async (credential: string) => {
         const token = credential;
         try{
-            await loginWithGoogle(token);
-            router.replace("/");
+            const response = await loginWithGoogle(token);
+            
+            if (response.needsProfileCompletion) {
+                router.push(ROUTES.COMPLETE_PROFILE);
+            } else {
+                router.push(ROUTES.HOME);
+            }
         } catch (error: any) {
             setError(error.response.data.message || "Đăng nhập thất bại");
             setIsLoading(false);
@@ -31,19 +36,23 @@ export default function Login() {
     }
 
 
-    const handleFacebookLogin = async (res: SuccessResponse) => {
+    const handleFacebookLogin = async (res: any) => {
         const token = res.accessToken;
         try{
-            await loginWithFacebook(token);
-            router.replace("/");
+            const response = await loginWithFacebook(token);
+            
+            if (response.needsProfileCompletion) {
+                router.push(ROUTES.COMPLETE_PROFILE);
+            } else {
+                router.push(ROUTES.HOME);
+            }
         }catch(error: any) {
-            setError("Đăng nhập thất bại");
+            setError(error.response?.data?.message || "Đăng nhập thất bại");
             setIsLoading(false);
         }
     }
 
 
-    // Thay đổi object loginMethod thành array socialLogins
     const socialLogins = [
         {
             id: 'google',
