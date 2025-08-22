@@ -83,6 +83,22 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
   const [step, setStep] = useState<number>(-1);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [paymentInfo, setPaymentInfo] = useState({
+    name: user?.fullName || "",
+    address: user?.address || "",
+    phone: user?.phone || "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setPaymentInfo(prev => ({
+        ...prev,
+        name: user.fullName || prev.name,
+        address: user.address || prev.address, 
+        phone: user.phone || prev.phone,
+      }));
+    }
+  }, [user]);
 
   const totalBeforeTax = useMemo(
     () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
@@ -93,22 +109,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
     () => totalBeforeTax + tax,
     [totalBeforeTax, tax]
   );
-
-  const [paymentInfo, setPaymentInfo] = useState({
-    name: "",
-    address: "",
-    phone: "",
-  });
-
-  useEffect(() => {
-    if (user) {
-      setPaymentInfo({
-        name: user.fullName || "",
-        address: user.address || "",
-        phone: user.phone || "",
-      });
-    }
-  }, [user]);
+  
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -182,8 +183,8 @@ const CartSummary: React.FC<CartSummaryProps> = ({ cart }) => {
         })),
         total: totalAfterTax,
         status: "pending" as const,
-        paymentMethod: "Thanh toán khi nhận hàng",
-        shippingAddress: paymentInfo.address,
+        payment_method: "Thanh toán khi nhận hàng",
+        shipping_address: paymentInfo.address,
         phone: paymentInfo.phone,
         email: user.email,
         createdAt: now,

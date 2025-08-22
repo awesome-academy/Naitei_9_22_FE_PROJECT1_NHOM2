@@ -13,8 +13,8 @@ export interface Order {
   items: OrderItem[];
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  paymentMethod: string;
-  shippingAddress: string;
+  payment_method: string;
+  shipping_address: string;
   phone: string;
   email: string;
   createdAt: string;
