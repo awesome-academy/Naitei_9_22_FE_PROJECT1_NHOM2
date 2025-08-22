@@ -43,6 +43,11 @@ export default function AccountsTab() {
         const users = await getUsers();
         setAccounts(users);
       } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "Không thể tải danh sách tài khoản";
+        alert(`Lỗi: ${errorMessage}`);
       } finally {
         setLoading(false);
       }
@@ -95,7 +100,11 @@ export default function AccountsTab() {
 
       // Đóng modal
       handleCloseModal();
-    } catch (error) {}
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Không thể lưu tài khoản";
+      alert(`Lỗi: ${errorMessage}`);
+    }
   };
 
   const handleDeleteAccount = async (account: User) => {
@@ -108,7 +117,11 @@ export default function AccountsTab() {
         // Refresh danh sách tài khoản
         const users = await getUsers();
         setAccounts(users);
-      } catch (error) {}
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Không thể xóa tài khoản";
+        alert(`Lỗi: ${errorMessage}`);
+      }
     }
   };
 
