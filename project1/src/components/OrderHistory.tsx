@@ -97,7 +97,7 @@ export default function OrderHistory({ orders }: OrderHistoryProps) {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-600">{order.shippingAddress}</span>
+                      <span className="text-gray-600">{order.shipping_address}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Phone className="w-4 h-4 text-gray-500" />
@@ -138,7 +138,7 @@ export default function OrderHistory({ orders }: OrderHistoryProps) {
 
                   <div className="flex justify-between items-center">
                     <div className="text-sm text-gray-600">
-                      Phương thức thanh toán: {order.paymentMethod}
+                      Phương thức thanh toán: {order.payment_method}
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-600">Tổng cộng:</p>
