@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { FaBars, FaShoppingBasket, FaUser, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { User } from "@/types/User";
+import { Button } from "../ui/button";
 
 interface HeaderNavProps {
   isLoggedIn: boolean;
@@ -36,12 +37,13 @@ export default function HeaderNav({
       {/* Mobile */}
       <div className="lg:hidden">
         <div className="flex justify-between items-center px-4 py-4">
-          <button
+          <Button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="hover:text-emerald-200 transition-colors"
+            
           >
             <FaBars className="text-xl" />
-          </button>
+          </Button>
           <div className="flex items-center gap-4">
             <FiSearch className="text-xl" />
             <Link href="/cart" className="relative">
@@ -91,7 +93,7 @@ export default function HeaderNav({
                       <FaUser className="inline mr-2" />
                       {currentUser?.fullName || "Tài khoản"}
                     </Link>
-                    <button
+                    <Button
                       onClick={() => {
                         handleLogout();
                         setIsMobileMenuOpen(false);
@@ -100,7 +102,7 @@ export default function HeaderNav({
                     >
                       <FaSignOutAlt className="inline mr-2" />
                       Đăng xuất
-                    </button>
+                    </Button>
                   </>
                 ) : (
                   <>
@@ -132,12 +134,12 @@ export default function HeaderNav({
       <div className="hidden lg:block relative overflow-hidden">
         <ul className="flex justify-center px-4 py-2 items-center space-x-8 relative">
           <li className="flex items-center gap-1 z-10">
-            <button
+            <Button
               onClick={() => setIsDesktopMenuCollapsed(!isDesktopMenuCollapsed)}
               className="hover:text-emerald-200 transition-colors"
             >
               <FaBars className="text-base" />
-            </button>
+            </Button>
           </li>
           <div
             className={`flex items-center space-x-8 transition-all duration-500 ease-in-out ${

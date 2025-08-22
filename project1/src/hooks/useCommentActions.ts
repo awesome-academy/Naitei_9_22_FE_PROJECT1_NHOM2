@@ -103,7 +103,7 @@ export default function useCommentActions({
     try {
       const newComment: Omit<Comment, "id"> = {
         blogId: Number(selectedBlog.id),
-        userId: currentUser.id,
+        userId: String(currentUser.id),
         content: data.comment,
         date: new Date().toISOString(),
         replyTo: replyToComment,
@@ -131,7 +131,7 @@ export default function useCommentActions({
     try {
       const newComment: Omit<Comment, "id"> = {
         blogId: Number(selectedBlog.id),
-        userId: currentUser.id,
+        userId: String(currentUser.id),
         content: data.comment,
         date: new Date().toISOString(),
         replyTo: undefined,

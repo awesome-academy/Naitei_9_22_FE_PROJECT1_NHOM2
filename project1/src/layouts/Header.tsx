@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useCartStore } from "@/store/zustand/Zustand";
 import { isAuthenticated, logout, getCurrentUser } from "@/services/auth";
 import { User } from "@/types/User";
@@ -15,21 +15,28 @@ export default function Header() {
   const [role, setRole] = useState<string>("");
   const { cartCount } = useCartStore();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const authenticated = isAuthenticated();
-      setIsLoggedIn(authenticated);
-      if (authenticated) {
-        const user = await getCurrentUser();
-        setCurrentUser(user);
-        setRole(user?.role || "");
-      }
-    };
-
-    checkAuth();
-    window.addEventListener("focus", checkAuth);
-    return () => window.removeEventListener("focus", checkAuth);
+  const checkAuth = useCallback(async () => {
+    const authenticated = isAuthenticated();
+    setIsLoggedIn(authenticated);
+    if (authenticated) {
+      const user = await getCurrentUser();
+      setCurrentUser(user);
+      setRole(user?.role || "");
+    }
   }, []);
+
+  useEffect(() => {
+    checkAuth();
+    
+    // Lắng nghe sự kiện custom cho login
+    window.addEventListener("auth-change", checkAuth);
+    window.addEventListener("focus", checkAuth);
+    
+    return () => {
+      window.removeEventListener("auth-change", checkAuth);
+      window.removeEventListener("focus", checkAuth);
+    };
+  }, [checkAuth]);
 
   const handleLogout = () => {
     logout();
