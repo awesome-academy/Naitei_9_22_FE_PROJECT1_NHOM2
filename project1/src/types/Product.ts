@@ -2,6 +2,7 @@ export interface Product {
   id: number;
   name: string;
   oldPrice: number;
+  price: number; // Giá sau khi giảm giá
   discount: number;
   images: string[];
   description: string;
@@ -9,8 +10,9 @@ export interface Product {
   rating: number;
   inStock: boolean;
   specifications?: Record<string, string>;
-  newArival: boolean;
+  newArrival: boolean;
   type?: string[];
+  tags?: string[]; // Thêm trường tags để sử dụng khi tạo/update
 }
 
 

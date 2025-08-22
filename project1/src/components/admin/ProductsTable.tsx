@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IconButton } from "@/components/ui/icon-button";
-import productsData from "../../../db.json";
 import { EditIcon, ViewIcon, DeleteIcon } from "@/assets/icons";
 import {
   Table,
@@ -14,62 +13,75 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import TablePagination from "./TablePagination";
-
-interface ProductVariant {
-  id: string;
-  name: string;
-  price: number;
-  inStock: boolean;
-}
-
-interface ProductSpecification {
-  [key: string]: string;
-}
-
-interface Product {
-  id?: string;
-  name: string;
-  oldPrice: number;
-  discount: number;
-  type: string[];
-  images: string[];
-  description: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  inStock: boolean;
-  variants: ProductVariant[];
-  specifications: ProductSpecification;
-  care_instructions: string;
-  color: string[];
-  newArival: boolean;
-}
+import { Product } from "@/types/Product";
 
 interface ProductsTableProps {
+  products: Product[];
   onEditProduct: (product: Product) => void;
+  onDeleteProduct: (productId: number | string) => Promise<void>;
 }
 
-const mockProducts = productsData.products.map((product) => ({
-  ...product,
-  stock: 50,
-  status: product.inStock ? "active" : "inactive",
-  createdAt: "2025-01-01",
-}));
-
-const getStatusColor = (status: string) => {
-  return status === "active"
-    ? "bg-green-100 text-green-800"
-    : "bg-red-100 text-red-800";
+const getStatusColor = (inStock: boolean) => {
+  return inStock ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800";
 };
 
-const getStatusText = (status: string) => {
-  return status === "active" ? "Còn hàng" : "Hết hàng";
+const getStatusText = (inStock: boolean) => {
+  return inStock ? "Còn hàng" : "Hết hàng";
 };
 
-export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
+// Hàm hiển thị các tag loại sản phẩm
+const renderTypeTags = (types: string[]) => {
+  if (!types || types.length === 0) {
+    return <span className="text-gray-400">-</span>;
+  }
+
+  if (types.length <= 2) {
+    return (
+      <div className="flex flex-wrap gap-1">
+        {types.map((type, index) => (
+          <span
+            key={index}
+            className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+          >
+            {type}
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  // Show first 2 tags + count of remaining
+  return (
+    <div className="flex flex-wrap gap-1">
+      {types.slice(0, 2).map((type, index) => (
+        <span
+          key={index}
+          className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
+        >
+          {type}
+        </span>
+      ))}
+      <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+        +{types.length - 2}
+      </span>
+    </div>
+  );
+};
+
+export default function ProductsTable({
+  products,
+  onEditProduct,
+  onDeleteProduct,
+}: ProductsTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
-  const totalPages = Math.ceil(mockProducts.length / itemsPerPage);
+
+  // Reset về trang 1 khi products thay đổi
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [products]);
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -77,8 +89,8 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
 
   // Tính toán dữ liệu cho trang hiện tại
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, mockProducts.length);
-  const currentProducts = mockProducts.slice(startIndex, endIndex);
+  const endIndex = Math.min(startIndex + itemsPerPage, products.length);
+  const currentProducts = products.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -88,14 +100,14 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
           <TableHeader>
             <TableRow className="bg-gray-50">
               {[
-                "ID",
+                "STT",
                 "Hình ảnh",
                 "Tên sản phẩm",
                 "Danh mục",
                 "Giá",
-                "Tồn kho",
+                "Discount",
+                "Đánh giá",
                 "Trạng thái",
-                "Ngày tạo",
                 "Thao tác",
               ].map((header) => (
                 <TableHead key={header}>{header}</TableHead>
@@ -103,9 +115,11 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentProducts.map((product) => (
+            {currentProducts.map((product, index) => (
               <TableRow key={product.id} className="hover:bg-gray-50">
-                <TableCell>{product.id}</TableCell>
+                <TableCell className="text-center font-medium">
+                  {startIndex + index + 1}
+                </TableCell>
                 <TableCell>
                   <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
                     {product.images && product.images[0] ? (
@@ -122,33 +136,36 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
                   </div>
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
-                <TableCell>{product.category}</TableCell>
+                <TableCell className="max-w-[200px]">
+                  {renderTypeTags(product.type || [])}
+                </TableCell>
                 <TableCell>
                   {product.oldPrice.toLocaleString("vi-VN")} VNĐ
                 </TableCell>
                 <TableCell>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      product.stock > 10
-                        ? "bg-green-100 text-green-800"
-                        : product.stock > 0
-                        ? "bg-yellow-100 text-yellow-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {product.stock}
+                  {product.discount > 0 ? (
+                    <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">
+                      -{product.discount}%
+                    </span>
+                  ) : (
+                    <span className="text-gray-400 text-xs">-</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <span className="flex items-center gap-1">
+                    <span className="text-yellow-500">★</span>
+                    <span>{product.rating}</span>
                   </span>
                 </TableCell>
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded-full text-xs ${getStatusColor(
-                      product.status
+                      product.inStock
                     )}`}
                   >
-                    {getStatusText(product.status)}
+                    {getStatusText(product.inStock)}
                   </span>
                 </TableCell>
-                <TableCell>{product.createdAt}</TableCell>
                 <TableCell>
                   <div className="flex gap-2">
                     <IconButton
@@ -161,7 +178,6 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
                     />
                     <IconButton
                       icon={<ViewIcon className="w-5 h-5" />}
-                      onClick={() => console.log("View product:", product.id)}
                       tooltip="Xem chi tiết"
                       variant="ghost"
                       size="sm"
@@ -169,7 +185,7 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
                     />
                     <IconButton
                       icon={<DeleteIcon className="w-5 h-5" />}
-                      onClick={() => console.log("Delete product:", product.id)}
+                      onClick={() => onDeleteProduct(product.id)}
                       tooltip="Xóa sản phẩm"
                       variant="ghost"
                       size="sm"
@@ -190,7 +206,7 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
         onPageChange={handlePageChange}
         startIndex={startIndex}
         endIndex={endIndex}
-        totalItems={mockProducts.length}
+        totalItems={products.length}
         label="sản phẩm"
       />
     </div>

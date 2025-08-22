@@ -138,7 +138,89 @@ export const getCategories = async (): Promise<{ name: string; count: number }[]
   }
 }
 
+export const getAllType = async (): Promise<string[]> => {
+  try {
+    const products = await getProducts();
+    // Gom tất cả các type lại thành một mảng phẳng
+    const allTypes: string[] = products
+      .filter((product: Product) => Array.isArray(product.type))
+      .flatMap((product: Product) => product.type as string[]);
+    const uniqueTypes: string[] = [];
+    allTypes.forEach((type) => {
+      if (!uniqueTypes.includes(type)) {
+        uniqueTypes.push(type);
+      }
+    });
+    return uniqueTypes;
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách type:", error);
+    throw error;
+  }
+};
 
+
+
+// Interface cho API payload (không có trường tags)
+interface ProductAPIPayload {
+  id?: number;
+  name: string;
+  oldPrice: number;
+  price: number;
+  discount: number;
+  images: string[];
+  description: string;
+  category: string;
+  rating: number;
+  inStock: boolean;
+  specifications?: Record<string, string>;
+  newArrival: boolean;
+  type: string[];
+}
+
+// Hàm tạo sản phẩm mới
+export const createProduct = async (productData: Omit<Product, "id">): Promise<Product> => {
+  try {
+    // Tạo payload với trường type từ tags
+    const apiPayload: ProductAPIPayload = {
+      ...productData,
+      type: productData.tags || productData.type || [], // Ưu tiên tags, fallback về type
+    };
+
+    const response = await axiosInstance.post<Product>("/products", apiPayload);
+
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi tạo sản phẩm:", error);
+    throw error;
+  }
+};
+
+// Hàm cập nhật sản phẩm theo id
+export const updateProductById = async (id: number | string, productData: Partial<Product>): Promise<Product> => {
+  try {
+    // Tạo payload với trường type từ tags
+    const apiPayload: Partial<ProductAPIPayload> = {
+      ...productData,
+      type: productData.tags || productData.type || [], // Ưu tiên tags, fallback về type
+    };
+
+    const response = await axiosInstance.put(`/products/${id}`, apiPayload);
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi cập nhật sản phẩm:", error);
+    throw error;
+  }
+};
+
+// Hàm xoá sản phẩm theo id
+export const deleteProductById = async (id: number | string): Promise<void> => {
+  try {
+    await axiosInstance.delete(`/products/${id}`);
+  } catch (error) {
+    console.error("Lỗi khi xoá sản phẩm:", error);
+    throw error;
+  }
+};
 
 
 
