@@ -1,4 +1,4 @@
 export interface UserForComment {
-  id: number;
+  id: string;
   fullName: string;
 }

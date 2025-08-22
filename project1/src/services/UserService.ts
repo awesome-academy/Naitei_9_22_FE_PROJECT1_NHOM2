@@ -2,6 +2,15 @@ import axiosInstance from "./AxiosCustom";
 import { User } from "@/types/User";
 import { UserForComment } from "@/types/UserForComment";
 
+// Transform user data từ frontend format sang backend format
+const transformToBackend = (userData: Partial<User>) => {
+  const { fullName, ...rest } = userData;
+  return {
+    ...rest,
+    full_name: fullName, // Chuyển fullName thành full_name
+  };
+};
+
 export const getUsers = async (): Promise<User[]> => {
   const { data } = await axiosInstance.get<User[]>("/users");
   return data;
@@ -21,12 +30,14 @@ export const getUserById = async (id: string) => {
 };
 
 export const createUser = async (userData: Partial<User>): Promise<User> => {
-  const { data } = await axiosInstance.post<User>("/users", userData);
+  const backendData = transformToBackend(userData);
+  const { data } = await axiosInstance.post<User>("/users", backendData);
   return data;
 };
 
 export const updateUser = async (id: string, userData: Partial<User>): Promise<User> => {
-  const { data } = await axiosInstance.put<User>(`/users/${id}`, userData);
+  const backendData = transformToBackend(userData);
+  const { data } = await axiosInstance.put<User>(`/users/${id}`, backendData);
   return data;
 };
 

@@ -260,7 +260,9 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
-                  onChange={(e) => handleInputChange("password", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("password", e.target.value)
+                  }
                   placeholder="Nhập mật khẩu"
                   className={errors.password ? "border-red-500 pr-10" : "pr-10"}
                 />
@@ -271,7 +273,11 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({
                   onClick={() => setShowPassword((prev) => !prev)}
                   aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
                 </Button>
               </div>
               {errors.password && (
