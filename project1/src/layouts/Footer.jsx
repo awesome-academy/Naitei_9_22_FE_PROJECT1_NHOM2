@@ -86,10 +86,6 @@ export default function Footer() {
     return () => window.removeEventListener("focus", checkAuth);
   }, []);
 
-  if (role === ADMIN_ROLE) {
-    return null;
-  }
-
   return (
     <footer className="bg-[#2a2a2a] text-gray-300 text-sm">
       {/* Top Line */}

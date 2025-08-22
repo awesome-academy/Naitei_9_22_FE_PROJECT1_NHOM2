@@ -46,15 +46,9 @@ export default function Header() {
 
   return (
     <header className="text-sm">
-      {role === ADMIN_ROLE ? (
-        <HeaderAdminBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-      ) : (
-        <>
-          <HeaderTopBar isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} />
-          <HeaderLogoSearchCart cartCount={cartCount} />
-          <HeaderNav isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} cartCount={cartCount} />
-        </>
-      )}
+      <HeaderTopBar isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} />
+      <HeaderLogoSearchCart cartCount={cartCount} />
+      <HeaderNav isLoggedIn={isLoggedIn} currentUser={currentUser} handleLogout={handleLogout} cartCount={cartCount} />
     </header>
   );
 }
