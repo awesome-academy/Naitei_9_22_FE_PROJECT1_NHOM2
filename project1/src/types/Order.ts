@@ -2,6 +2,7 @@ export interface OrderItem {
   product_id: number;
   name: string;
   price: number;
+  oldPrice: number;
   quantity: number;
   discount: number;
   image: string;
@@ -13,8 +14,8 @@ export interface Order {
   items: OrderItem[];
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  paymentMethod: string;
-  shippingAddress: string;
+  payment_method: string;
+  shipping_address: string;
   phone: string;
   email: string;
   createdAt: string;

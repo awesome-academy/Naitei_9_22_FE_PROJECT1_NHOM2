@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { IconButton } from "@/components/ui/icon-button";
-import dbData from "../../../db.json";
 import { ViewIcon, UpdateIcon, CancelIcon } from "@/assets/icons";
 import {
   Table,
@@ -13,33 +12,21 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import TablePagination from "./TablePagination";
+import OrderDetailModal from "./OrderDetailModal";
+import { Order } from "@/types/Order";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDateShort } from "@/utils/formatDate";
 
-// Generate dữ liệu test
-const mockOrders = dbData.users.slice(0, 4).map((user, index) => {
-  const randomProduct =
-    dbData.products[Math.floor(Math.random() * dbData.products.length)];
-  const statuses = ["pending", "completed", "shipped", "cancelled"];
-  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-  const randomItems = Math.floor(Math.random() * 5) + 1;
-  const randomAmount = randomProduct.oldPrice * randomItems;
-
-  return {
-    id: `ORD${String(index + 1).padStart(3, "0")}`,
-    customerName: user.fullName,
-    customerEmail: user.email,
-    totalAmount: randomAmount,
-    status: randomStatus,
-    orderDate: "2025-02-02",
-    items: randomItems,
-    productName: randomProduct.name,
-  };
-});
+interface OrdersTableProps {
+  orders: Order[];
+}
 
 // Gán màu cho trạng thái đơn hàng
 const statusColorMap: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
-  completed: "bg-green-100 text-green-800",
+  processing: "bg-orange-100 text-orange-800",
   shipped: "bg-blue-100 text-blue-800",
+  delivered: "bg-green-100 text-green-800",
   cancelled: "bg-red-100 text-red-800",
 };
 
@@ -50,8 +37,9 @@ const getStatusColor = (status: string) => {
 // Tên hiển thị trạng thái
 const statusTextMap: Record<string, string> = {
   pending: "Chờ xử lý",
-  completed: "Hoàn thành",
+  processing: "Đang xử lý",
   shipped: "Đã giao hàng",
+  delivered: "Hoàn thành",
   cancelled: "Đã hủy",
 };
 
@@ -59,19 +47,35 @@ const getStatusText = (status: string) => {
   return statusTextMap[status] || status;
 };
 
-export default function OrdersTable() {
+const getTotalItems = (order: Order) => {
+  return order.items.reduce((total, item) => total + item.quantity, 0);
+};
+
+export default function OrdersTable({ orders }: OrdersTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(mockOrders.length / itemsPerPage);
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  const handleViewOrder = (order: Order) => {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedOrder(null);
+  };
+
   // Tính toán dữ liệu cho trang hiện tại
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, mockOrders.length);
-  const currentOrders = mockOrders.slice(startIndex, endIndex);
+  const endIndex = Math.min(startIndex + itemsPerPage, orders.length);
+  const currentOrders = orders.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -80,11 +84,9 @@ export default function OrdersTable() {
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50">
-              <TableHead className="min-w-[100px]">Mã đơn hàng</TableHead>
+              <TableHead className="min-w-[80px]">STT</TableHead>
               {[
-                "Khách hàng",
-                "Email",
-                "Sản phẩm",
+                "Email khách hàng",
                 "Số lượng",
                 "Tổng tiền",
                 "Trạng thái",
@@ -96,16 +98,14 @@ export default function OrdersTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentOrders.map((order) => (
-              <TableRow key={order.id} className="hover:bg-gray-50">
-                <TableCell>{order.id}</TableCell>
-                <TableCell>{order.customerName}</TableCell>
-                <TableCell>{order.customerEmail}</TableCell>
-                <TableCell>{order.productName}</TableCell>
-                <TableCell>{order.items} sản phẩm</TableCell>
-                <TableCell>
-                  {order.totalAmount.toLocaleString("vi-VN")} VNĐ
+            {currentOrders.map((order, index) => (
+              <TableRow key={order._id} className="hover:bg-gray-50">
+                <TableCell className="font-semibold">
+                  {startIndex + index + 1}
                 </TableCell>
+                <TableCell>{order.email}</TableCell>
+                <TableCell>{getTotalItems(order)} sản phẩm</TableCell>
+                <TableCell>{formatCurrency(order.total)}</TableCell>
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded-full text-xs ${getStatusColor(
@@ -115,12 +115,12 @@ export default function OrdersTable() {
                     {getStatusText(order.status)}
                   </span>
                 </TableCell>
-                <TableCell>{order.orderDate}</TableCell>
+                <TableCell>{formatDateShort(order.createdAt)}</TableCell>
                 <TableCell>
                   <div className="flex gap-2">
                     <IconButton
                       icon={<ViewIcon className="w-5 h-5" />}
-                      onClick={() => console.log("View order:", order.id)}
+                      onClick={() => handleViewOrder(order)}
                       tooltip="Xem chi tiết"
                       variant="ghost"
                       size="sm"
@@ -128,7 +128,7 @@ export default function OrdersTable() {
                     />
                     <IconButton
                       icon={<UpdateIcon className="w-5 h-5" />}
-                      onClick={() => console.log("Update order:", order.id)}
+                      onClick={() => console.log("Update order:", order._id)}
                       tooltip="Cập nhật trạng thái"
                       variant="ghost"
                       size="sm"
@@ -136,7 +136,7 @@ export default function OrdersTable() {
                     />
                     <IconButton
                       icon={<CancelIcon className="w-5 h-5" />}
-                      onClick={() => console.log("Cancel order:", order.id)}
+                      onClick={() => console.log("Cancel order:", order._id)}
                       tooltip="Hủy đơn hàng"
                       variant="ghost"
                       size="sm"
@@ -157,8 +157,15 @@ export default function OrdersTable() {
         onPageChange={handlePageChange}
         startIndex={startIndex}
         endIndex={endIndex}
-        totalItems={mockOrders.length}
+        totalItems={orders.length}
         label="đơn hàng"
+      />
+
+      {/* Order Detail Modal */}
+      <OrderDetailModal
+        order={selectedOrder}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
       />
     </div>
   );

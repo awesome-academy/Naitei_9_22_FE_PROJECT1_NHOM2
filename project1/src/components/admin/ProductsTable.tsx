@@ -14,36 +14,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import TablePagination from "./TablePagination";
-
-interface ProductVariant {
-  id: string;
-  name: string;
-  price: number;
-  inStock: boolean;
-}
-
-interface ProductSpecification {
-  [key: string]: string;
-}
-
-interface Product {
-  id?: string;
-  name: string;
-  oldPrice: number;
-  discount: number;
-  type: string[];
-  images: string[];
-  description: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  inStock: boolean;
-  variants: ProductVariant[];
-  specifications: ProductSpecification;
-  care_instructions: string;
-  color: string[];
-  newArival: boolean;
-}
+import { Product } from "@/types/Product";
 
 interface ProductsTableProps {
   onEditProduct: (product: Product) => void;
@@ -122,7 +93,9 @@ export default function ProductsTable({ onEditProduct }: ProductsTableProps) {
                   </div>
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
-                <TableCell>{product.category}</TableCell>
+                <TableCell className="max-w-[200px]">
+                  {renderTypeTags(product.type || [])}
+                </TableCell>
                 <TableCell>
                   {product.oldPrice.toLocaleString("vi-VN")} VNĐ
                 </TableCell>
