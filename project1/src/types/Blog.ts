@@ -9,4 +9,5 @@ export interface Blog {
   tags: number[];
   date: string;
   created_at: string;
+  author_id: number;
 }

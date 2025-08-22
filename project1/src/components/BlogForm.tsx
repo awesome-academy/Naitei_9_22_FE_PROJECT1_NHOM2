@@ -12,8 +12,10 @@ import { toast } from "react-toastify";
 import BlogContentEditor from "./BlogContentEditor";
 import MultiSelectBadge from "./MultiSelectBadge";
 import BlogImageUploader from "./BlogImageUploader";
+import { useAuth } from "@/contexts/AuthContext";
 const BlogForm: React.FC = () => {
   const router = useRouter();
+  const { currentUser } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -59,6 +61,7 @@ const BlogForm: React.FC = () => {
         categories,
         images: imageUrls,
         tags,
+        author_id: currentUser?.id,
       });
       toast.success("Đăng bài thành công!");
       setTitle("");
