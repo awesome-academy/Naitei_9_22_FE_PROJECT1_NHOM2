@@ -23,7 +23,7 @@ export default function ProductCard({
   product,
   className = "",
 }: ProductCardProps) {
-  const { name, images, newArival, discount } = product;
+  const { name, images, newArrival, discount } = product;
   const hasDiscount = discount > 0;
   const { addToCart } = useCartStore(); // dùng zustand thay redux
   const [showQuantityModal, setShowQuantityModal] = useState(false);
@@ -81,7 +81,7 @@ export default function ProductCard({
               -{discount}%
             </Badge>
           )}
-          {newArival && (
+          {newArrival && (
             <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-green-600 text-white text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 z-10 hover:bg-green-600">
               NEW
             </Badge>
