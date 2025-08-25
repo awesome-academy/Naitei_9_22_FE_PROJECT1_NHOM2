@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
       'localhost',
       'res.cloudinary.com',
       'luevenir.wordpress.com',
-      'vietq.vn'
+      'vietq.vn',
+      'tecwood.com.vn'
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
