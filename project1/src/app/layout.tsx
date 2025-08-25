@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import SWRProvider from "@/providers/SWRProvider";
 import AdminHeaderWrapper from "../components/header/AdminHeaderWrapper";

@@ -42,10 +42,10 @@ export const updateOrderStatus = async (
   status: string
 ): Promise<Order> => {
   try {
-    const response = await AxiosCustom.patch(`/orders/${orderId}`, { status });
+    const response = await AxiosCustom.put(`/orders/${orderId}/status`, { status });
     return response.data;
   } catch (error) {
-    throw error;
+    throw new Error(`Không thể cập nhật trạng thái đơn hàng. Vui lòng thử lại sau.`);
   }
 };
 
