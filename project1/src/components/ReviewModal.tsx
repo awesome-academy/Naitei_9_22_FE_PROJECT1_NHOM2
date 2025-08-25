@@ -35,7 +35,6 @@ export default function ReviewModal({
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const user = getCurrentUser();
 
   if (!isOpen) return null;
 
@@ -77,12 +76,18 @@ export default function ReviewModal({
 
     setIsSubmitting(true);
     try {
+      const currentUser = await getCurrentUser();
+      if (!currentUser) {
+        toast.error("Không thể lấy thông tin người dùng");
+        return;
+      }
+
       const reviewData = {
         productId,
         rating,
         comment,
-        userId: user.id,
-        userName: user.name,
+        userId: currentUser.id,
+        userName: currentUser.fullName,
         createdAt: new Date().toISOString()
       };
       await submitReview(reviewData);
