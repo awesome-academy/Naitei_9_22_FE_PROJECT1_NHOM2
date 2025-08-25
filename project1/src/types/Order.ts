@@ -2,7 +2,7 @@ export interface OrderItem {
   product_id: number;
   name: string;
   price: number;
-  oldPrice: number;
+  oldPrice?: number;
   quantity: number;
   discount: number;
   image: string;
@@ -10,7 +10,7 @@ export interface OrderItem {
 
 export interface Order {
   _id: string;
-  userId: number;
+  userId: string;
   items: OrderItem[];
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';

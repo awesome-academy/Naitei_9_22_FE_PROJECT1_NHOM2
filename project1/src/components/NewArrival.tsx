@@ -18,7 +18,7 @@ export default function NewArrival() {
 
   // Filter new arrival products using useMemo
   const products = useMemo(() => {
-    return allProducts.filter(product => product.newArival === true);
+    return allProducts.filter(product => product.newArrival === true);
   }, [allProducts]);
 
   // Update items per page based on screen size
