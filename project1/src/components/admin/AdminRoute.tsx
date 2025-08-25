@@ -11,20 +11,27 @@ interface AdminRouteProps {
 }
 
 export default function AdminRoute({ children }: AdminRouteProps) {
-  const { isLoggedIn, currentUser, loading } = useAuth();
+  const { isLoggedIn, currentUser, loading, refreshAuth } = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    if (!loading) {
+    refreshAuth();
+  }, []);
+
+  useEffect(() => {
+    // Chỉ kiểm tra quyền khi không còn loading và đã có thông tin user
+    if (!loading && currentUser !== undefined) {
       if (isLoggedIn && currentUser?.role === ADMIN_ROLE) {
         setIsAuthorized(true);
       } else {
         setIsAuthorized(false);
       }
+      setAuthChecked(true);
     }
   }, [isLoggedIn, currentUser, loading]);
 
-  if (loading) {
+  if (loading || !authChecked) {
     return <Loading />;
   }
 
