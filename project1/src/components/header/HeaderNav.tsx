@@ -31,6 +31,13 @@ export default function HeaderNav({
     { text: "TIN TỨC", href: "/blog", hasDropdown: false },
     { text: "LIÊN HỆ", href: "/contact", hasDropdown: false },
   ];
+  if (isLoggedIn && currentUser?.role === "admin") {
+    menuItems.push({
+      text: "TRANG QUẢN TRỊ",
+      href: "/admin",
+      hasDropdown: false,
+    });
+  }
 
   return (
     <nav className="bg-emerald-500 text-white text-sm font-medium">
@@ -40,8 +47,8 @@ export default function HeaderNav({
           <Button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="hover:text-emerald-200 transition-colors"
-            
-          >
+
+>
             <FaBars className="text-xl" />
           </Button>
           <div className="flex items-center gap-4">

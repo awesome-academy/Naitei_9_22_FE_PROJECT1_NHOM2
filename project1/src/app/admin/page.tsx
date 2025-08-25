@@ -10,6 +10,7 @@ import { StatsIcon, OrdIcon, PrdIcon, AccIcon } from '@/assets/icons';
 import AdminRoute from '@/components/admin/AdminRoute';
 import BannerTab from '@/components/admin/BannerTab';
 import { BannerIcon } from '@/assets/icons';
+import Link from 'next/link';
 
 interface Tab {
   id: 'statistics' | 'accounts' | 'orders' | 'products' | 'banner';
@@ -86,13 +87,20 @@ export default function AdminPage() {
       <div className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Trang Quản Trị
-            </h1>
-            <p className="text-gray-600">
-              Thống kê, quản lý tài khoản, đơn hàng và sản phẩm của hệ thống
-            </p>
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Trang Quản Trị
+              </h1>
+              <p className="text-gray-600">
+                Thống kê, quản lý tài khoản, đơn hàng và sản phẩm của hệ thống
+              </p>
+            </div>
+            <Link href="/" className="inline-flex items-center">
+              <Button variant="default" size="lg">
+                Về trang chủ
+              </Button>
+            </Link>
           </div>
 
           {/* Tab Navigation */}
