@@ -18,7 +18,7 @@ export interface Product {
 
 export interface Review {
   id: number;
-  userId: number;
+  userId: string;
   productId: number;
   rating: number;
   comment: string;
